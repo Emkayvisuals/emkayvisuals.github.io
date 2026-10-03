@@ -145,17 +145,27 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
               label="Footer Brand Logo / Monogram Graphic (Optional)"
               description="Displays above the footer tagline and copyright. Auto-resized to 512px WebP."
               preset="logo"
-              imageUrl={footer.logoUrl || ''}
-              imageAlt={footer.logoAlt || 'Emkay Visuals Monogram'}
+              imageUrl={footer.logoUrl || content.brand?.logoUrl || ''}
+              imageAlt={footer.logoAlt || content.brand?.logoAlt || 'Emkay Visuals Logo'}
               compact={true}
               aspectRatio="square"
               onImageChange={(url, alt) => {
                 const updated = { ...footer, logoUrl: url, logoAlt: alt || '' };
-                onChange({ ...content, footer: updated });
+                onChange({
+                  ...content,
+                  footer: updated,
+                  brand: { ...(content.brand || {}), logoUrl: url, logoAlt: alt || '' } as any,
+                  navbar: { ...(content.navbar || {}), logoUrl: url, logoAlt: alt || '' } as any,
+                });
               }}
               onRemove={() => {
                 const updated = { ...footer, logoUrl: '', logoAlt: '' };
-                onChange({ ...content, footer: updated });
+                onChange({
+                  ...content,
+                  footer: updated,
+                  brand: { ...(content.brand || {}), logoUrl: '', logoAlt: '' } as any,
+                  navbar: { ...(content.navbar || {}), logoUrl: '', logoAlt: '' } as any,
+                });
               }}
             />
           </div>

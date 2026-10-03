@@ -187,7 +187,7 @@ export const DEFAULT_PORTFOLIO_CONTENT = {
       'High-end, futuristic portfolio for Emkay Visuals – Graphic Designer & Motion Graphics Artist with 5+ years of experience in Posters, Visual Branding, Movie Art, Thumbnails & Motion Graphics.',
     ogImage: 'https://emkayvisuals.github.io/emkay.webp',
     ogImageAlt: 'Emkay Visuals – Graphic Design & Motion Art Portfolio Banner',
-    faviconUrl: '/favicon.ico',
+    faviconUrl: '/emkay.webp',
   },
 
   // ==========================================
@@ -196,8 +196,8 @@ export const DEFAULT_PORTFOLIO_CONTENT = {
   preloader: {
     enabled: true,
     logoAbbr: 'EV',
-    logoUrl: '',
-    logoAlt: 'Emkay Visuals Monogram',
+    logoUrl: '/emkay.webp',
+    logoAlt: 'Emkay Visuals Logo',
     brandMain: 'EMKAY',
     divider: '//',
     brandAccent: 'VISUALS',
@@ -214,9 +214,9 @@ export const DEFAULT_PORTFOLIO_CONTENT = {
     tagline: 'Futuristic visual architecture, cinematic key art, and high-octane motion graphics.',
     statusBadge: 'Available for Freelance & Contracts',
     location: 'Available Worldwide / Remote',
-    logoUrl: '',
-    logoAlt: 'Emkay Visuals Emblem Logo',
-    faviconUrl: '/favicon.ico',
+    logoUrl: '/emkay.webp',
+    logoAlt: 'Emkay Visuals Logo',
+    faviconUrl: '/emkay.webp',
   },
 
   // ==========================================
@@ -300,8 +300,8 @@ export const DEFAULT_PORTFOLIO_CONTENT = {
   navbar: {
     enabled: true,
     logoAbbr: 'EV',
-    logoUrl: '',
-    logoAlt: 'Emkay Visuals Brand Mark',
+    logoUrl: '/emkay.webp',
+    logoAlt: 'Emkay Visuals Logo',
     brandName: 'Emkay',
     brandDivider: '//',
     brandAccent: 'Visuals',
@@ -1070,8 +1070,8 @@ export const DEFAULT_PORTFOLIO_CONTENT = {
   footer: {
     enabled: true,
     logoAbbr: 'EV',
-    logoUrl: '',
-    logoAlt: 'Emkay Visuals Monogram',
+    logoUrl: '/emkay.webp',
+    logoAlt: 'Emkay Visuals Logo',
     brandName: 'Emkay',
     brandDivider: '//',
     brandAccent: 'Visuals',

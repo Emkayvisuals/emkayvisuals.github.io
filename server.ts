@@ -142,6 +142,16 @@ function injectSeoTags(html: string, seo: typeof currentSeo, host?: string): str
     `$1${siteUrl}$2`
   );
 
+  const favicon = (seo as any).faviconUrl || '/emkay.webp';
+  result = result.replace(
+    /(<link\s+rel=["']icon["'][^>]*?href=["'])[^"']*?(["'])/i,
+    `$1${favicon}$2`
+  );
+  result = result.replace(
+    /(<link\s+rel=["']apple-touch-icon["'][^>]*?href=["'])[^"']*?(["'])/i,
+    `$1${favicon}$2`
+  );
+
   return result;
 }
 

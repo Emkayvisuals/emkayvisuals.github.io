@@ -89,6 +89,31 @@ export default function App() {
       if (ogUrl) ogUrl.setAttribute('content', currentUrl);
       const twUrl = document.querySelector('meta[name="twitter:url"]');
       if (twUrl) twUrl.setAttribute('content', currentUrl);
+
+      // Favicon & Apple Touch Icon
+      const activeFavicon =
+        PORTFOLIO_CONTENT.seo?.faviconUrl ||
+        PORTFOLIO_CONTENT.brand?.faviconUrl ||
+        PORTFOLIO_CONTENT.brand?.logoUrl ||
+        '/emkay.webp';
+
+      if (activeFavicon) {
+        let iconLink = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+        if (!iconLink) {
+          iconLink = document.createElement('link');
+          iconLink.rel = 'icon';
+          document.head.appendChild(iconLink);
+        }
+        iconLink.href = activeFavicon;
+
+        let appleIcon = document.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
+        if (!appleIcon) {
+          appleIcon = document.createElement('link');
+          appleIcon.rel = 'apple-touch-icon';
+          document.head.appendChild(appleIcon);
+        }
+        appleIcon.href = activeFavicon;
+      }
     }
   }, [tick, currentPath]);
 

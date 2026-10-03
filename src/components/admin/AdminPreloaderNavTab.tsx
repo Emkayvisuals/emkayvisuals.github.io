@@ -242,7 +242,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ImageUploadControl
             label="Official Brand Logo / Emblem"
-            description="Used across header, navigation, and badges. Auto-resized to 512px WebP."
+            description="Used across navbar, footer, preloader screen, and browser. Upload or paste URL/path. Auto-resized to 512px WebP."
             preset="logo"
             imageUrl={brand.logoUrl || navbar.logoUrl || ''}
             imageAlt={brand.logoAlt || 'Emkay Visuals Emblem Logo'}
@@ -253,6 +253,8 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
                 ...content,
                 brand: { ...brand, logoUrl: url, logoAlt: alt || '' },
                 navbar: { ...navbar, logoUrl: url, logoAlt: alt || '' },
+                preloader: { ...(content.preloader || {}), logoUrl: url, logoAlt: alt || '' } as any,
+                footer: { ...(content.footer || {}), logoUrl: url, logoAlt: alt || '' } as any,
               });
             }}
             onRemove={() => {
@@ -260,6 +262,8 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
                 ...content,
                 brand: { ...brand, logoUrl: '', logoAlt: '' },
                 navbar: { ...navbar, logoUrl: '', logoAlt: '' },
+                preloader: { ...(content.preloader || {}), logoUrl: '', logoAlt: '' } as any,
+                footer: { ...(content.footer || {}), logoUrl: '', logoAlt: '' } as any,
               });
             }}
           />

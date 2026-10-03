@@ -8,7 +8,7 @@ interface PreloaderProps {
 
 export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const { preloader } = PORTFOLIO_CONTENT;
+  const { preloader, brand } = PORTFOLIO_CONTENT;
 
   useEffect(() => {
     // If preloader is disabled via admin settings
@@ -56,16 +56,26 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
             {/* Background ambient glow */}
             <div className="absolute w-64 h-64 rounded-full bg-[#8116E0]/20 blur-[90px] pointer-events-none" />
 
-            {/* EV Logo Mark Fading & Scaling in */}
+            {/* Logo Mark Fading & Scaling in */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col items-center gap-3 relative z-10"
             >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#D0FF00] flex items-center justify-center font-bold text-[#050505] text-xl sm:text-2xl shadow-[0_0_30px_rgba(208,255,0,0.5)]">
-                {logoAbbr}
-              </div>
+              {brand?.logoUrl || preloader?.logoUrl ? (
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/40 overflow-hidden flex items-center justify-center p-2.5 shadow-[0_0_30px_rgba(208,255,0,0.5)]">
+                  <img
+                    src={brand?.logoUrl || preloader?.logoUrl}
+                    alt={brand?.logoAlt || preloader?.logoAlt || 'Emkay Visuals Logo'}
+                    className="w-full h-full object-contain object-center block select-none"
+                  />
+                </div>
+              ) : (
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#D0FF00] flex items-center justify-center font-bold text-[#050505] text-xl sm:text-2xl shadow-[0_0_30px_rgba(208,255,0,0.5)]">
+                  {logoAbbr}
+                </div>
+              )}
               <div className="flex items-center gap-1.5 font-montserrat font-semibold tracking-wider text-sm sm:text-base text-[#FEFFFC]">
                 <span>{brandMain}</span>
                 <span className="text-[#D0FF00]">{divider}</span>

@@ -120,16 +120,18 @@ export const Navbar: React.FC = () => {
           }}
           className="flex items-center gap-2 group cursor-pointer focus:outline-none min-h-[44px]"
         >
-          {brand?.logoUrl ? (
-            <img
-              src={brand.logoUrl}
-              alt={brand.logoAlt || 'Emkay Visuals Logo'}
-              width="32"
-              height="32"
-              loading="lazy"
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-[#D0FF00]/40 shrink-0 shadow-[0_0_12px_rgba(208,255,0,0.4)]"
-              referrerPolicy="no-referrer"
-            />
+          {brand?.logoUrl || navbar?.logoUrl ? (
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(208,255,0,0.4)] p-0.5">
+              <img
+                src={brand?.logoUrl || navbar?.logoUrl}
+                alt={brand?.logoAlt || navbar?.logoAlt || 'Emkay Visuals Logo'}
+                width="32"
+                height="32"
+                loading="lazy"
+                className="w-full h-full object-contain object-center block"
+                referrerPolicy="no-referrer"
+              />
+            </div>
           ) : (
             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D0FF00] flex items-center justify-center font-bold text-[#050505] text-[11px] sm:text-xs transition-transform duration-300 group-hover:scale-105 shadow-[0_0_12px_rgba(208,255,0,0.4)] shrink-0">
               {logoAbbr}

@@ -35,18 +35,20 @@ export const Footer: React.FC = () => {
           {/* Brand Logo & Tagline */}
           <div className="max-w-sm">
             <div className="flex items-center gap-2 mb-2">
-              {brand?.logoUrl ? (
-                <img
-                  src={brand.logoUrl}
-                  alt={brand.logoAlt || 'Emkay Visuals Logo'}
-                  width="28"
-                  height="28"
-                  loading="lazy"
-                  className="w-7 h-7 rounded-full object-cover border border-[#D0FF00]/40 shrink-0 shadow-[0_0_10px_rgba(208,255,0,0.35)]"
-                  referrerPolicy="no-referrer"
-                />
+              {brand?.logoUrl || footer?.logoUrl ? (
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(208,255,0,0.35)] p-0.5">
+                  <img
+                    src={brand?.logoUrl || footer?.logoUrl}
+                    alt={brand?.logoAlt || footer?.logoAlt || 'Emkay Visuals Logo'}
+                    width="28"
+                    height="28"
+                    loading="lazy"
+                    className="w-full h-full object-contain object-center block"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
               ) : (
-                <div className="w-7 h-7 rounded-full bg-[#D0FF00] text-[#050505] font-extrabold flex items-center justify-center text-[11px] shadow-[0_0_10px_rgba(208,255,0,0.35)]">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D0FF00] text-[#050505] font-extrabold flex items-center justify-center text-[11px] sm:text-xs shadow-[0_0_10px_rgba(208,255,0,0.35)] shrink-0">
                   {footer?.logoAbbr || 'EV'}
                 </div>
               )}
