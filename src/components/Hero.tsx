@@ -37,7 +37,7 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative min-h-0 sm:min-h-screen-svh lg:min-h-[90vh] lg:min-h-[90svh] flex flex-col items-center justify-center pt-20 sm:pt-28 lg:pt-32 pb-8 sm:pb-12 lg:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#050505]"
+      className="relative min-h-0 sm:min-h-screen-svh lg:min-h-[90vh] lg:min-h-[90svh] flex flex-col items-center justify-center pt-24 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#050505]"
     >
       {/* Soft Blurred Background Glows with subtle parallax movement */}
       <motion.div
@@ -68,7 +68,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full glass-panel border border-white/10 mb-6 sm:mb-8 max-w-full text-center"
+          className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full glass-panel border border-white/10 mb-8 sm:mb-10 max-w-full text-center"
         >
           <span className="relative flex h-2 w-2 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D0FF00] opacity-75"></span>
@@ -111,7 +111,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-4 sm:mt-5 max-w-xl text-xs sm:text-sm md:text-base text-[#FEFFFC]/75 leading-relaxed font-normal italic px-2"
+          className="mt-6 sm:mt-7 lg:mt-8 max-w-xl text-xs sm:text-sm md:text-base text-[#FEFFFC]/75 leading-relaxed font-normal italic px-2"
         >
           {subtext}
         </motion.p>
@@ -122,7 +122,7 @@ export const Hero: React.FC = () => {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 max-w-xl px-2"
+            className="mt-7 sm:mt-8 lg:mt-9 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 max-w-xl px-2"
           >
             {visibleFloatingTags.map((tag, idx) => {
               return (
@@ -156,7 +156,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-6 sm:mt-8 flex flex-row items-center justify-center gap-2.5 sm:gap-3.5 w-auto max-w-full px-2"
+          className="mt-8 sm:mt-10 lg:mt-12 flex flex-row items-center justify-center gap-2.5 sm:gap-3.5 w-auto max-w-full px-2"
         >
           {primaryButtonText && (
             <a
@@ -184,7 +184,7 @@ export const Hero: React.FC = () => {
 
         {/* Sub-label for software stack */}
         {softwareChips.length > 0 && (
-          <div className="mt-10 sm:mt-12 text-center text-[11px] sm:text-xs text-white/40 tracking-wider flex flex-wrap justify-center items-center gap-x-3 gap-y-1 px-4 max-w-full font-medium">
+          <div className="mt-12 sm:mt-16 lg:mt-20 text-center text-[11px] sm:text-xs text-white/40 tracking-wider flex flex-wrap justify-center items-center gap-x-3 gap-y-1 px-4 max-w-full font-medium">
             {softwareChips.map((chip, idx) => (
               <React.Fragment key={chip}>
                 {idx > 0 && <span className="text-[#8116E0]">●</span>}
