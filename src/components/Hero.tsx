@@ -37,7 +37,7 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative min-h-[92vh] flex items-center justify-center pt-28 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#050505]"
+      className="relative min-h-0 sm:min-h-screen-svh lg:min-h-[90vh] lg:min-h-[90svh] flex flex-col items-center justify-center pt-20 sm:pt-28 lg:pt-32 pb-8 sm:pb-12 lg:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#050505]"
     >
       {/* Soft Blurred Background Glows with subtle parallax movement */}
       <motion.div

@@ -147,7 +147,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-[#FEFFFC] selection:bg-[#D0FF00] selection:text-[#050505] overflow-x-hidden w-full flex flex-col">
+    <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#D0FF00] selection:text-[#050505] overflow-x-hidden w-full flex flex-col">
       {/* Top Floating Navbar */}
       <Navbar />
 
@@ -156,7 +156,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
         <img
           src={config.headerImage || '/Images/manipulation/Flying tortise.webp'}
           alt={config.headerImageAlt || 'Photo Manipulation Header Artwork'}
-          className="w-full h-auto max-h-[50vh] sm:max-h-[60vh] lg:max-h-[68vh] object-cover object-center block"
+          className="w-full h-auto max-h-[50vh] max-h-[50svh] sm:max-h-[60vh] sm:max-h-[60svh] lg:max-h-[68vh] lg:max-h-[68svh] object-cover object-center block"
           loading="eager"
         />
       </div>
@@ -319,7 +319,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
             onClick={() => setSelectedItem(null)}
           >
             <div
-              className="relative max-w-5xl max-h-[90vh] w-full flex flex-col items-center"
+              className="relative max-w-5xl max-h-[90vh] max-h-[90svh] w-full flex flex-col items-center"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
@@ -355,11 +355,11 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
               )}
 
               {/* Artwork Image Container */}
-              <div className="rounded-2xl overflow-hidden border border-white/15 max-h-[75vh] flex items-center justify-center bg-black/60 shadow-[0_10px_40px_rgba(0,0,0,0.9)]">
+              <div className="rounded-2xl overflow-hidden border border-white/15 max-h-[75vh] max-h-[75svh] flex items-center justify-center bg-black/60 shadow-[0_10px_40px_rgba(0,0,0,0.9)]">
                 <img
                   src={selectedItem.image}
                   alt={selectedItem.title}
-                  className="max-h-[75vh] max-w-full w-auto object-contain rounded-2xl"
+                  className="max-h-[75vh] max-h-[75svh] max-w-full w-auto object-contain rounded-2xl"
                 />
               </div>
 

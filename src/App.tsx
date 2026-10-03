@@ -132,7 +132,7 @@ export default function App() {
 
   // Primary Homepage View
   return (
-    <div className="relative min-h-screen bg-[#050505] text-[#FEFFFC] selection:bg-[#D0FF00] selection:text-[#050505] overflow-x-hidden w-full">
+    <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#D0FF00] selection:text-[#050505] overflow-x-hidden w-full">
       {/* Curtain Preloader on first load */}
       <Preloader onLoadingComplete={() => {}} />
 

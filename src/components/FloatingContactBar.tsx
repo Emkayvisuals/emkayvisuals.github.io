@@ -28,7 +28,7 @@ export const FloatingContactBar: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 15, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="mb-3 w-72 max-h-[70vh] overflow-y-auto rounded-2xl glass-panel border border-white/15 bg-[#080808]/95 backdrop-blur-xl p-3.5 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col gap-2"
+            className="mb-3 w-72 max-h-[70vh] max-h-[70svh] overflow-y-auto rounded-2xl glass-panel border border-white/15 bg-[#080808]/95 backdrop-blur-xl p-3.5 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col gap-2"
           >
             <div className="flex items-center justify-between pb-2 border-b border-white/10 px-1 shrink-0">
               <span className="text-[11px] font-bold text-[#D0FF00] tracking-wide flex items-center gap-1.5">

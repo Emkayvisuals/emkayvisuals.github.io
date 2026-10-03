@@ -509,7 +509,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-              className="relative z-10 w-full max-h-[70vh] rounded-t-[28px] bg-[#0A0A0A] border-t border-x border-white/15 p-4 sm:p-6 pb-8 shadow-[0_-15px_40px_rgba(0,0,0,0.95)] flex flex-col focus:outline-none"
+              className="relative z-10 w-full max-h-[70vh] max-h-[70svh] rounded-t-[28px] bg-[#0A0A0A] border-t border-x border-white/15 p-4 sm:p-6 pb-8 shadow-[0_-15px_40px_rgba(0,0,0,0.95)] flex flex-col focus:outline-none"
             >
               {/* Drag Handle */}
               <div className="w-12 h-1.5 bg-white/25 rounded-full mx-auto mb-3 shrink-0" />

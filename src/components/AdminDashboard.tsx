@@ -326,7 +326,7 @@ export const AdminDashboard: React.FC = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-[#050505] text-[#FEFFFC] flex items-center justify-center">
+      <div className="min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[#D0FF00]"></div>
       </div>
     );
@@ -334,7 +334,7 @@ export const AdminDashboard: React.FC = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#050505] text-[#FEFFFC] flex flex-col items-center justify-center px-4">
+      <div className="min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] flex flex-col items-center justify-center px-4">
         <div className="w-full max-w-md p-8 rounded-2xl bg-[#0f0f0f] border border-white/10 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8116E0] to-[#D0FF00]" />
           <div className="flex items-center gap-3 mb-6">
@@ -427,7 +427,7 @@ export const AdminDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#FEFFFC] flex flex-col font-sans">
+    <div className="min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] flex flex-col font-sans">
       {/* Unsaved Changes Banner */}
       {hasUnsavedChanges && (
         <div className="sticky top-0 z-[60] bg-amber-500/15 border-b border-amber-500/40 text-amber-300 px-4 py-2.5 text-xs flex items-center justify-between backdrop-blur-md">

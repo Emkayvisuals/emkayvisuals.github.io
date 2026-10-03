@@ -120,7 +120,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-[#FEFFFC] selection:bg-[#D0FF00] selection:text-[#050505] overflow-x-hidden w-full flex flex-col">
+    <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#D0FF00] selection:text-[#050505] overflow-x-hidden w-full flex flex-col">
       <Navbar />
 
       <main className="flex-1 relative pt-28 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">

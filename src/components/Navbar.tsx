@@ -217,7 +217,7 @@ export const Navbar: React.FC = () => {
           {/* Drawer Menu */}
           <div
             id="mobile-nav-dropdown"
-            className="pointer-events-auto fixed top-18 left-3 right-3 sm:left-auto sm:right-6 sm:w-96 z-50 bg-[#0A0A0A] border border-white/15 rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex flex-col gap-3 max-h-[85vh] overflow-y-auto"
+            className="pointer-events-auto fixed top-18 left-3 right-3 sm:left-auto sm:right-6 sm:w-96 z-50 bg-[#0A0A0A] border border-white/15 rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex flex-col gap-3 max-h-[85vh] max-h-[85svh] overflow-y-auto"
           >
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <span className="text-xs font-semibold text-[#D0FF00] tracking-wide">

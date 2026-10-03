@@ -169,7 +169,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
     >
       {/* Container - Scrollable on mobile so all details & Inquire button are always reachable */}
       <div
-        className="relative w-full max-w-5xl max-h-[94svh] sm:max-h-[92vh] glass-panel bg-[#050505] border border-white/15 rounded-2xl sm:rounded-3xl overflow-y-auto lg:overflow-hidden flex flex-col lg:flex-row shadow-[0_25px_60px_rgba(0,0,0,0.9)] my-auto"
+        className="relative w-full max-w-5xl max-h-[94vh] max-h-[94svh] sm:max-h-[92vh] sm:max-h-[92svh] glass-panel bg-[#050505] border border-white/15 rounded-2xl sm:rounded-3xl overflow-y-auto lg:overflow-hidden flex flex-col lg:flex-row shadow-[0_25px_60px_rgba(0,0,0,0.9)] my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button - 44px min tap target */}
@@ -184,7 +184,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
 
         {/* Visual / Media Side - Capped on mobile to fit portrait images without pushing content off-screen */}
         <div className="relative flex-shrink-0 lg:flex-1 bg-black flex flex-col items-center justify-center min-h-0 overflow-hidden group border-b lg:border-b-0 border-white/10">
-          <div className="w-full flex-1 min-h-0 flex items-center justify-center p-2 sm:p-3 max-h-[50svh] sm:max-h-[58svh] lg:max-h-[70vh]">
+          <div className="w-full flex-1 min-h-0 flex items-center justify-center p-2 sm:p-3 max-h-[50vh] max-h-[50svh] sm:max-h-[58vh] sm:max-h-[58svh] lg:max-h-[70vh] lg:max-h-[70svh]">
             {activeMediaIndex === 'video' && hasVideo && videoEmbedUrl ? (
               <div className="w-full h-full aspect-video flex items-center justify-center bg-black rounded-xl overflow-hidden shadow-2xl">
                 {videoType === 'mp4' ? (
@@ -192,7 +192,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
                     src={project.videoUrl}
                     controls
                     autoPlay
-                    className="w-full h-full object-contain max-h-[48svh] sm:max-h-[55vh] lg:max-h-[70vh]"
+                    className="w-full h-full object-contain max-h-[48vh] max-h-[48svh] sm:max-h-[55vh] sm:max-h-[55svh] lg:max-h-[70vh] lg:max-h-[70svh]"
                   />
                 ) : (
                   <iframe
@@ -232,7 +232,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
                       ? 'none'
                       : 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s ease-out',
                   }}
-                  className="max-h-[46svh] sm:max-h-[54svh] lg:max-h-[68vh] w-auto max-w-full object-contain rounded-lg sm:rounded-xl shadow-2xl select-none animate-in fade-in duration-200 pointer-events-auto"
+                  className="max-h-[46vh] max-h-[46svh] sm:max-h-[54vh] sm:max-h-[54svh] lg:max-h-[68vh] lg:max-h-[68svh] w-auto max-w-full object-contain rounded-lg sm:rounded-xl shadow-2xl select-none animate-in fade-in duration-200 pointer-events-auto"
                   referrerPolicy="no-referrer"
                 />
 

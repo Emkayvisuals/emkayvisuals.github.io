@@ -13,6 +13,8 @@
     max-width: 100vw;
     background-color: #050505;
     color: #FEFFFC;
+    min-height: 100vh;
+    min-height: 100svh;
   }
 
   body {
@@ -22,6 +24,8 @@
     color: #FEFFFC;
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-weight: 400;
+    min-height: 100vh;
+    min-height: 100svh;
   }
 
   h1, h2, h3, h4, h5, h6, .font-display, .font-heading {
@@ -135,3 +139,29 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #8116E0;
 }
+
+/* Viewport height utilities with 100vh fallback for older browsers */
+.min-h-screen-svh {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.h-screen-svh {
+  height: 100vh;
+  height: 100svh;
+}
+
+@media (min-width: 640px) {
+  .sm\:min-h-screen-svh {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:min-h-screen-svh {
+    min-height: 90vh;
+    min-height: 90svh;
+  }
+}
+
