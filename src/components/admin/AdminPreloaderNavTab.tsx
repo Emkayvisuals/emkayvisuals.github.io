@@ -15,6 +15,8 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
   const preloader = content.preloader || {
     enabled: true,
     logoAbbr: 'EV',
+    logoUrl: '/Images/emblem1.webp',
+    logoAlt: 'Emkay Visuals Emblem Logo',
     brandMain: 'EMKAY',
     divider: '//',
     brandAccent: 'VISUALS',
@@ -28,11 +30,16 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
     tagline: 'Futuristic visual architecture, cinematic key art, and high-octane motion graphics.',
     statusBadge: 'Available for Freelance & Contracts',
     location: 'Available Worldwide / Remote',
+    logoUrl: '/Images/emblem1.webp',
+    logoAlt: 'Emkay Visuals Emblem Logo',
+    faviconUrl: '/Images/emblem.webp',
   };
 
   const navbar = content.navbar || {
     enabled: true,
     logoAbbr: 'EV',
+    logoUrl: '/Images/emblem1.webp',
+    logoAlt: 'Emkay Visuals Emblem Logo',
     brandName: 'Emkay',
     brandDivider: '//',
     brandAccent: 'Visuals',

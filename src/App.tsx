@@ -95,7 +95,7 @@ export default function App() {
         PORTFOLIO_CONTENT.seo?.faviconUrl ||
         PORTFOLIO_CONTENT.brand?.faviconUrl ||
         PORTFOLIO_CONTENT.brand?.logoUrl ||
-        '/emkay.webp';
+        '/Images/emblem.webp';
 
       if (activeFavicon) {
         let iconLink = document.querySelector<HTMLLinkElement>('link[rel="icon"]');

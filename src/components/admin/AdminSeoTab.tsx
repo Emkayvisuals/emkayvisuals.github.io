@@ -15,7 +15,7 @@ export const AdminSeoTab: React.FC<AdminTabProps> = ({
     metaDescription: '',
     ogImage: '',
     ogImageAlt: 'Emkay Visuals – Graphic Design & Motion Art Portfolio Banner',
-    faviconUrl: '/favicon.ico',
+    faviconUrl: '/Images/emblem.webp',
   };
 
   const handleFieldChange = (field: string, value: string) => {

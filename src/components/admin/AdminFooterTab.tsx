@@ -14,6 +14,8 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
   const footer = content.footer || {
     enabled: true,
     logoAbbr: 'EV',
+    logoUrl: '/Images/emblem1.webp',
+    logoAlt: 'Emkay Visuals Emblem Logo',
     brandName: 'Emkay',
     brandDivider: '//',
     brandAccent: 'Visuals',
