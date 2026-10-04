@@ -23,8 +23,6 @@ export const Hero: React.FC = () => {
     'Visual designer creating distinctive posters, digital art, and high impact visual identities for brands and creative projects.';
   const primaryButtonText = hero.primaryButtonText || 'View Work';
   const primaryButtonLink = hero.primaryButtonLink || '#work';
-  const secondaryButtonText = hero.secondaryButtonText || 'Hire Me';
-  const secondaryButtonLink = hero.secondaryButtonLink || '#contact';
 
   const visibleFloatingTags = (hero.floatingTags || []).filter((tag) => tag.visible !== false);
 
@@ -151,33 +149,22 @@ export const Hero: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Two Call To Action Buttons - Side by side on mobile in one row, smaller & compact */}
+        {/* Single Centered Call To Action Button: View Work */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-8 sm:mt-10 lg:mt-12 flex flex-row items-center justify-center gap-2.5 sm:gap-3.5 w-auto max-w-full px-2"
+          className="mt-8 sm:mt-10 lg:mt-12 flex items-center justify-center w-auto max-w-full px-2"
         >
           {primaryButtonText && (
             <a
               href={primaryButtonLink}
               id="hero-view-work-btn"
-              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white/[0.05] hover:bg-white/[0.1] text-[#FEFFFC] border border-white/15 font-semibold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:border-[#8EFF01]/50 active:scale-95 min-h-[38px] sm:min-h-[42px]"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(142, 255, 1, 0.26)] hover:shadow-[0_0_30px_rgba(142, 255, 1, 0.4)] transition-all duration-300 hover:scale-105 active:scale-95 min-h-[42px] sm:min-h-[46px]"
             >
-              <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8EFF01]" />
+              <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#050505]" />
               <span>{primaryButtonText}</span>
-              <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/60" />
-            </a>
-          )}
-
-          {secondaryButtonText && (
-            <a
-              href={secondaryButtonLink}
-              id="hero-hire-me-btn"
-              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#8EFF01] text-[#050505] font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(142, 255, 1, 0.26)] hover:shadow-[0_0_30px_rgba(142, 255, 1, 0.4)] transition-all duration-300 hover:scale-105 active:scale-95 min-h-[38px] sm:min-h-[42px]"
-            >
-              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#050505]" />
-              <span>{secondaryButtonText}</span>
+              <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#050505]" />
             </a>
           )}
         </motion.div>

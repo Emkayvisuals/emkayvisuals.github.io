@@ -23,8 +23,6 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
       'Visual designer creating distinctive posters, digital art, and high impact visual identities for brands and creative projects.',
     primaryButtonText: 'View Work',
     primaryButtonLink: '#work',
-    secondaryButtonText: 'Hire Me',
-    secondaryButtonLink: '#contact',
     floatingTags: [
       { label: 'Posters', color: 'yellow', visible: true },
       { label: 'Visual Branding', color: 'violet', visible: true },
@@ -170,12 +168,12 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
             />
           </div>
 
-          {/* Call-to-action Buttons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-black/40 border border-white/10">
-            <div className="space-y-3">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider">
-                Primary Button
-              </h3>
+          {/* Call-to-action Button */}
+          <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-3">
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+              Call to Action Button (View Work)
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="text-[10px] text-white/50 block mb-1">Button Text</label>
                 <input
@@ -191,30 +189,6 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
                   type="text"
                   value={hero.primaryButtonLink || '#work'}
                   onChange={(e) => handleHeroChange('primaryButtonLink', e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider">
-                Secondary Button
-              </h3>
-              <div>
-                <label className="text-[10px] text-white/50 block mb-1">Button Text</label>
-                <input
-                  type="text"
-                  value={hero.secondaryButtonText || 'Hire Me'}
-                  onChange={(e) => handleHeroChange('secondaryButtonText', e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
-                />
-              </div>
-              <div>
-                <label className="text-[10px] text-white/50 block mb-1">Button Link URL / Anchor</label>
-                <input
-                  type="text"
-                  value={hero.secondaryButtonLink || '#contact'}
-                  onChange={(e) => handleHeroChange('secondaryButtonLink', e.target.value)}
                   className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
               </div>
