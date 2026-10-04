@@ -41,23 +41,23 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
   const getIcon = (name: string) => {
     switch (name) {
       case 'Film':
-        return <Film className="w-5 h-5 text-[#D0FF00] group-hover:rotate-12 transition-transform duration-300" />;
+        return <Film className="w-5 h-5 text-[#8EFF01] group-hover:rotate-12 transition-transform duration-300" />;
       case 'Clapperboard':
         return <Clapperboard className="w-5 h-5 text-[#FEFFFC] group-hover:-rotate-12 transition-transform duration-300" />;
       case 'Image':
-        return <ImageIcon className="w-5 h-5 text-[#D0FF00] group-hover:rotate-6 transition-transform duration-300" />;
+        return <ImageIcon className="w-5 h-5 text-[#8EFF01] group-hover:rotate-6 transition-transform duration-300" />;
       case 'Palette':
         return <Palette className="w-5 h-5 text-[#8116E0] group-hover:rotate-12 transition-transform duration-300" />;
       case 'Disc3':
-        return <Disc3 className="w-5 h-5 text-[#D0FF00] group-hover:rotate-45 transition-transform duration-500" />;
+        return <Disc3 className="w-5 h-5 text-[#8EFF01] group-hover:rotate-45 transition-transform duration-500" />;
       case 'Wand2':
         return <Wand2 className="w-5 h-5 text-[#FEFFFC] group-hover:rotate-12 transition-transform duration-300" />;
       case 'Layers':
         return <Layers className="w-5 h-5 text-[#8116E0] group-hover:scale-110 transition-transform duration-300" />;
       case 'Sparkles':
-        return <Sparkles className="w-5 h-5 text-[#D0FF00] group-hover:rotate-45 transition-transform duration-300" />;
+        return <Sparkles className="w-5 h-5 text-[#8EFF01] group-hover:rotate-45 transition-transform duration-300" />;
       default:
-        return <Sparkles className="w-5 h-5 text-[#D0FF00]" />;
+        return <Sparkles className="w-5 h-5 text-[#8EFF01]" />;
     }
   };
 
@@ -75,12 +75,12 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
     <section id="services" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background Section Glows */}
       <div
-        className="pointer-events-none absolute top-1/2 left-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[160px] opacity-10"
+        className="pointer-events-none absolute top-1/2 left-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[160px] opacity-[0.10]"
         style={{ background: '#8116E0' }}
       />
       <div
-        className="pointer-events-none absolute bottom-10 right-1/4 w-[350px] h-[350px] rounded-full blur-[150px] opacity-08"
-        style={{ background: '#D0FF00' }}
+        className="pointer-events-none absolute bottom-10 right-1/4 w-[350px] h-[350px] rounded-full blur-[150px] opacity-[0.08]"
+        style={{ background: '#8EFF01' }}
       />
 
       {/* Header with Smooth Scroll Fade/Slide */}
@@ -92,7 +92,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
         className="relative z-10 flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-5"
       >
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#D0FF00] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
+          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
             <Sparkles className="w-3.5 h-3.5" />
             <span>
               {badgeMain}{' '}
@@ -103,7 +103,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
               )}
             </span>
           </div>
-          <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#D0FF00] tracking-tight leading-[1.15]">
+          <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15]">
             {headingMain}{' '}
             <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
               {headingAccent}
@@ -139,10 +139,10 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
                 scale: 1.01,
                 transition: { duration: 0.2, ease: 'easeOut' },
               }}
-              className={`group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#D0FF00]/40 p-4 sm:p-5.5 flex flex-col justify-between overflow-hidden cursor-default bg-[#050505]/90 col-span-1 ${colSpanClass}`}
+              className={`group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/40 p-4 sm:p-5.5 flex flex-col justify-between overflow-hidden cursor-default bg-[#050505]/90 col-span-1 ${colSpanClass}`}
             >
               {/* Subtle top yellow glow line on hover */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#D0FF00]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#8EFF01]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Background ambient artwork on card hover */}
               {service.previewImage && (
@@ -160,18 +160,18 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
 
               {/* Card Top: Tag + Icon */}
               <div className="relative z-10 flex items-center justify-between mb-3.5 sm:mb-4">
-                <span className="text-[10px] sm:text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-[#FEFFFC]/80 tracking-wide group-hover:border-[#D0FF00]/30 transition-colors">
+                <span className="text-[10px] sm:text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-[#FEFFFC]/80 tracking-wide group-hover:border-[#8EFF01]/30 transition-colors">
                   {service.tag}
                 </span>
 
-                <div className="w-8.5 h-8.5 sm:w-9.5 sm:h-9.5 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center group-hover:bg-[#D0FF00]/15 group-hover:border-[#D0FF00]/40 transition-all duration-300">
+                <div className="w-8.5 h-8.5 sm:w-9.5 sm:h-9.5 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center group-hover:bg-[#8EFF01]/15 group-hover:border-[#8EFF01]/40 transition-all duration-300">
                   {getIcon(service.iconName)}
                 </div>
               </div>
 
               {/* Card Middle: Title + Descriptions */}
               <div className="relative z-10 my-1">
-                <h3 className="font-montserrat font-medium italic text-lg sm:text-xl text-[#D0FF00] tracking-tight mb-1.5">
+                <h3 className="font-montserrat font-medium italic text-lg sm:text-xl text-[#8EFF01] tracking-tight mb-1.5">
                   {service.title}
                 </h3>
                 <p className="text-[11px] sm:text-xs text-white/70 font-normal leading-relaxed mb-3">
@@ -186,7 +186,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
                         key={dIdx}
                         className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-lg bg-black/50 border border-white/[0.06] text-white/80 group-hover:border-white/15 transition-colors"
                       >
-                        <CheckCircle2 className="w-2.5 h-2.5 text-[#D0FF00] shrink-0" />
+                        <CheckCircle2 className="w-2.5 h-2.5 text-[#8EFF01] shrink-0" />
                         <span>{deliv}</span>
                       </span>
                     ))}
@@ -202,7 +202,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
                 <button
                   type="button"
                   onClick={() => handleInquire(service.title)}
-                  className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#D0FF00] hover:text-[#FEFFFC] transition-colors py-1.5 px-1 cursor-pointer group/btn min-h-[38px]"
+                  className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#8EFF01] hover:text-[#FEFFFC] transition-colors py-1.5 px-1 cursor-pointer group/btn min-h-[38px]"
                 >
                   <span>{cardButtonText}</span>
                   <ArrowUpRight className="w-3 h-3 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />

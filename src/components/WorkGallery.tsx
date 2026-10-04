@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PORTFOLIO_CONTENT, ProjectItem } from '../data/portfolioContent';
 import { ProjectLightbox } from './ProjectLightbox';
 import {
@@ -18,11 +18,13 @@ import {
 interface WorkGalleryProps {
   onSelectProjectForContact?: (title: string) => void;
   onNavigateToPortfolio?: (category?: string) => void;
+  onNavigateToGallery?: () => void;
 }
 
 export const WorkGallery: React.FC<WorkGalleryProps> = ({
   onSelectProjectForContact,
   onNavigateToPortfolio,
+  onNavigateToGallery,
 }) => {
   const { categories, projects, projectsSection } = PORTFOLIO_CONTENT;
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -43,6 +45,8 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
   const filterLabel = projectsSection?.filterLabel || 'Filter:';
   const viewProjectText = projectsSection?.viewProjectText || 'View Project';
   const viewMoreButtonText = projectsSection?.viewMoreButtonText || 'View More Projects';
+  const manipulationGalleryButtonText =
+    projectsSection?.manipulationGalleryButtonText || 'View My Photo Manipulation Gallery';
 
   const visibleProjects = (projects || []).filter((p) => p.visible !== false);
 
@@ -62,9 +66,9 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
           (p) => p.category?.trim().toLowerCase() === activeCategory.trim().toLowerCase()
         );
 
-  // Homepage 4 projects limit
-  const displayedProjects = filteredProjects.slice(0, 4);
-  const hasMoreProjects = filteredProjects.length > 4;
+  // Homepage 7 projects limit
+  const displayedProjects = filteredProjects.slice(0, 7);
+  const hasMoreProjects = filteredProjects.length > 7;
 
   // Lightbox navigation
   const handleNext = () => {
@@ -103,16 +107,61 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
     }
   };
 
+  // Support direct project links e.g. /?project=sport001
+  useEffect(() => {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const projectIdParam = urlParams.get('project');
+      if (projectIdParam) {
+        const found = (projects || []).find(
+          (p) =>
+            p.id?.toLowerCase() === projectIdParam.toLowerCase() ||
+            p.title?.toLowerCase() === decodeURIComponent(projectIdParam).toLowerCase()
+        );
+        if (found) {
+          setSelectedProject(found);
+        }
+      }
+    } catch {
+      // Ignore
+    }
+  }, [projects]);
+
+  const handleCloseLightbox = () => {
+    setSelectedProject(null);
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('project')) {
+        urlParams.delete('project');
+        const remainingQuery = urlParams.toString();
+        const cleanUrl = remainingQuery
+          ? `${window.location.pathname}?${remainingQuery}`
+          : window.location.pathname;
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    } catch {
+      // Ignore
+    }
+  };
+
+  const handleManipulationGalleryClick = () => {
+    if (onNavigateToGallery) {
+      onNavigateToGallery();
+    } else {
+      window.location.href = '/gallery';
+    }
+  };
+
   return (
     <section id="work" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background Section Glows */}
       <div
-        className="pointer-events-none absolute top-40 right-10 w-[400px] h-[400px] rounded-full blur-[170px] opacity-10"
+        className="pointer-events-none absolute top-40 right-10 w-[400px] h-[400px] rounded-full blur-[160px] opacity-[0.10]"
         style={{ background: '#8116E0' }}
       />
       <div
-        className="pointer-events-none absolute bottom-40 left-10 w-[350px] h-[350px] rounded-full blur-[160px] opacity-08"
-        style={{ background: '#D0FF00' }}
+        className="pointer-events-none absolute bottom-40 left-10 w-[350px] h-[350px] rounded-full blur-[150px] opacity-[0.08]"
+        style={{ background: '#8EFF01' }}
       />
 
       {/* Header with Smooth Scroll Fade/Slide */}
@@ -124,7 +173,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
         className="relative z-10 flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-5"
       >
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#D0FF00] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
+          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
             <Sparkles className="w-3.5 h-3.5" />
             <span>
               {badgeMain}{' '}
@@ -133,7 +182,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
               )}
             </span>
           </div>
-          <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#D0FF00] tracking-tight leading-[1.15]">
+          <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15]">
             {headingMain}{' '}
             <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
               {headingAccent}
@@ -156,7 +205,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
         >
           <div className="flex items-center gap-2 min-w-max">
             <div className="flex items-center gap-1.5 pl-1 pr-2 text-[11px] sm:text-xs font-semibold text-white/50">
-              <Filter className="w-3 h-3 text-[#D0FF00]" />
+              <Filter className="w-3 h-3 text-[#8EFF01]" />
               <span>{filterLabel}</span>
             </div>
 
@@ -170,7 +219,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
                   onClick={() => setActiveCategory(cat)}
                   className={`px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap min-h-[38px] sm:min-h-[40px] flex items-center active:scale-95 ${
                     isActive
-                      ? 'bg-[#D0FF00] text-[#050505] font-bold shadow-[0_0_16px_rgba(208,255,0,0.35)]'
+                      ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-[0_0_16px_rgba(142, 255, 1, 0.26)]'
                       : 'glass-panel text-[#FEFFFC]/70 hover:text-[#FEFFFC] hover:border-white/20'
                   }`}
                 >
@@ -212,10 +261,10 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
                   transition: { duration: 0.2, ease: 'easeOut' },
                 }}
                 onClick={() => setSelectedProject(project)}
-                className="group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#D0FF00]/50 overflow-hidden cursor-pointer flex flex-col bg-[#050505]"
+                className="group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/50 overflow-hidden cursor-pointer flex flex-col bg-[#050505]"
               >
                 {/* Subtle top glow bar on hover */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#D0FF00]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#8EFF01]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
 
                 {/* Media Container with Zoom */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#121212]">
@@ -244,7 +293,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
                       {project.category}
                     </span>
                     {isMotion && (
-                      <span className="text-[10px] sm:text-[11px] font-bold px-1.5 py-0.5 rounded-full bg-[#D0FF00] text-[#050505] flex items-center gap-1 shadow-sm">
+                      <span className="text-[10px] sm:text-[11px] font-bold px-1.5 py-0.5 rounded-full bg-[#8EFF01] text-[#050505] flex items-center gap-1 shadow-sm">
                         <Play className="w-2.5 h-2.5 fill-current" />
                         Motion
                       </span>
@@ -262,7 +311,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
 
                   {/* Hover Center Indicator */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <div className="w-10 h-10 rounded-full bg-[#D0FF00] text-[#050505] flex items-center justify-center shadow-[0_0_20px_rgba(208,255,0,0.6)] transform group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-10 h-10 rounded-full bg-[#8EFF01] text-[#050505] flex items-center justify-center shadow-[0_0_20px_rgba(142, 255, 1, 0.4)] transform group-hover:scale-110 transition-transform duration-300">
                       {isMotion ? (
                         <Play className="w-4 h-4 fill-current ml-0.5" />
                       ) : (
@@ -275,7 +324,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
                 {/* Card Meta Content */}
                 <div className="p-4 sm:p-4.5 flex flex-col justify-between flex-1 bg-[#050505]">
                   <div>
-                    <h3 className="font-montserrat font-medium italic text-base sm:text-lg text-[#D0FF00] tracking-tight line-clamp-1 mb-1">
+                    <h3 className="font-montserrat font-medium italic text-base sm:text-lg text-[#8EFF01] tracking-tight line-clamp-1 mb-1">
                       {project.title}
                     </h3>
                     {project.description && project.description.trim() && (
@@ -296,7 +345,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
                         <span>{project.category}</span>
                       )}
                     </div>
-                    <span className="text-[11px] sm:text-xs text-[#D0FF00] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-bold">
+                    <span className="text-[11px] sm:text-xs text-[#8EFF01] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-bold">
                       {viewProjectText} <ArrowRight className="w-3 h-3" />
                     </span>
                   </div>
@@ -307,38 +356,52 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
         </AnimatePresence>
       </motion.div>
 
-      {/* Centered "View More" Button under 4th project (Only shown if >4 projects exist for active filter) */}
-      {hasMoreProjects && (
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
-          className="relative z-10 mt-9 sm:mt-11 flex flex-col items-center justify-center text-center"
+      {/* Centered Actions under projects (View More if >7 exist, followed directly by View My Photo Manipulation Gallery button) */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.45 }}
+        className="relative z-10 mt-9 sm:mt-11 flex flex-col items-center justify-center text-center gap-3.5"
+      >
+        {hasMoreProjects && (
+          <div className="flex flex-col items-center">
+            <button
+              type="button"
+              id="portfolio-view-more-button"
+              onClick={handleViewMoreClick}
+              className="group px-6 py-3 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-[0_0_24px_rgba(142, 255, 1, 0.22)] hover:shadow-[0_0_34px_rgba(142, 255, 1, 0.38)] flex items-center gap-2.5 cursor-pointer min-h-[42px] sm:min-h-[46px] transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <Grid className="w-3.5 h-3.5 text-[#050505]" />
+              <span>{viewMoreButtonText}</span>
+              <span className="px-1.5 py-0.5 rounded-full bg-black/15 text-[11px] font-black">
+                +{filteredProjects.length - 7} More
+              </span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#050505] transition-transform group-hover:translate-x-1" />
+            </button>
+            <p className="mt-2 text-[11px] text-white/50 font-normal">
+              Browse all {filteredProjects.length} {activeCategory === 'All' ? 'featured' : activeCategory} artworks in full archive
+            </p>
+          </div>
+        )}
+
+        {/* Secondary Button: View My Photo Manipulation Gallery */}
+        <button
+          type="button"
+          id="portfolio-manipulation-gallery-button"
+          onClick={handleManipulationGalleryClick}
+          className="group px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-white/20 hover:border-[#8EFF01]/60 bg-white/5 hover:bg-[#8EFF01]/10 text-white/80 hover:text-white font-medium text-xs tracking-wide transition-all duration-300 flex items-center gap-2 cursor-pointer min-h-[36px] backdrop-blur-sm transform hover:scale-[1.01] active:scale-[0.99] shadow-sm"
         >
-          <button
-            type="button"
-            id="portfolio-view-more-button"
-            onClick={handleViewMoreClick}
-            className="group px-6 py-3 rounded-full bg-[#D0FF00] hover:bg-[#b8e600] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-[0_0_24px_rgba(208,255,0,0.3)] hover:shadow-[0_0_34px_rgba(208,255,0,0.5)] flex items-center gap-2.5 cursor-pointer min-h-[42px] sm:min-h-[46px] transform hover:scale-[1.02] active:scale-[0.98]"
-          >
-            <Grid className="w-3.5 h-3.5 text-[#050505]" />
-            <span>{viewMoreButtonText}</span>
-            <span className="px-1.5 py-0.5 rounded-full bg-black/15 text-[11px] font-black">
-              +{filteredProjects.length - 4} More
-            </span>
-            <ArrowRight className="w-3.5 h-3.5 text-[#050505] transition-transform group-hover:translate-x-1" />
-          </button>
-          <p className="mt-2 text-[11px] text-white/50 font-normal">
-            Browse all {filteredProjects.length} {activeCategory === 'All' ? 'featured' : activeCategory} artworks in full archive
-          </p>
-        </motion.div>
-      )}
+          <Sparkles className="w-3.5 h-3.5 text-[#8EFF01]/80 group-hover:text-[#8EFF01] transition-colors" />
+          <span>{manipulationGalleryButtonText}</span>
+          <ArrowRight className="w-3.5 h-3.5 text-white/40 group-hover:text-[#8EFF01] transition-transform group-hover:translate-x-0.5" />
+        </button>
+      </motion.div>
 
       {/* Lightbox Modal */}
       <ProjectLightbox
         project={selectedProject}
-        onClose={() => setSelectedProject(null)}
+        onClose={handleCloseLightbox}
         onNext={handleNext}
         onPrev={handlePrev}
         onInquire={handleInquireFromLightbox}

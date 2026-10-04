@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
       <div
         className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px]"
         style={{
-          background: 'linear-gradient(90deg, transparent, #8116E0, #D0FF00, transparent)',
+          background: 'linear-gradient(90deg, transparent, #8116E0, #8EFF01, transparent)',
         }}
       />
 
@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
           <div className="max-w-sm">
             <div className="flex items-center gap-2 mb-2">
               {brand?.logoUrl || footer?.logoUrl ? (
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(208,255,0,0.35)] p-0.5">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(142, 255, 1, 0.26)] p-0.5">
                   <img
                     src={brand?.logoUrl || footer?.logoUrl}
                     alt={brand?.logoAlt || footer?.logoAlt || 'Emkay Visuals Logo'}
@@ -48,7 +48,7 @@ export const Footer: React.FC = () => {
                   />
                 </div>
               ) : (
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D0FF00] text-[#050505] font-extrabold flex items-center justify-center text-[11px] sm:text-xs shadow-[0_0_10px_rgba(208,255,0,0.35)] shrink-0">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#8EFF01] text-[#050505] font-extrabold flex items-center justify-center text-[11px] sm:text-xs shadow-[0_0_10px_rgba(142, 255, 1, 0.26)] shrink-0">
                   {footer?.logoAbbr || 'EV'}
                 </div>
               )}
@@ -56,11 +56,11 @@ export const Footer: React.FC = () => {
                 {brand?.name ? (
                   <>
                     {brand.name.split(' ')[0]}{' '}
-                    <span className="text-[#D0FF00]">//</span>{' '}
+                    <span className="text-[#8EFF01]">//</span>{' '}
                     {brand.name.split(' ').slice(1).join(' ')}
                   </>
                 ) : (
-                  <>Emkay <span className="text-[#D0FF00]">//</span> Visuals</>
+                  <>Emkay <span className="text-[#8EFF01]">//</span> Visuals</>
                 )}
               </span>
             </div>
@@ -76,7 +76,7 @@ export const Footer: React.FC = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-[11px] font-medium text-white/60 hover:text-[#D0FF00] transition-colors py-1 min-h-[32px] flex items-center"
+                  className="text-[11px] font-medium text-white/60 hover:text-[#8EFF01] transition-colors py-1 min-h-[32px] flex items-center"
                 >
                   {item.label}
                 </a>
@@ -90,7 +90,7 @@ export const Footer: React.FC = () => {
               const meta = getPlatformMeta(item.platform);
               const IconComp = meta.icon;
               const isExternal = !item.isMailto;
-              const accentColor = meta.accentColor || '#D0FF00';
+              const accentColor = meta.accentColor || '#8EFF01';
 
               return (
                 <motion.a
@@ -114,7 +114,7 @@ export const Footer: React.FC = () => {
                       '--hover-accent': accentColor,
                     } as React.CSSProperties
                   }
-                  className={`group relative w-9 h-9 sm:w-9.5 sm:h-9.5 flex items-center justify-center rounded-full bg-white/[0.04] border border-white/10 ${meta.hoverBorder} hover:bg-white/[0.09] hover:scale-110 active:scale-95 transition-all duration-300 ease-out text-white/75 hover:shadow-[0_0_14px_rgba(208,255,0,0.18)] shrink-0 min-h-[38px] min-w-[38px] cursor-pointer`}
+                  className={`group relative w-9 h-9 sm:w-9.5 sm:h-9.5 flex items-center justify-center rounded-full bg-white/[0.04] border border-white/10 ${meta.hoverBorder} hover:bg-white/[0.09] hover:scale-110 active:scale-95 transition-all duration-300 ease-out text-white/75 hover:shadow-[0_0_14px_rgba(142, 255, 1, 0.14)] shrink-0 min-h-[38px] min-w-[38px] cursor-pointer`}
                 >
                   <IconComp className="w-4 h-4 text-white/75 group-hover:text-[var(--hover-accent)] group-hover:scale-110 transition-all duration-300 ease-out" />
                 </motion.a>
@@ -134,7 +134,7 @@ export const Footer: React.FC = () => {
                 delay: resolvedLinks.length * 0.05,
                 ease: [0.21, 0.47, 0.32, 0.98],
               }}
-              className="w-9 h-9 sm:w-9.5 sm:h-9.5 flex items-center justify-center rounded-full bg-[#D0FF00] text-[#050505] hover:scale-110 active:scale-95 transition-all duration-300 shadow-[0_0_12px_rgba(208,255,0,0.35)] hover:shadow-[0_0_18px_rgba(208,255,0,0.55)] cursor-pointer ml-1 shrink-0 min-h-[38px] min-w-[38px]"
+              className="w-9 h-9 sm:w-9.5 sm:h-9.5 flex items-center justify-center rounded-full bg-[#8EFF01] text-[#050505] hover:scale-110 active:scale-95 transition-all duration-300 shadow-[0_0_12px_rgba(142, 255, 1, 0.26)] hover:shadow-[0_0_18px_rgba(142, 255, 1, 0.4)] cursor-pointer ml-1 shrink-0 min-h-[38px] min-w-[38px]"
             >
               <ArrowUp className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
             </motion.button>
@@ -145,7 +145,7 @@ export const Footer: React.FC = () => {
         <div className="pt-4.5 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-2.5 text-[11px] text-white/40 font-normal">
           <div>{footer?.copyright}</div>
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#D0FF00]"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#8EFF01]"></span>
             <span>{footer?.rightsNote}</span>
           </div>
         </div>

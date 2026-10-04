@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   PORTFOLIO_CONTENT,
   DEFAULT_PORTFOLIO_CONTENT,
@@ -37,6 +37,8 @@ import {
   Check,
   Database,
   Video,
+  MoreVertical,
+  ExternalLink,
 } from 'lucide-react';
 import { AdminTabId } from './admin/types';
 import { SaveButton } from './admin/SaveButton';
@@ -83,6 +85,27 @@ export const AdminDashboard: React.FC = () => {
   // Backup state
   const [backupState, setBackupState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [backupSummary, setBackupSummary] = useState<string | null>(null);
+
+  // Mobile More Options dropdown state
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
+  const moreMenuRef = useRef<HTMLDivElement>(null);
+
+  // Close mobile options dropdown on click/touch outside
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) {
+        setMoreMenuOpen(false);
+      }
+    };
+    if (moreMenuOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener('touchstart', handleOutsideClick);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    };
+  }, [moreMenuOpen]);
 
   // Check if there are unsaved edits
   const hasUnsavedChanges = JSON.stringify(content) !== initialContentJson;
@@ -327,7 +350,7 @@ export const AdminDashboard: React.FC = () => {
   if (authLoading) {
     return (
       <div className="min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[#D0FF00]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[#8EFF01]"></div>
       </div>
     );
   }
@@ -336,9 +359,9 @@ export const AdminDashboard: React.FC = () => {
     return (
       <div className="min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] flex flex-col items-center justify-center px-4">
         <div className="w-full max-w-md p-8 rounded-2xl bg-[#0f0f0f] border border-white/10 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8116E0] to-[#D0FF00]" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8116E0] to-[#8EFF01]" />
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 rounded-xl bg-[#D0FF00]/10 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-12 h-12 rounded-xl bg-[#8EFF01]/10 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <Lock className="w-6 h-6" />
             </div>
             <div>
@@ -366,7 +389,7 @@ export const AdminDashboard: React.FC = () => {
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className="w-full py-3.5 px-4 rounded-xl bg-white text-black font-semibold hover:bg-[#D0FF00] transition-colors flex items-center justify-center gap-3 shadow-lg cursor-pointer"
+            className="w-full py-3.5 px-4 rounded-xl bg-white text-black font-semibold hover:bg-[#8EFF01] transition-colors flex items-center justify-center gap-3 shadow-lg cursor-pointer"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -448,45 +471,49 @@ export const AdminDashboard: React.FC = () => {
       )}
 
       {/* Top Header */}
-      <header className="sticky top-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#8116E0]/20 border border-[#8116E0]/40 flex items-center justify-center text-[#D0FF00]">
+      <header className="sticky top-0 z-50 bg-[#0B0B0B]/95 backdrop-blur-md border-b border-white/10 px-3 sm:px-8 py-3 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#8116E0]/20 border border-[#8116E0]/40 flex items-center justify-center text-[#8EFF01] shrink-0">
             <Shield className="w-5 h-5" />
           </div>
-          <div>
-            <h1 className="font-bold text-base sm:text-lg tracking-tight">Emkay Visuals Admin</h1>
-            <p className="text-xs text-white/50">{user.email}</p>
+          <div className="min-w-0">
+            <h1 className="font-bold text-sm sm:text-lg tracking-tight truncate">
+              <span className="sm:hidden">Emkay Admin</span>
+              <span className="hidden sm:inline">Emkay Visuals Admin</span>
+            </h1>
+            <p className="text-[11px] sm:text-xs text-white/50 truncate hidden xs:block">{user.email}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          {/* Desktop Only: Live Site link */}
           <a
             href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold border border-white/10 transition-colors"
+            className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold border border-white/10 transition-colors"
           >
+            <ExternalLink className="w-3.5 h-3.5 text-[#8EFF01]" />
             Live Site
           </a>
 
+          {/* Desktop Only: Download Backup */}
           <button
             type="button"
             onClick={handleDownloadBackup}
             disabled={backupState === 'loading'}
-            className="px-3 sm:px-3.5 py-2 rounded-xl bg-[#D0FF00]/10 hover:bg-[#D0FF00]/20 text-[#D0FF00] text-xs font-semibold border border-[#D0FF00]/30 transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+            className="hidden md:inline-flex px-3.5 py-2 rounded-xl bg-[#8EFF01]/10 hover:bg-[#8EFF01]/20 text-[#8EFF01] text-xs font-semibold border border-[#8EFF01]/30 transition-all items-center gap-1.5 cursor-pointer disabled:opacity-50"
             title="Download full JSON backup of all Firestore content"
           >
             {backupState === 'loading' ? (
               <>
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                <span className="hidden sm:inline">Exporting...</span>
-                <span className="sm:hidden">...</span>
+                <span>Exporting...</span>
               </>
             ) : backupState === 'success' ? (
               <>
                 <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="hidden sm:inline text-emerald-400">Downloaded!</span>
-                <span className="sm:hidden text-emerald-400">Saved</span>
+                <span className="text-emerald-400">Downloaded!</span>
               </>
             ) : (
               <>
@@ -496,26 +523,107 @@ export const AdminDashboard: React.FC = () => {
             )}
           </button>
 
+          {/* Desktop Only: Reset */}
           <button
             type="button"
             onClick={handleReset}
-            className="px-3 sm:px-3.5 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-semibold border border-red-500/30 transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="hidden md:inline-flex px-3.5 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-semibold border border-red-500/30 transition-colors items-center gap-1.5 cursor-pointer"
             title="Reset to default content"
           >
             <RotateCcw className="w-3.5 h-3.5" /> Reset
           </button>
 
+          {/* Save All Changes: ALWAYS VISIBLE on mobile & desktop */}
           <SaveButton
             state={saveState}
             onSave={() => handleSaveSection('All Sections')}
             label={savedSectionName === 'All Sections' ? 'Saved All Changes!' : 'Save All Changes'}
           />
 
+          {/* Mobile "More Options" Menu (Live Site, Backup, Reset) */}
+          <div className="relative md:hidden" ref={moreMenuRef}>
+            <button
+              type="button"
+              onClick={() => setMoreMenuOpen(!moreMenuOpen)}
+              aria-label="More options"
+              aria-expanded={moreMenuOpen}
+              className={`p-2 sm:p-2.5 rounded-xl transition-all border cursor-pointer flex items-center justify-center min-h-[38px] min-w-[38px] ${
+                moreMenuOpen
+                  ? 'bg-[#8EFF01]/20 text-[#8EFF01] border-[#8EFF01]/50 shadow-[0_0_12px_rgba(142, 255, 1, 0.19)]'
+                  : 'bg-white/5 hover:bg-white/10 text-white/80 hover:text-white border-white/10'
+              }`}
+              title="More Actions (Live Site, Backup, Reset)"
+            >
+              <MoreVertical className="w-4 h-4" />
+            </button>
+
+            {/* Dropdown Menu */}
+            {moreMenuOpen && (
+              <div className="absolute right-0 top-full mt-2 w-60 p-2 rounded-2xl bg-[#0f0f0f] border border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.9)] z-50 flex flex-col gap-1 backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="px-3 py-1.5 text-[10px] font-bold text-white/40 uppercase tracking-wider border-b border-white/10">
+                  Quick Actions
+                </div>
+
+                <a
+                  href="/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMoreMenuOpen(false)}
+                  className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-white/10 text-xs font-semibold text-white transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4 text-[#8EFF01] shrink-0" />
+                  <span>View Live Site</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleDownloadBackup();
+                    setMoreMenuOpen(false);
+                  }}
+                  disabled={backupState === 'loading'}
+                  className="w-full text-left flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-white/10 text-xs font-semibold text-white transition-colors cursor-pointer disabled:opacity-50"
+                >
+                  {backupState === 'loading' ? (
+                    <Loader2 className="w-4 h-4 text-[#8EFF01] animate-spin shrink-0" />
+                  ) : backupState === 'success' ? (
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  ) : (
+                    <Download className="w-4 h-4 text-[#8EFF01] shrink-0" />
+                  )}
+                  <span>
+                    {backupState === 'loading'
+                      ? 'Exporting Backup...'
+                      : backupState === 'success'
+                      ? 'Backup Downloaded!'
+                      : 'Download Backup (.json)'}
+                  </span>
+                </button>
+
+                <div className="my-1 border-t border-white/10" />
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMoreMenuOpen(false);
+                    handleReset();
+                  }}
+                  className="w-full text-left flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-red-500/15 text-xs font-semibold text-red-400 transition-colors cursor-pointer"
+                >
+                  <RotateCcw className="w-4 h-4 text-red-400 shrink-0" />
+                  <span>Reset All to Defaults</span>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Logout: ALWAYS VISIBLE on mobile & desktop */}
           <button
             type="button"
             onClick={handleLogout}
-            className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors border border-white/10 cursor-pointer"
+            className="p-2 sm:p-2.5 rounded-xl bg-white/5 hover:bg-red-500/20 text-white/70 hover:text-red-400 transition-colors border border-white/10 cursor-pointer min-h-[38px] min-w-[38px] flex items-center justify-center"
             title="Sign out"
+            aria-label="Sign out"
           >
             <LogOut className="w-4 h-4" />
           </button>
@@ -544,7 +652,7 @@ export const AdminDashboard: React.FC = () => {
                         onClick={() => setActiveTab(tab.id)}
                         className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center justify-between cursor-pointer ${
                           isActive
-                            ? 'bg-[#D0FF00] text-black shadow-[0_0_15px_rgba(208,255,0,0.25)]'
+                            ? 'bg-[#8EFF01] text-black shadow-[0_0_15px_rgba(142, 255, 1, 0.19)]'
                             : 'text-white/70 hover:bg-white/5 hover:text-white'
                         }`}
                       >
@@ -555,7 +663,7 @@ export const AdminDashboard: React.FC = () => {
                         {tab.badge && tab.badge > 0 ? (
                           <span
                             className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                              isActive ? 'bg-black text-[#D0FF00]' : 'bg-red-600 text-white'
+                              isActive ? 'bg-black text-[#8EFF01]' : 'bg-red-600 text-white'
                             }`}
                           >
                             {tab.badge} New
@@ -584,7 +692,7 @@ export const AdminDashboard: React.FC = () => {
                         onClick={() => setActiveTab(tab.id)}
                         className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2.5 cursor-pointer ${
                           isActive
-                            ? 'bg-[#D0FF00] text-black shadow-[0_0_15px_rgba(208,255,0,0.25)]'
+                            ? 'bg-[#8EFF01] text-black shadow-[0_0_15px_rgba(142, 255, 1, 0.19)]'
                             : 'text-white/70 hover:bg-white/5 hover:text-white'
                         }`}
                       >
@@ -600,7 +708,7 @@ export const AdminDashboard: React.FC = () => {
             <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2.5">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest flex items-center gap-1.5">
-                  <Database className="w-3 h-3 text-[#D0FF00]" /> Firestore Backup
+                  <Database className="w-3 h-3 text-[#8EFF01]" /> Firestore Backup
                 </span>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" title="Database Connected" />
               </div>
@@ -611,7 +719,7 @@ export const AdminDashboard: React.FC = () => {
                 type="button"
                 onClick={handleDownloadBackup}
                 disabled={backupState === 'loading'}
-                className="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white hover:text-[#D0FF00] text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50"
+                className="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white hover:text-[#8EFF01] text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50"
               >
                 {backupState === 'loading' ? (
                   <>
@@ -625,7 +733,7 @@ export const AdminDashboard: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <Download className="w-3.5 h-3.5 text-[#D0FF00]" />
+                    <Download className="w-3.5 h-3.5 text-[#8EFF01]" />
                     <span>Download Backup</span>
                   </>
                 )}
@@ -652,8 +760,8 @@ export const AdminDashboard: React.FC = () => {
           )}
 
           {contentLoading && activeTab !== 'analytics' && activeTab !== 'briefs' ? (
-            <div className="flex flex-col items-center justify-center py-24 space-y-3 bg-[#0a0a0a] rounded-3xl border border-white/10 text-center px-4">
-              <Loader2 className="w-8 h-8 animate-spin text-[#D0FF00]" />
+            <div className="flex flex-col items-center justify-center py-24 space-y-3 bg-[#0B0B0B] rounded-3xl border border-white/10 text-center px-4">
+              <Loader2 className="w-8 h-8 animate-spin text-[#8EFF01]" />
               <div>
                 <p className="text-sm font-semibold text-white">Loading live content from Firestore...</p>
                 <p className="text-xs text-white/50 mt-1">

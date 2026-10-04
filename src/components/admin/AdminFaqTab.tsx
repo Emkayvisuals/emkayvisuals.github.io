@@ -89,7 +89,7 @@ export const AdminFaqTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <HelpCircle className="w-5 h-5" />
             </div>
             <div>
@@ -147,7 +147,7 @@ export const AdminFaqTab: React.FC<AdminTabProps> = ({
               rows={2}
               value={faqSection.subtext || ''}
               onChange={(e) => handleSectionChange('subtext', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
         </div>
@@ -187,7 +187,7 @@ export const AdminFaqTab: React.FC<AdminTabProps> = ({
                       type="checkbox"
                       checked={item.visible !== false}
                       onChange={(e) => handleFaqChange(index, 'visible', e.target.checked)}
-                      className="rounded accent-[#D0FF00]"
+                      className="rounded accent-[#8EFF01]"
                     />
                     <span>{item.visible !== false ? 'Visible' : 'Hidden'}</span>
                   </label>
@@ -229,7 +229,7 @@ export const AdminFaqTab: React.FC<AdminTabProps> = ({
                     value={item.question || ''}
                     onChange={(e) => handleFaqChange(index, 'question', e.target.value)}
                     placeholder="e.g. What is your typical turnaround time?"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -240,7 +240,7 @@ export const AdminFaqTab: React.FC<AdminTabProps> = ({
                     value={item.answer || ''}
                     onChange={(e) => handleFaqChange(index, 'answer', e.target.value)}
                     placeholder="e.g. Turnaround depends on project scope..."
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>

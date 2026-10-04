@@ -56,7 +56,7 @@ export const AdminBriefsTab: React.FC<AdminBriefsTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <MessageSquareText className="w-5 h-5" />
             </div>
             <div>
@@ -77,7 +77,7 @@ export const AdminBriefsTab: React.FC<AdminBriefsTabProps> = ({
               placeholder="Search by client, email, budget, or service..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-black/50 border border-white/10 text-xs text-white placeholder-white/30 outline-none focus:border-[#D0FF00]"
+              className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-black/50 border border-white/10 text-xs text-white placeholder-white/30 outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -144,7 +144,7 @@ export const AdminBriefsTab: React.FC<AdminBriefsTabProps> = ({
                     className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-white/[0.02]"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs font-bold text-[#D0FF00] shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs font-bold text-[#8EFF01] shrink-0">
                         {(brief.name || 'C').charAt(0).toUpperCase()}
                       </div>
                       <div>
@@ -153,7 +153,7 @@ export const AdminBriefsTab: React.FC<AdminBriefsTabProps> = ({
                           <span className="text-xs text-white/50">&lt;{brief.email}&gt;</span>
                         </div>
                         <div className="flex flex-wrap items-center gap-2 mt-1">
-                          <span className="text-[11px] font-semibold text-[#D0FF00] bg-[#D0FF00]/10 px-2 py-0.5 rounded-full">
+                          <span className="text-[11px] font-semibold text-[#8EFF01] bg-[#8EFF01]/10 px-2 py-0.5 rounded-full">
                             {brief.service || 'Service Unspecified'}
                           </span>
                           {brief.budget && (
@@ -229,7 +229,7 @@ export const AdminBriefsTab: React.FC<AdminBriefsTabProps> = ({
                               href={brief.referenceLink}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[#D0FF00] hover:underline flex items-center gap-1 font-medium truncate"
+                              className="text-[#8EFF01] hover:underline flex items-center gap-1 font-medium truncate"
                             >
                               {brief.referenceLink} <ExternalLink className="w-3 h-3" />
                             </a>
@@ -254,7 +254,7 @@ export const AdminBriefsTab: React.FC<AdminBriefsTabProps> = ({
                           placeholder="Add internal notes about this client / project..."
                           value={brief.notes || ''}
                           onChange={(e) => onUpdateBriefField(brief.id, 'notes', e.target.value)}
-                          className="w-full px-3 py-2 rounded-xl bg-black/80 border border-white/10 text-white placeholder-white/25 outline-none focus:border-[#D0FF00]"
+                          className="w-full px-3 py-2 rounded-xl bg-black/80 border border-white/10 text-white placeholder-white/25 outline-none focus:border-[#8EFF01]"
                         />
                       </div>
                     </div>

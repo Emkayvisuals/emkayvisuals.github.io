@@ -23,7 +23,7 @@ export const Testimonials: React.FC = () => {
     <section className="relative py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background glow */}
       <div
-        className="pointer-events-none absolute bottom-0 left-1/3 w-[360px] h-[260px] rounded-full blur-[150px] opacity-10"
+        className="pointer-events-none absolute bottom-0 left-1/3 w-[360px] h-[260px] rounded-full blur-[150px] opacity-[0.085]"
         style={{ background: '#8116E0' }}
       />
 
@@ -36,7 +36,7 @@ export const Testimonials: React.FC = () => {
         className="relative z-10 flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-9 gap-4"
       >
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#D0FF00] text-[11px] font-semibold tracking-wide mb-2">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] font-semibold tracking-wide mb-2">
             <Sparkles className="w-3 h-3" />
             <span>
               {badgeMain}{' '}
@@ -47,7 +47,7 @@ export const Testimonials: React.FC = () => {
               )}
             </span>
           </div>
-          <h2 className="font-montserrat font-medium italic text-xl sm:text-2xl lg:text-3xl text-[#D0FF00] tracking-tight leading-[1.15]">
+          <h2 className="font-montserrat font-medium italic text-xl sm:text-2xl lg:text-3xl text-[#8EFF01] tracking-tight leading-[1.15]">
             {headingMain}{' '}
             <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
               {headingAccent}
@@ -56,7 +56,7 @@ export const Testimonials: React.FC = () => {
         </div>
         {satisfactionText && (
           <div className="flex items-center gap-1.5 text-[11px] text-white/60 font-medium">
-            <div className="flex text-[#D0FF00]">
+            <div className="flex text-[#8EFF01]">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-3 h-3 fill-current" />
               ))}
@@ -85,17 +85,17 @@ export const Testimonials: React.FC = () => {
               scale: 1.01,
               transition: { duration: 0.2, ease: 'easeOut' },
             }}
-            className="group relative rounded-xl sm:rounded-2xl glass-panel border border-white/[0.08] hover:border-[#D0FF00]/40 p-3.5 sm:p-4 md:p-4.5 flex flex-col justify-between cursor-default transition-colors duration-300 bg-[#050505]/80"
+            className="group relative rounded-xl sm:rounded-2xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/40 p-3.5 sm:p-4 md:p-4.5 flex flex-col justify-between cursor-default transition-colors duration-300 bg-[#050505]/80"
           >
             <div>
               {/* Header inside card: Stars & Project Badge */}
               <div className="flex items-center justify-between mb-2 sm:mb-2.5">
-                <div className="flex text-[#D0FF00] gap-0.5">
+                <div className="flex text-[#8EFF01] gap-0.5">
                   {[...Array(t.rating)].map((_, i) => (
                     <Star key={i} className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current group-hover:scale-110 transition-transform" />
                   ))}
                 </div>
-                <span className="text-[9px] sm:text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-[#FEFFFC]/80 group-hover:border-[#D0FF00]/30 transition-colors">
+                <span className="text-[9px] sm:text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-[#FEFFFC]/80 group-hover:border-[#8EFF01]/30 transition-colors">
                   {t.projectType}
                 </span>
               </div>
@@ -114,11 +114,11 @@ export const Testimonials: React.FC = () => {
                 width="28"
                 height="28"
                 loading="lazy"
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-white/20 group-hover:border-[#D0FF00]/50 transition-colors shrink-0"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-white/20 group-hover:border-[#8EFF01]/50 transition-colors shrink-0"
                 referrerPolicy="no-referrer"
               />
               <div className="min-w-0">
-                <h4 className="font-montserrat font-medium italic text-[11px] sm:text-xs text-[#D0FF00] truncate">
+                <h4 className="font-montserrat font-medium italic text-[11px] sm:text-xs text-[#8EFF01] truncate">
                   {t.name}
                 </h4>
                 <p className="text-[10px] sm:text-[11px] text-white/55 font-normal truncate">

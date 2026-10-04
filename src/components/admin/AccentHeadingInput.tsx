@@ -24,7 +24,7 @@ export const AccentHeadingInput: React.FC<AccentHeadingInputProps> = ({
   return (
     <div className="space-y-2 p-4 rounded-xl bg-black/40 border border-white/10">
       <div className="flex items-center justify-between">
-        <label className="text-xs font-semibold text-[#D0FF00] tracking-wide flex items-center gap-1.5">
+        <label className="text-xs font-semibold text-[#8EFF01] tracking-wide flex items-center gap-1.5">
           {label}
         </label>
         <span className="text-[10px] text-white/40">Main + Italic Serif Accent</span>
@@ -40,7 +40,7 @@ export const AccentHeadingInput: React.FC<AccentHeadingInputProps> = ({
             value={mainValue || ''}
             onChange={(e) => onMainChange(e.target.value)}
             placeholder={mainPlaceholder}
-            className="w-full px-3.5 py-2.5 rounded-lg bg-black/70 border border-white/10 focus:border-[#D0FF00] text-xs text-white placeholder-white/20 outline-none"
+            className="w-full px-3.5 py-2.5 rounded-lg bg-black/70 border border-white/10 focus:border-[#8EFF01] text-xs text-white placeholder-white/20 outline-none"
           />
         </div>
 
@@ -53,7 +53,7 @@ export const AccentHeadingInput: React.FC<AccentHeadingInputProps> = ({
             value={accentValue || ''}
             onChange={(e) => onAccentChange(e.target.value)}
             placeholder={accentPlaceholder}
-            className="w-full px-3.5 py-2.5 rounded-lg bg-black/70 border border-[#8116E0]/40 focus:border-[#D0FF00] text-xs text-[#FEFFFC] placeholder-white/20 outline-none font-cormorant italic"
+            className="w-full px-3.5 py-2.5 rounded-lg bg-black/70 border border-[#8116E0]/40 focus:border-[#8EFF01] text-xs text-[#FEFFFC] placeholder-white/20 outline-none font-cormorant italic"
           />
         </div>
       </div>
@@ -64,8 +64,8 @@ export const AccentHeadingInput: React.FC<AccentHeadingInputProps> = ({
         <div
           className={
             isBadge
-              ? 'inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#D0FF00] text-xs font-semibold'
-              : 'font-montserrat font-medium italic text-base sm:text-lg text-[#D0FF00]'
+              ? 'inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-xs font-semibold'
+              : 'font-montserrat font-medium italic text-base sm:text-lg text-[#8EFF01]'
           }
         >
           <span>{mainValue || 'Sample Text'}</span>

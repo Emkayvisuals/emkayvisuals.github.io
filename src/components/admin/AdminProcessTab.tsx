@@ -93,7 +93,7 @@ export const AdminProcessTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <GitCommit className="w-5 h-5" />
             </div>
             <div>
@@ -151,7 +151,7 @@ export const AdminProcessTab: React.FC<AdminTabProps> = ({
               rows={2}
               value={processSection.subtext || ''}
               onChange={(e) => handleSectionChange('subtext', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -163,7 +163,7 @@ export const AdminProcessTab: React.FC<AdminTabProps> = ({
               value={processSection.phasePrefix || 'Phase //'}
               onChange={(e) => handleSectionChange('phasePrefix', e.target.value)}
               placeholder="Phase //"
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
         </div>
@@ -194,7 +194,7 @@ export const AdminProcessTab: React.FC<AdminTabProps> = ({
             >
               <div className="flex items-center justify-between gap-3 mb-3 border-b border-white/10 pb-2.5">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-black text-[#D0FF00] px-2 py-0.5 rounded bg-[#D0FF00]/10 border border-[#D0FF00]/20 font-mono">
+                  <span className="text-xs font-black text-[#8EFF01] px-2 py-0.5 rounded bg-[#8EFF01]/10 border border-[#8EFF01]/20 font-mono">
                     {step.stepNumber}
                   </span>
                   <span className="text-xs font-bold text-white truncate max-w-[200px] sm:max-w-xs">
@@ -208,7 +208,7 @@ export const AdminProcessTab: React.FC<AdminTabProps> = ({
                       type="checkbox"
                       checked={step.visible !== false}
                       onChange={(e) => handleStepChange(index, 'visible', e.target.checked)}
-                      className="rounded accent-[#D0FF00]"
+                      className="rounded accent-[#8EFF01]"
                     />
                     <span>{step.visible !== false ? 'Visible' : 'Hidden'}</span>
                   </label>
@@ -250,7 +250,7 @@ export const AdminProcessTab: React.FC<AdminTabProps> = ({
                     value={step.stepNumber || ''}
                     onChange={(e) => handleStepChange(index, 'stepNumber', e.target.value)}
                     placeholder="01"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-mono outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-mono outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -261,7 +261,7 @@ export const AdminProcessTab: React.FC<AdminTabProps> = ({
                     value={step.duration || ''}
                     onChange={(e) => handleStepChange(index, 'duration', e.target.value)}
                     placeholder="Day 1 - 2"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -272,7 +272,7 @@ export const AdminProcessTab: React.FC<AdminTabProps> = ({
                     value={step.highlightBadge || ''}
                     onChange={(e) => handleStepChange(index, 'highlightBadge', e.target.value)}
                     placeholder="Research & Strategy"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>
@@ -285,7 +285,7 @@ export const AdminProcessTab: React.FC<AdminTabProps> = ({
                     value={step.title || ''}
                     onChange={(e) => handleStepChange(index, 'title', e.target.value)}
                     placeholder="Discovery & Vision Brief"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -296,7 +296,7 @@ export const AdminProcessTab: React.FC<AdminTabProps> = ({
                     value={step.description || ''}
                     onChange={(e) => handleStepChange(index, 'description', e.target.value)}
                     placeholder="Explain what happens in this phase..."
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>

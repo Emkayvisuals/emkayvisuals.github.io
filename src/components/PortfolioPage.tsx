@@ -91,6 +91,46 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
     }
   };
 
+  // Support direct project links e.g. /portfolio?project=sport001
+  useEffect(() => {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const projectIdParam = urlParams.get('project');
+      if (projectIdParam) {
+        const found = (projects || []).find(
+          (p) =>
+            p.id?.toLowerCase() === projectIdParam.toLowerCase() ||
+            p.title?.toLowerCase() === decodeURIComponent(projectIdParam).toLowerCase()
+        );
+        if (found) {
+          setSelectedProject(found);
+          if (found.category && activeCategory !== 'All' && found.category.toLowerCase() !== activeCategory.toLowerCase()) {
+            setActiveCategory(found.category);
+          }
+        }
+      }
+    } catch {
+      // Ignore
+    }
+  }, [projects]);
+
+  const handleCloseLightbox = () => {
+    setSelectedProject(null);
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('project')) {
+        urlParams.delete('project');
+        const remainingQuery = urlParams.toString();
+        const cleanUrl = remainingQuery
+          ? `${window.location.pathname}?${remainingQuery}`
+          : window.location.pathname;
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    } catch {
+      // Ignore
+    }
+  };
+
   // Lightbox navigation
   const handleNext = () => {
     if (!selectedProject) return;
@@ -120,18 +160,18 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
   };
 
   return (
-    <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#D0FF00] selection:text-[#050505] overflow-x-hidden w-full flex flex-col">
+    <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#8EFF01] selection:text-[#050505] overflow-x-hidden w-full flex flex-col">
       <Navbar />
 
       <main className="flex-1 relative pt-28 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         {/* Background Glows */}
         <div
-          className="pointer-events-none absolute top-20 right-10 w-[500px] h-[500px] rounded-full blur-[180px] opacity-15"
+          className="pointer-events-none absolute top-20 right-10 w-[500px] h-[500px] rounded-full blur-[180px] opacity-[0.12]"
           style={{ background: '#8116E0' }}
         />
         <div
-          className="pointer-events-none absolute top-96 left-10 w-[450px] h-[450px] rounded-full blur-[170px] opacity-10"
-          style={{ background: '#D0FF00' }}
+          className="pointer-events-none absolute top-96 left-10 w-[450px] h-[450px] rounded-full blur-[160px] opacity-[0.085]"
+          style={{ background: '#8EFF01' }}
         />
 
         {/* Back to Home Navigation Bar */}
@@ -139,14 +179,14 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
           <button
             type="button"
             onClick={onNavigateHome}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-[#D0FF00] hover:text-[#b8e600] border border-white/10 transition-all font-semibold text-xs tracking-wide min-h-[44px] cursor-pointer shadow-sm group"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-[#8EFF01] hover:text-[#7DE000] border border-white/10 transition-all font-semibold text-xs tracking-wide min-h-[44px] cursor-pointer shadow-sm group"
           >
             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
             <span>Back to Home</span>
           </button>
 
           <div className="flex items-center gap-2 text-xs text-white/50">
-            <FolderKanban className="w-4 h-4 text-[#D0FF00]" />
+            <FolderKanban className="w-4 h-4 text-[#8EFF01]" />
             <span>
               Showing <strong className="text-white">{filteredProjects.length}</strong> of{' '}
               <strong className="text-white">{visibleProjects.length}</strong> Works
@@ -161,7 +201,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
           transition={{ duration: 0.5 }}
           className="relative z-10 mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#D0FF00] text-xs font-semibold tracking-wide mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-xs font-semibold tracking-wide mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>
               {badgeMain}{' '}
@@ -170,7 +210,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
               )}
             </span>
           </div>
-          <h1 className="font-montserrat font-medium italic text-3xl sm:text-5xl lg:text-6xl text-[#D0FF00] tracking-tight leading-[1.12] mb-4">
+          <h1 className="font-montserrat font-medium italic text-3xl sm:text-5xl lg:text-6xl text-[#8EFF01] tracking-tight leading-[1.12] mb-4">
             {headingMain}{' '}
             <span className="font-cormorant italic font-medium text-[1.1em] text-[#FEFFFC]">
               {headingAccent} Archive
@@ -192,7 +232,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
           >
             <div className="flex items-center gap-2 min-w-max">
               <div className="flex items-center gap-1.5 pl-1 pr-2 text-xs font-semibold text-white/50">
-                <Filter className="w-3.5 h-3.5 text-[#D0FF00]" />
+                <Filter className="w-3.5 h-3.5 text-[#8EFF01]" />
                 <span>{filterLabel}</span>
               </div>
 
@@ -213,7 +253,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
                     onClick={() => handleCategorySelect(cat)}
                     className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap min-h-[44px] flex items-center gap-1.5 active:scale-95 ${
                       isActive
-                        ? 'bg-[#D0FF00] text-[#050505] font-bold shadow-[0_0_16px_rgba(208,255,0,0.35)]'
+                        ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-[0_0_16px_rgba(142, 255, 1, 0.26)]'
                         : 'glass-panel text-[#FEFFFC]/70 hover:text-[#FEFFFC] hover:border-white/20'
                     }`}
                   >
@@ -241,7 +281,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
             <button
               type="button"
               onClick={() => handleCategorySelect('All')}
-              className="mt-4 px-4 py-2 rounded-full bg-[#D0FF00] text-black font-bold text-xs cursor-pointer"
+              className="mt-4 px-4 py-2 rounded-full bg-[#8EFF01] text-black font-bold text-xs cursor-pointer"
             >
               Show All Projects
             </button>
@@ -275,10 +315,10 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
                       transition: { duration: 0.2, ease: 'easeOut' },
                     }}
                     onClick={() => setSelectedProject(project)}
-                    className="group relative rounded-3xl glass-panel border border-white/[0.08] hover:border-[#D0FF00]/50 overflow-hidden cursor-pointer flex flex-col bg-[#050505]"
+                    className="group relative rounded-3xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/50 overflow-hidden cursor-pointer flex flex-col bg-[#050505]"
                   >
                     {/* Top glow bar on hover */}
-                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#D0FF00]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#8EFF01]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
 
                     {/* Media Container with Zoom */}
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#121212]">
@@ -309,7 +349,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
                           {project.category}
                         </span>
                         {isMotion && (
-                          <span className="text-[11px] font-bold px-2 py-1 rounded-full bg-[#D0FF00] text-[#050505] flex items-center gap-1 shadow-sm">
+                          <span className="text-[11px] font-bold px-2 py-1 rounded-full bg-[#8EFF01] text-[#050505] flex items-center gap-1 shadow-sm">
                             <Play className="w-2.5 h-2.5 fill-current" />
                             Motion Reel
                           </span>
@@ -327,7 +367,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
 
                       {/* Hover Center Indicator */}
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                        <div className="w-12 h-12 rounded-full bg-[#D0FF00] text-[#050505] flex items-center justify-center shadow-[0_0_25px_rgba(208,255,0,0.6)] transform group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-full bg-[#8EFF01] text-[#050505] flex items-center justify-center shadow-[0_0_25px_rgba(142, 255, 1, 0.4)] transform group-hover:scale-110 transition-transform duration-300">
                           {isMotion ? (
                             <Play className="w-5 h-5 fill-current ml-0.5" />
                           ) : (
@@ -340,7 +380,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
                     {/* Card Meta Content */}
                     <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 bg-[#050505]">
                       <div>
-                        <h3 className="font-montserrat font-medium italic text-lg sm:text-xl text-[#D0FF00] tracking-tight line-clamp-1 mb-1">
+                        <h3 className="font-montserrat font-medium italic text-lg sm:text-xl text-[#8EFF01] tracking-tight line-clamp-1 mb-1">
                           {project.title}
                         </h3>
                         {project.description && project.description.trim() && (
@@ -361,7 +401,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
                             <span>{project.category}</span>
                           )}
                         </div>
-                        <span className="text-xs text-[#D0FF00] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-bold">
+                        <span className="text-xs text-[#8EFF01] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-bold">
                           {viewProjectText} <ArrowRight className="w-3 h-3" />
                         </span>
                       </div>
@@ -377,7 +417,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
       {/* Lightbox Modal */}
       <ProjectLightbox
         project={selectedProject}
-        onClose={() => setSelectedProject(null)}
+        onClose={handleCloseLightbox}
         onNext={handleNext}
         onPrev={handlePrev}
         onInquire={handleInquireFromLightbox}

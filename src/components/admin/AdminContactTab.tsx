@@ -310,13 +310,13 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
       <div className="p-4 sm:p-6 rounded-2xl bg-[#0d0d0d] border border-white/10 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <Share2 className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-base font-bold text-white flex items-center gap-2">
                 Contact &amp; Social Links Manager
-                <span className="text-[11px] font-normal px-2 py-0.5 rounded-full bg-white/10 text-[#D0FF00]">
+                <span className="text-[11px] font-normal px-2 py-0.5 rounded-full bg-white/10 text-[#8EFF01]">
                   {linksList.length} Links
                 </span>
               </h2>
@@ -331,7 +331,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
               type="button"
               id="admin-add-social-link-btn"
               onClick={handleStartAddNew}
-              className="px-3.5 py-2 rounded-xl bg-[#D0FF00] hover:bg-[#b8e600] text-black text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-[0_0_12px_rgba(208,255,0,0.25)]"
+              className="px-3.5 py-2 rounded-xl bg-[#8EFF01] hover:bg-[#7DE000] text-black text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-[0_0_12px_rgba(142, 255, 1, 0.19)]"
             >
               <Plus className="w-4 h-4" /> Add Link
             </button>
@@ -345,11 +345,11 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
 
         {/* Informational Guidance */}
         <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 flex items-start gap-3 text-xs text-white/70">
-          <Info className="w-4 h-4 text-[#D0FF00] shrink-0 mt-0.5" />
+          <Info className="w-4 h-4 text-[#8EFF01] shrink-0 mt-0.5" />
           <div>
             <p className="font-semibold text-white mb-0.5">Automated Link &amp; Icon Resolution</p>
             <p className="text-[11px] text-white/50 leading-relaxed">
-              Enter phone numbers (e.g. <span className="text-[#D0FF00]">09161889909</span>), social handles (e.g. <span className="text-[#D0FF00]">@emkayvisuals</span>), or full URLs. The platform automatically assigns the correct icon, formats the URL (e.g. <span className="text-white/70 font-mono">https://wa.me/...</span>), enforces <span className="text-white/80">https://, mailto:, and wa.me</span> security protocols, and syncs everywhere.
+              Enter phone numbers (e.g. <span className="text-[#8EFF01]">09161889909</span>), social handles (e.g. <span className="text-[#8EFF01]">@emkayvisuals</span>), or full URLs. The platform automatically assigns the correct icon, formats the URL (e.g. <span className="text-white/70 font-mono">https://wa.me/...</span>), enforces <span className="text-white/80">https://, mailto:, and wa.me</span> security protocols, and syncs everywhere.
             </p>
           </div>
         </div>
@@ -358,7 +358,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
         {(isAddingNew || editingIndex !== null) && (
           <form
             onSubmit={handleSaveForm}
-            className="p-4 sm:p-5 rounded-xl bg-black/80 border-2 border-[#D0FF00]/40 space-y-4 shadow-[0_0_25px_rgba(0,0,0,0.8)]"
+            className="p-4 sm:p-5 rounded-xl bg-black/80 border-2 border-[#8EFF01]/40 space-y-4 shadow-[0_0_25px_rgba(0,0,0,0.8)]"
           >
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <div className="flex items-center gap-2.5">
@@ -385,7 +385,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 <select
                   value={formData.platform}
                   onChange={(e) => handlePlatformChange(e.target.value as SocialPlatform)}
-                  className="w-full px-3 py-2 rounded-lg bg-[#141414] border border-white/15 text-xs text-white outline-none focus:border-[#D0FF00] font-medium cursor-pointer"
+                  className="w-full px-3 py-2 rounded-lg bg-[#141414] border border-white/15 text-xs text-white outline-none focus:border-[#8EFF01] font-medium cursor-pointer"
                 >
                   {PLATFORMS_LIST.map((plat) => (
                     <option key={plat} value={plat}>
@@ -406,7 +406,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                   value={formData.label}
                   onChange={(e) => setFormData({ ...formData, label: e.target.value })}
                   placeholder="e.g. WhatsApp Direct, Instagram (Main)"
-                  className="w-full px-3 py-2 rounded-lg bg-[#141414] border border-white/15 text-xs text-white outline-none focus:border-[#D0FF00] font-bold"
+                  className="w-full px-3 py-2 rounded-lg bg-[#141414] border border-white/15 text-xs text-white outline-none focus:border-[#8EFF01] font-bold"
                 />
               </div>
 
@@ -420,7 +420,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                   value={formData.description || ''}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="e.g. Graphic and motion designs"
-                  className="w-full px-3 py-2 rounded-lg bg-[#141414] border border-white/15 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="w-full px-3 py-2 rounded-lg bg-[#141414] border border-white/15 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
               </div>
 
@@ -435,7 +435,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                   value={formData.value}
                   onChange={(e) => setFormData({ ...formData, value: e.target.value })}
                   placeholder={activePlatformMeta.placeholder}
-                  className="w-full px-3 py-2 rounded-lg bg-[#141414] border border-white/15 text-xs text-[#D0FF00] font-mono outline-none focus:border-[#D0FF00]"
+                  className="w-full px-3 py-2 rounded-lg bg-[#141414] border border-white/15 text-xs text-[#8EFF01] font-mono outline-none focus:border-[#8EFF01]"
                 />
               </div>
 
@@ -446,7 +446,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                     type="checkbox"
                     checked={formData.visible !== false}
                     onChange={(e) => setFormData({ ...formData, visible: e.target.checked })}
-                    className="w-4 h-4 rounded text-[#D0FF00] accent-[#D0FF00] cursor-pointer"
+                    className="w-4 h-4 rounded text-[#8EFF01] accent-[#8EFF01] cursor-pointer"
                   />
                   <span className="text-xs text-white/80 font-medium">Visible on public site</span>
                 </label>
@@ -480,7 +480,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                       href={activeValidation.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#D0FF00] font-mono hover:underline truncate flex items-center gap-1"
+                      className="text-[#8EFF01] font-mono hover:underline truncate flex items-center gap-1"
                     >
                       {activeValidation.url}
                       <ExternalLink className="w-3 h-3 shrink-0 opacity-70" />
@@ -510,7 +510,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-4 py-1.5 rounded-lg bg-[#D0FF00] hover:bg-[#b8e600] text-black text-xs font-bold cursor-pointer transition-colors shadow-sm"
+                className="px-4 py-1.5 rounded-lg bg-[#8EFF01] hover:bg-[#7DE000] text-black text-xs font-bold cursor-pointer transition-colors shadow-sm"
               >
                 {isAddingNew ? 'Add Link' : 'Apply Changes'}
               </button>
@@ -532,7 +532,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 key={item.id || index}
                 className={`p-3.5 rounded-xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                   isItemEditing
-                    ? 'bg-black/80 border-[#D0FF00]/60 ring-1 ring-[#D0FF00]/40'
+                    ? 'bg-black/80 border-[#8EFF01]/60 ring-1 ring-[#8EFF01]/40'
                     : isVisible
                     ? 'bg-black/50 border-white/10 hover:border-white/20'
                     : 'bg-black/30 border-white/5 opacity-60'
@@ -573,7 +573,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                         {item.value}
                       </span>
                       {validation.isValid && (
-                        <span className="text-[#D0FF00]/80 font-mono text-[10px] hidden md:inline">
+                        <span className="text-[#8EFF01]/80 font-mono text-[10px] hidden md:inline">
                           → {validation.url}
                         </span>
                       )}
@@ -708,7 +708,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
               rows={2}
               value={contact.subtext || ''}
               onChange={(e) => handleContactChange('subtext', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -720,7 +720,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.directChannelsHeading || 'Direct Channels'}
                 onChange={(e) => handleContactChange('directChannelsHeading', e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -729,7 +729,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.responseTime || 'Typical response time: under 4 hours'}
                 onChange={(e) => handleContactChange('responseTime', e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
           </div>
@@ -740,7 +740,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
       <div className="p-4 sm:p-6 rounded-2xl bg-[#0d0d0d] border border-white/10 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#D0FF00]/10 border border-[#D0FF00]/20 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-8 h-8 rounded-lg bg-[#8EFF01]/10 border border-[#8EFF01]/20 flex items-center justify-center text-[#8EFF01]">
               <DollarSign className="w-4 h-4" />
             </div>
             <div>
@@ -756,7 +756,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
           <button
             type="button"
             onClick={handleAddBudgetTier}
-            className="px-3 py-1.5 rounded-lg bg-[#D0FF00] hover:bg-[#b8e600] text-black text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-center"
+            className="px-3 py-1.5 rounded-lg bg-[#8EFF01] hover:bg-[#7DE000] text-black text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-center"
           >
             <Plus className="w-3.5 h-3.5" /> Add Tier
           </button>
@@ -771,7 +771,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
             type="text"
             value={contact.budgetLabel || 'Estimated Budget Tier (USD)'}
             onChange={(e) => handleContactChange('budgetLabel', e.target.value)}
-            className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+            className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
           />
         </div>
 
@@ -788,7 +788,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={tier}
                 onChange={(e) => handleUpdateBudgetTier(index, e.target.value)}
-                className="flex-1 px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-[#D0FF00] font-bold outline-none focus:border-[#D0FF00]"
+                className="flex-1 px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-[#8EFF01] font-bold outline-none focus:border-[#8EFF01]"
               />
 
               <div className="flex items-center gap-1">
@@ -843,7 +843,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.formTitle || ''}
                 onChange={(e) => handleContactChange('formTitle', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white font-bold outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white font-bold outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -852,7 +852,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.formStepBadge || ''}
                 onChange={(e) => handleContactChange('formStepBadge', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
           </div>
@@ -864,7 +864,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.nameLabel || ''}
                 onChange={(e) => handleContactChange('nameLabel', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -873,7 +873,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.namePlaceholder || ''}
                 onChange={(e) => handleContactChange('namePlaceholder', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
 
@@ -883,7 +883,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.emailLabel || ''}
                 onChange={(e) => handleContactChange('emailLabel', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -892,7 +892,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.emailPlaceholder || ''}
                 onChange={(e) => handleContactChange('emailPlaceholder', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
           </div>
@@ -928,7 +928,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                     const current = contact.servicesOptions || DEFAULT_PORTFOLIO_CONTENT.contact.servicesOptions;
                     handleContactChange('servicesOptions', [...current, 'New Service Discipline']);
                   }}
-                  className="px-2.5 py-1 rounded-lg bg-[#D0FF00] hover:bg-[#b8e600] text-black text-[11px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg bg-[#8EFF01] hover:bg-[#7DE000] text-black text-[11px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" /> Add Option
                 </button>
@@ -941,7 +941,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.serviceLabel || 'Service Required'}
                 onChange={(e) => handleContactChange('serviceLabel', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
 
@@ -974,7 +974,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                             updated[idx] = e.target.value;
                             handleContactChange('servicesOptions', updated);
                           }}
-                          className="flex-1 min-w-0 px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-medium outline-none focus:border-[#D0FF00]"
+                          className="flex-1 min-w-0 px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-medium outline-none focus:border-[#8EFF01]"
                           placeholder="e.g. Posters & Art Prints"
                         />
                       </div>
@@ -1038,7 +1038,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.deadlineLabel || ''}
                 onChange={(e) => handleContactChange('deadlineLabel', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -1047,7 +1047,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.deadlinePlaceholder || ''}
                 onChange={(e) => handleContactChange('deadlinePlaceholder', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
 
@@ -1057,7 +1057,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.referenceLinkLabel || ''}
                 onChange={(e) => handleContactChange('referenceLinkLabel', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -1066,7 +1066,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={contact.referenceLinkPlaceholder || ''}
                 onChange={(e) => handleContactChange('referenceLinkPlaceholder', e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
           </div>
@@ -1077,14 +1077,14 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
               type="text"
               value={contact.messageLabel || ''}
               onChange={(e) => handleContactChange('messageLabel', e.target.value)}
-              className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00] mb-2"
+              className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01] mb-2"
             />
             <label className="text-[10px] text-white/50 block mb-1">Message Field Placeholder</label>
             <textarea
               rows={2}
               value={contact.messagePlaceholder || ''}
               onChange={(e) => handleContactChange('messagePlaceholder', e.target.value)}
-              className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -1093,7 +1093,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
             <div className="p-4 rounded-xl bg-black/60 border border-white/10 space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-xs font-semibold text-[#D0FF00] flex items-center gap-1.5">
+                  <h4 className="text-xs font-semibold text-[#8EFF01] flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5" /> Brief Sent Confirmation Card
                   </h4>
                   <p className="text-[11px] text-white/50 mt-0.5">
@@ -1131,7 +1131,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                       handleContactChange('successTitle', e.target.value);
                     }}
                     placeholder="We Got The Brief!"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-[#D0FF00] font-bold outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-[#8EFF01] font-bold outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -1152,7 +1152,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                       handleContactChange('successMessage', e.target.value);
                     }}
                     placeholder="Thanks for trusting me with your project. I'll review the details and get back to you within 24/48 hours."
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -1165,7 +1165,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                     value={contact.confirmationClosing !== undefined ? contact.confirmationClosing : "Ideas received. Let's create."}
                     onChange={(e) => handleContactChange('confirmationClosing', e.target.value)}
                     placeholder="Ideas received. Let's create."
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white italic font-serif outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white italic font-serif outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -1175,7 +1175,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                     type="text"
                     value={contact.submitButtonText || ''}
                     onChange={(e) => handleContactChange('submitButtonText', e.target.value)}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-[#D0FF00] font-bold outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-[#8EFF01] font-bold outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -1185,7 +1185,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                     type="text"
                     value={contact.sendAnotherButtonText || 'Send Another Brief'}
                     onChange={(e) => handleContactChange('sendAnotherButtonText', e.target.value)}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>
@@ -1195,13 +1195,13 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 <span className="text-[10px] uppercase tracking-wider text-white/40 block mb-2 font-mono">
                   Live Card Preview
                 </span>
-                <div className="p-6 rounded-[22px] bg-[#0A0A0A] border border-white/15 shadow-[0_0_30px_rgba(129,22,224,0.2)] text-center flex flex-col items-center max-w-[420px] mx-auto relative overflow-hidden">
-                  <div className="w-12 h-12 rounded-full border-2 border-[#D0FF00] flex items-center justify-center text-[#D0FF00] mb-3 shadow-[0_0_15px_rgba(208,255,0,0.3)]">
+                <div className="p-6 rounded-[22px] bg-[#0B0B0B] border border-white/15 shadow-[0_0_30px_rgba(129,22,224,0.2)] text-center flex flex-col items-center max-w-[420px] mx-auto relative overflow-hidden">
+                  <div className="w-12 h-12 rounded-full border-2 border-[#8EFF01] flex items-center justify-center text-[#8EFF01] mb-3 shadow-[0_0_15px_rgba(142, 255, 1, 0.22)]">
                     <svg viewBox="0 0 96 96" className="w-8 h-8" fill="none">
-                      <path d="M28 48 L42 62 L68 36" stroke="#D0FF00" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M28 48 L42 62 L68 36" stroke="#8EFF01" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
-                  <h4 className="font-montserrat font-bold text-lg text-[#D0FF00] mb-2">
+                  <h4 className="font-montserrat font-bold text-lg text-[#8EFF01] mb-2">
                     {contact.confirmationTitle || contact.successTitle || 'We Got The Brief!'}
                   </h4>
                   <p className="font-montserrat font-normal text-xs text-[#FEFFFC]/75 leading-relaxed">
@@ -1209,7 +1209,7 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                       contact.successMessage ||
                       "Thanks for trusting me with your project. I'll review the details and get back to you within 24/48 hours."}
                   </p>
-                  <div className="w-8 h-[2px] bg-[#D0FF00] rounded-full my-3" />
+                  <div className="w-8 h-[2px] bg-[#8EFF01] rounded-full my-3" />
                   <p className="font-cormorant italic text-sm text-[#FEFFFC]">
                     "{((contact.confirmationClosing || "Ideas received. Let's create.") as string).replace(/^["']|["']$/g, '')}"
                   </p>

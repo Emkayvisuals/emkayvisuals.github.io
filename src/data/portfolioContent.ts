@@ -541,6 +541,7 @@ export const DEFAULT_PORTFOLIO_CONTENT = {
     clientLabel: 'Client:',
     viewProjectText: 'View Project',
     viewMoreButtonText: 'View More Projects',
+    manipulationGalleryButtonText: 'View My Photo Manipulation Gallery',
     videoEmbedBadge: 'Motion Reel',
     toolsLabel: 'Software & Tools Used',
     inquireProjectButtonText: 'Inquire Similar Project',

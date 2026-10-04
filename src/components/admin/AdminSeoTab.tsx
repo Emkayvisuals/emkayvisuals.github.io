@@ -33,7 +33,7 @@ export const AdminSeoTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <Globe className="w-5 h-5" />
             </div>
             <div>
@@ -56,7 +56,7 @@ export const AdminSeoTab: React.FC<AdminTabProps> = ({
           <div>
             <div className="flex justify-between items-center mb-1">
               <label className="text-xs font-semibold text-white/80">
-                Meta Title (<span className="text-[#D0FF00]">og:title</span> &amp; <span className="text-[#D0FF00]">&lt;title&gt;</span>)
+                Meta Title (<span className="text-[#8EFF01]">og:title</span> &amp; <span className="text-[#8EFF01]">&lt;title&gt;</span>)
               </label>
               <span className="text-[11px] text-white/40">
                 {seo.metaTitle?.length || 0} / 70 recommended
@@ -67,7 +67,7 @@ export const AdminSeoTab: React.FC<AdminTabProps> = ({
               value={seo.metaTitle || ''}
               onChange={(e) => handleFieldChange('metaTitle', e.target.value)}
               placeholder="e.g. Emkay Visuals – Graphic Designer & Motion Graphics Artist"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 focus:border-[#D0FF00] text-xs text-white placeholder-white/25 outline-none"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 focus:border-[#8EFF01] text-xs text-white placeholder-white/25 outline-none"
             />
           </div>
 
@@ -75,7 +75,7 @@ export const AdminSeoTab: React.FC<AdminTabProps> = ({
           <div>
             <div className="flex justify-between items-center mb-1">
               <label className="text-xs font-semibold text-white/80">
-                Meta Description (<span className="text-[#D0FF00]">og:description</span> &amp; <span className="text-[#D0FF00]">&lt;meta name="description"&gt;</span>)
+                Meta Description (<span className="text-[#8EFF01]">og:description</span> &amp; <span className="text-[#8EFF01]">&lt;meta name="description"&gt;</span>)
               </label>
               <span className="text-[11px] text-white/40">
                 {seo.metaDescription?.length || 0} / 160 recommended
@@ -86,7 +86,7 @@ export const AdminSeoTab: React.FC<AdminTabProps> = ({
               value={seo.metaDescription || ''}
               onChange={(e) => handleFieldChange('metaDescription', e.target.value)}
               placeholder="e.g. High-end, futuristic portfolio for Emkay Visuals – Graphic Designer & Motion Graphics Artist with 5+ years of experience in Posters, Visual Branding, Movie Art, Thumbnails & Motion Graphics."
-              className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 focus:border-[#D0FF00] text-xs text-white placeholder-white/25 outline-none leading-relaxed"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 focus:border-[#8EFF01] text-xs text-white placeholder-white/25 outline-none leading-relaxed"
             />
           </div>
 

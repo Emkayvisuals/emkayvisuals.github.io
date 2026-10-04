@@ -45,6 +45,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
     clientLabel: 'Client:',
     viewProjectText: 'View Project',
     viewMoreButtonText: 'View More Projects',
+    manipulationGalleryButtonText: 'View My Photo Manipulation Gallery',
     videoEmbedBadge: 'Motion Reel',
     toolsLabel: 'Software & Tools Used',
     inquireProjectButtonText: 'Inquire Similar Project',
@@ -248,7 +249,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <Layout className="w-5 h-5" />
             </div>
             <div>
@@ -306,19 +307,19 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
               rows={2}
               value={projectsSection.subtext || ''}
               onChange={(e) => handleSectionChange('subtext', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
           {/* Microcopy, Button Labels & "View More" Text */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <div>
               <label className="text-[11px] text-white/60 block mb-1">Filter Label</label>
               <input
                 type="text"
                 value={projectsSection.filterLabel || 'Filter:'}
                 onChange={(e) => handleSectionChange('filterLabel', e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -327,11 +328,11 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={projectsSection.viewProjectText || 'View Project'}
                 onChange={(e) => handleSectionChange('viewProjectText', e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
-              <label className="text-[11px] text-[#D0FF00] font-bold block mb-1">
+              <label className="text-[11px] text-[#8EFF01] font-bold block mb-1">
                 View More Button Text (Homepage)
               </label>
               <input
@@ -339,7 +340,19 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                 value={projectsSection.viewMoreButtonText || 'View More Projects'}
                 onChange={(e) => handleSectionChange('viewMoreButtonText', e.target.value)}
                 placeholder="View More Projects"
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-[#D0FF00]/40 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-[#8EFF01]/40 text-xs text-white outline-none focus:border-[#8EFF01]"
+              />
+            </div>
+            <div>
+              <label className="text-[11px] text-white/70 font-semibold block mb-1">
+                Manipulation Gallery Button (Homepage)
+              </label>
+              <input
+                type="text"
+                value={projectsSection.manipulationGalleryButtonText || 'View My Photo Manipulation Gallery'}
+                onChange={(e) => handleSectionChange('manipulationGalleryButtonText', e.target.value)}
+                placeholder="View My Photo Manipulation Gallery"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
           </div>
@@ -360,7 +373,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
           <button
             type="button"
             onClick={handleAddCategory}
-            className="px-3.5 py-1.5 rounded-lg bg-[#D0FF00] hover:bg-[#b8e600] text-black text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-auto"
+            className="px-3.5 py-1.5 rounded-lg bg-[#8EFF01] hover:bg-[#7DE000] text-black text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-auto"
           >
             <Plus className="w-3.5 h-3.5" /> Add Category
           </button>
@@ -380,7 +393,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                 key={cat}
                 className={`px-3 py-1.5 rounded-lg border text-xs flex items-center gap-2 transition-all ${
                   selectedCategoryFilter === cat
-                    ? 'bg-[#D0FF00] text-black font-bold border-[#D0FF00]'
+                    ? 'bg-[#8EFF01] text-black font-bold border-[#8EFF01]'
                     : 'bg-black/60 border-white/10 text-white/80'
                 }`}
               >
@@ -445,12 +458,12 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
               placeholder="Search title, client, category..."
-              className="px-3 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="px-3 py-1.5 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
             <button
               type="button"
               onClick={addProject}
-              className="px-3.5 py-1.5 rounded-lg bg-[#D0FF00] hover:bg-[#b8e600] text-black text-xs font-bold flex items-center gap-1.5 shadow-md cursor-pointer whitespace-nowrap"
+              className="px-3.5 py-1.5 rounded-lg bg-[#8EFF01] hover:bg-[#7DE000] text-black text-xs font-bold flex items-center gap-1.5 shadow-md cursor-pointer whitespace-nowrap"
             >
               <Plus className="w-3.5 h-3.5" /> Add Project
             </button>
@@ -486,7 +499,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                           referrerPolicy="no-referrer"
                         />
                       ) : isMotion && project.videoUrl ? (
-                        <div className="w-full h-full bg-[#111] flex items-center justify-center text-[#D0FF00]">
+                        <div className="w-full h-full bg-[#111] flex items-center justify-center text-[#8EFF01]">
                           <Video className="w-5 h-5" />
                         </div>
                       ) : (
@@ -501,12 +514,12 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                           {project.title}
                         </span>
                         {project.featured && (
-                          <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#8116E0]/30 text-[#D0FF00] border border-[#8116E0]/50">
+                          <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#8116E0]/30 text-[#8EFF01] border border-[#8116E0]/50">
                             Featured
                           </span>
                         )}
                         {isMotion && (
-                          <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#D0FF00]/20 text-[#D0FF00] border border-[#D0FF00]/40 flex items-center gap-1">
+                          <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#8EFF01]/20 text-[#8EFF01] border border-[#8EFF01]/40 flex items-center gap-1">
                             <Film className="w-2.5 h-2.5" /> Motion
                           </span>
                         )}
@@ -526,7 +539,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                         onChange={(e) =>
                           handleProjectChange(rawIndex, 'visible', e.target.checked)
                         }
-                        className="rounded accent-[#D0FF00]"
+                        className="rounded accent-[#8EFF01]"
                       />
                       <span>{project.visible !== false ? 'Visible' : 'Hidden'}</span>
                     </label>
@@ -538,7 +551,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                         onChange={(e) =>
                           handleProjectChange(rawIndex, 'featured', e.target.checked)
                         }
-                        className="rounded accent-[#D0FF00]"
+                        className="rounded accent-[#8EFF01]"
                       />
                       <span>Featured</span>
                     </label>
@@ -580,7 +593,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                       type="text"
                       value={project.title}
                       onChange={(e) => handleProjectChange(rawIndex, 'title', e.target.value)}
-                      className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                      className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                     />
                   </div>
 
@@ -591,7 +604,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                       onChange={(e) =>
                         handleProjectChange(rawIndex, 'category', e.target.value)
                       }
-                      className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                      className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                     >
                       {categories
                         .filter((c: string) => c !== 'All')
@@ -612,7 +625,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                       value={project.year || ''}
                       onChange={(e) => handleProjectChange(rawIndex, 'year', e.target.value)}
                       placeholder="2025"
-                      className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                      className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                     />
                   </div>
 
@@ -623,7 +636,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                       onChange={(e) =>
                         handleProjectChange(rawIndex, 'aspectRatio', e.target.value as any)
                       }
-                      className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                      className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                     >
                       <option value="portrait">Portrait (3:4 / 4:5)</option>
                       <option value="landscape">Landscape (16:9)</option>
@@ -642,7 +655,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                     value={project.description || ''}
                     onChange={(e) => handleProjectChange(rawIndex, 'description', e.target.value)}
                     placeholder="Short summary of the project, concept, and aesthetic themes..."
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -650,7 +663,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                 {isMotion && (
                   <div className="mb-4 p-3.5 rounded-xl bg-[#8116E0]/10 border border-[#8116E0]/30 space-y-2">
                     <div className="flex items-center gap-2">
-                      <Film className="w-4 h-4 text-[#D0FF00]" />
+                      <Film className="w-4 h-4 text-[#8EFF01]" />
                       <label className="text-xs font-bold text-white">
                         Motion Graphics Video Link (YouTube, Vimeo, or MP4)
                       </label>
@@ -660,7 +673,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                       value={project.videoUrl || ''}
                       onChange={(e) => handleProjectChange(rawIndex, 'videoUrl', e.target.value)}
                       placeholder="https://www.youtube.com/watch?v=... or https://vimeo.com/... or .mp4 URL"
-                      className="w-full px-3 py-2 rounded-lg bg-black/90 border border-white/20 text-xs text-white outline-none focus:border-[#D0FF00]"
+                      className="w-full px-3 py-2 rounded-lg bg-black/90 border border-white/20 text-xs text-white outline-none focus:border-[#8EFF01]"
                     />
                     <p className="text-[11px] text-white/60">
                       💡 <strong>Smart Feature:</strong> Motion projects show a play icon on the card and open in an embedded video lightbox. If no custom thumbnail image is uploaded below, YouTube video thumbnails are fetched automatically.
@@ -712,7 +725,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                   <div className="flex items-center justify-between">
                     <div>
                       <label className="text-xs font-bold text-white flex items-center gap-1.5">
-                        <ImageIcon className="w-3.5 h-3.5 text-[#D0FF00]" />
+                        <ImageIcon className="w-3.5 h-3.5 text-[#8EFF01]" />
                         Extra Gallery Images ({extraImages.length})
                       </label>
                       <p className="text-[10px] text-white/50">
@@ -818,7 +831,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
                       )
                     }
                     placeholder="e.g. Photoshop, Illustrator, Cinema 4D, After Effects"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>

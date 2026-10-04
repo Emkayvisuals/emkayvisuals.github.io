@@ -136,7 +136,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <Layout className="w-5 h-5" />
             </div>
             <div>
@@ -168,7 +168,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={preloader.logoAbbr || 'EV'}
               onChange={(e) => handlePreloaderChange('logoAbbr', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -178,7 +178,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={preloader.brandMain || 'EMKAY'}
               onChange={(e) => handlePreloaderChange('brandMain', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -188,7 +188,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={preloader.divider || '//'}
               onChange={(e) => handlePreloaderChange('divider', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -198,7 +198,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={preloader.brandAccent || 'VISUALS'}
               onChange={(e) => handlePreloaderChange('brandAccent', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
         </div>
@@ -210,7 +210,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
             value={preloader.tagline || ''}
             onChange={(e) => handlePreloaderChange('tagline', e.target.value)}
             placeholder="PORTFOLIO 2026"
-            className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+            className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
           />
         </div>
 
@@ -307,7 +307,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={brand.name || ''}
               onChange={(e) => handleBrandChange('name', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -317,7 +317,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={brand.roleTitle || ''}
               onChange={(e) => handleBrandChange('roleTitle', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
         </div>
@@ -329,7 +329,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="number"
               value={brand.experienceYears || 5}
               onChange={(e) => handleBrandChange('experienceYears', Number(e.target.value) || 0)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -339,7 +339,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={brand.statusBadge || ''}
               onChange={(e) => handleBrandChange('statusBadge', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -349,7 +349,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={brand.location || ''}
               onChange={(e) => handleBrandChange('location', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
         </div>
@@ -375,7 +375,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={navbar.logoAbbr || 'EV'}
               onChange={(e) => handleNavbarChange('logoAbbr', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -385,7 +385,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={navbar.brandName || 'Emkay'}
               onChange={(e) => handleNavbarChange('brandName', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -395,7 +395,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={navbar.brandDivider || '//'}
               onChange={(e) => handleNavbarChange('brandDivider', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -405,7 +405,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={navbar.brandAccent || 'Visuals'}
               onChange={(e) => handleNavbarChange('brandAccent', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
         </div>
@@ -417,7 +417,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={navbar.ctaText || 'Hire Me'}
               onChange={(e) => handleNavbarChange('ctaText', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -427,7 +427,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
               type="text"
               value={navbar.ctaLink || '#contact'}
               onChange={(e) => handleNavbarChange('ctaLink', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
         </div>
@@ -458,14 +458,14 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
                   value={link.label}
                   onChange={(e) => handleNavLinkChange(idx, 'label', e.target.value)}
                   placeholder="Link Label"
-                  className="px-2.5 py-1 rounded bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="px-2.5 py-1 rounded bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
                 <input
                   type="text"
                   value={link.href}
                   onChange={(e) => handleNavLinkChange(idx, 'href', e.target.value)}
                   placeholder="#section"
-                  className="flex-1 px-2.5 py-1 rounded bg-black/80 border border-white/10 text-xs text-white/80 font-mono outline-none focus:border-[#D0FF00]"
+                  className="flex-1 px-2.5 py-1 rounded bg-black/80 border border-white/10 text-xs text-white/80 font-mono outline-none focus:border-[#8EFF01]"
                 />
 
                 <label className="flex items-center gap-1 text-[11px] text-white/60 cursor-pointer">
@@ -473,7 +473,7 @@ export const AdminPreloaderNavTab: React.FC<AdminTabProps> = ({
                     type="checkbox"
                     checked={link.visible !== false}
                     onChange={(e) => handleNavLinkChange(idx, 'visible', e.target.checked)}
-                    className="rounded accent-[#D0FF00]"
+                    className="rounded accent-[#8EFF01]"
                   />
                   <span>Show</span>
                 </label>

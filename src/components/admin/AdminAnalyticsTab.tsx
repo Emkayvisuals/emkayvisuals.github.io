@@ -17,7 +17,7 @@ export const AdminAnalyticsTab: React.FC<AdminAnalyticsTabProps> = ({ analyticsD
     <div className="space-y-6">
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+          <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
             <BarChart2 className="w-5 h-5" />
           </div>
           <div>
@@ -32,7 +32,7 @@ export const AdminAnalyticsTab: React.FC<AdminAnalyticsTabProps> = ({ analyticsD
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <div className="p-4 rounded-xl bg-black/40 border border-white/10">
             <span className="text-xs text-white/50 flex items-center gap-1.5 mb-1">
-              <Eye className="w-3.5 h-3.5 text-[#D0FF00]" /> Total Page Views
+              <Eye className="w-3.5 h-3.5 text-[#8EFF01]" /> Total Page Views
             </span>
             <div className="text-2xl font-black text-white font-mono">{totalVisits}</div>
           </div>
@@ -63,7 +63,7 @@ export const AdminAnalyticsTab: React.FC<AdminAnalyticsTabProps> = ({ analyticsD
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="p-4 rounded-xl bg-black/40 border border-white/10">
             <h3 className="text-xs font-bold text-white mb-3 flex items-center gap-2">
-              <Globe className="w-4 h-4 text-[#D0FF00]" /> Top Traffic Sources
+              <Globe className="w-4 h-4 text-[#8EFF01]" /> Top Traffic Sources
             </h3>
             {Object.keys(referrerMap).length === 0 ? (
               <p className="text-xs text-white/40 italic">No external referrers logged yet.</p>
@@ -77,7 +77,7 @@ export const AdminAnalyticsTab: React.FC<AdminAnalyticsTabProps> = ({ analyticsD
                     <span className="text-white/80 truncate max-w-[200px]">
                       {ref === 'direct' ? 'Direct / Bookmarks' : ref}
                     </span>
-                    <span className="font-mono text-[#D0FF00] font-bold">{String(count)}</span>
+                    <span className="font-mono text-[#8EFF01] font-bold">{String(count)}</span>
                   </div>
                 ))}
               </div>

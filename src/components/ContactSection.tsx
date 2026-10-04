@@ -60,9 +60,9 @@ const AnimatedCheckmark: React.FC<AnimatedCheckmarkProps> = ({ shouldReduceMotio
         }}
       />
 
-      {/* Inner Soft Yellow #D0FF00 Glow */}
+      {/* Inner Soft Yellow #8EFF01 Glow */}
       <motion.div
-        className="absolute inset-1 rounded-full bg-[#D0FF00]/20 blur-xl pointer-events-none"
+        className="absolute inset-1 rounded-full bg-[#8EFF01]/20 blur-xl pointer-events-none"
         initial={{ opacity: shouldReduceMotion ? 0.6 : 0, scale: 0.8 }}
         animate={
           shouldReduceMotion
@@ -91,7 +91,7 @@ const AnimatedCheckmark: React.FC<AnimatedCheckmarkProps> = ({ shouldReduceMotio
           cx="48"
           cy="48"
           r="40"
-          stroke="#D0FF00"
+          stroke="#8EFF01"
           strokeWidth="4"
           strokeLinecap="round"
           style={{ transformOrigin: '48px 48px', rotate: -90 }}
@@ -106,7 +106,7 @@ const AnimatedCheckmark: React.FC<AnimatedCheckmarkProps> = ({ shouldReduceMotio
         {/* Step 2: Inner Checkmark path (~0.35s ease-out after circle sweep) */}
         <motion.path
           d="M28 48 L42 62 L68 36"
-          stroke="#D0FF00"
+          stroke="#8EFF01"
           strokeWidth="4.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -407,12 +407,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     <section id="contact" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background Soft Glows */}
       <div
-        className="pointer-events-none absolute top-10 left-10 w-[400px] h-[400px] rounded-full blur-[170px] opacity-10"
+        className="pointer-events-none absolute top-10 left-10 w-[400px] h-[400px] rounded-full blur-[160px] opacity-[0.10]"
         style={{ background: '#8116E0' }}
       />
       <div
-        className="pointer-events-none absolute bottom-10 right-10 w-[350px] h-[350px] rounded-full blur-[160px] opacity-08"
-        style={{ background: '#D0FF00' }}
+        className="pointer-events-none absolute bottom-10 right-10 w-[350px] h-[350px] rounded-full blur-[150px] opacity-[0.08]"
+        style={{ background: '#8EFF01' }}
       />
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -425,7 +425,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           className="lg:col-span-5 flex flex-col justify-between"
         >
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#D0FF00] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
+            <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
               <Sparkles className="w-3.5 h-3.5" />
               <span>
                 {badgeMain}{' '}
@@ -437,7 +437,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </span>
             </div>
 
-            <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#D0FF00] tracking-tight leading-[1.15] mb-2.5 sm:mb-3">
+            <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15] mb-2.5 sm:mb-3">
               {headingMain}{' '}
               <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
                 {headingAccent}
@@ -492,7 +492,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
                       {/* Bottom Info: Platform Name (wraps if long) + Colored Label Pill */}
                       <div className="min-w-0 w-full flex flex-col items-start gap-1">
-                        <span className="font-montserrat font-bold text-xs sm:text-[13px] text-[#FEFFFC] block leading-[1.25] break-words line-clamp-2 group-hover:text-[#D0FF00] transition-colors">
+                        <span className="font-montserrat font-bold text-xs sm:text-[13px] text-[#FEFFFC] block leading-[1.25] break-words line-clamp-2 group-hover:text-[#8EFF01] transition-colors">
                           {item.label || item.platform}
                         </span>
                         <span
@@ -511,12 +511,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             <button
               type="button"
               onClick={handleCopyEmail}
-              className="inline-flex items-center gap-2 text-xs text-white/60 hover:text-[#D0FF00] transition-colors py-2 cursor-pointer min-h-[44px]"
+              className="inline-flex items-center gap-2 text-xs text-white/60 hover:text-[#8EFF01] transition-colors py-2 cursor-pointer min-h-[44px]"
             >
               {copiedEmail ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-[#D0FF00]" />
-                  <span className="text-[#D0FF00] font-medium">{copySuccessText}</span>
+                  <Check className="w-3.5 h-3.5 text-[#8EFF01]" />
+                  <span className="text-[#8EFF01] font-medium">{copySuccessText}</span>
                 </>
               ) : (
                 <>
@@ -530,7 +530,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
 
           <div className="mt-6 pt-4 border-t border-white/10 text-xs text-white/45 font-medium flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#D0FF00] animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-[#8EFF01] animate-pulse"></span>
             <span>{responseTime}</span>
           </div>
         </motion.div>
@@ -555,7 +555,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 initial={{ opacity: 0, scale: 0.93, y: 15 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full max-w-[500px] mx-auto rounded-[20px] sm:rounded-[24px] bg-[#0A0A0A] border border-white/12 p-6 sm:p-8 md:p-9 shadow-[0_0_40px_rgba(129,22,224,0.2),0_15px_35px_rgba(0,0,0,0.85)] relative overflow-hidden text-center flex flex-col items-center justify-center"
+                className="w-full max-w-[500px] mx-auto rounded-[20px] sm:rounded-[24px] bg-[#0B0B0B] border border-white/12 p-6 sm:p-8 md:p-9 shadow-[0_0_40px_rgba(129,22,224,0.2),0_15px_35px_rgba(0,0,0,0.85)] relative overflow-hidden text-center flex flex-col items-center justify-center"
               >
                 {/* Soft Violet Glow Backdrop */}
                 <div
@@ -570,7 +570,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 {/* Animated Circular SVG Checkmark */}
                 <AnimatedCheckmark shouldReduceMotion={shouldReduceMotion} />
 
-                {/* 1. Top, bold heading in the website's yellow #D0FF00, Montserrat Bold */}
+                {/* 1. Top, bold heading in the website's yellow #8EFF01, Montserrat Bold */}
                 <motion.h3
                   initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -579,7 +579,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     delay: shouldReduceMotion ? 0 : 0.9,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="font-montserrat font-bold text-xl sm:text-2xl md:text-[26px] text-[#D0FF00] tracking-tight mb-2.5 sm:mb-3 text-center leading-tight"
+                  className="font-montserrat font-bold text-xl sm:text-2xl md:text-[26px] text-[#8EFF01] tracking-tight mb-2.5 sm:mb-3 text-center leading-tight"
                 >
                   {confirmationTitle}
                 </motion.h3>
@@ -607,7 +607,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     delay: shouldReduceMotion ? 0 : 1.18,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="w-10 h-[2px] bg-[#D0FF00] rounded-full mx-auto my-4 sm:my-5 shrink-0 shadow-[0_0_8px_rgba(208,255,0,0.4)] origin-center"
+                  className="w-10 h-[2px] bg-[#8EFF01] rounded-full mx-auto my-4 sm:my-5 shrink-0 shadow-[0_0_8px_rgba(142, 255, 1, 0.3)] origin-center"
                   aria-hidden="true"
                 />
 
@@ -669,7 +669,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-5 sm:space-y-6">
                 <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-white/10">
-                  <h3 className="font-montserrat font-medium italic text-base sm:text-lg text-[#D0FF00]">
+                  <h3 className="font-montserrat font-medium italic text-base sm:text-lg text-[#8EFF01]">
                     {formCardTitle}
                   </h3>
                   <span className="text-xs font-semibold text-[#FEFFFC]/70">
@@ -728,7 +728,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-[#FEFFFC] placeholder-white/25 outline-none transition-colors min-h-[46px] ${
                         validationErrors.name
                           ? 'border-red-500 focus:border-red-400 focus:ring-1 focus:ring-red-500'
-                          : 'border-white/10 focus:border-[#D0FF00] focus:ring-1 focus:ring-[#D0FF00]'
+                          : 'border-white/10 focus:border-[#8EFF01] focus:ring-1 focus:ring-[#8EFF01]'
                       }`}
                     />
                     {validationErrors.name && (
@@ -756,7 +756,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-[#FEFFFC] placeholder-white/25 outline-none transition-colors min-h-[46px] ${
                         validationErrors.email
                           ? 'border-red-500 focus:border-red-400 focus:ring-1 focus:ring-red-500'
-                          : 'border-white/10 focus:border-[#D0FF00] focus:ring-1 focus:ring-[#D0FF00]'
+                          : 'border-white/10 focus:border-[#8EFF01] focus:ring-1 focus:ring-[#8EFF01]'
                       }`}
                     />
                     {validationErrors.email && (
@@ -779,7 +779,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       placeholder={deadlinePlaceholder}
                       value={formData.deadline}
                       onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#D0FF00] focus:ring-1 focus:ring-[#D0FF00] text-sm text-[#FEFFFC] placeholder-white/25 outline-none transition-colors min-h-[46px]"
+                      className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#8EFF01] focus:ring-1 focus:ring-[#8EFF01] text-sm text-[#FEFFFC] placeholder-white/25 outline-none transition-colors min-h-[46px]"
                     />
                   </div>
 
@@ -793,7 +793,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       placeholder={referencePlaceholder}
                       value={formData.referenceLink}
                       onChange={(e) => setFormData({ ...formData, referenceLink: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#D0FF00] focus:ring-1 focus:ring-[#D0FF00] text-sm text-[#FEFFFC] placeholder-white/25 outline-none transition-colors min-h-[46px]"
+                      className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#8EFF01] focus:ring-1 focus:ring-[#8EFF01] text-sm text-[#FEFFFC] placeholder-white/25 outline-none transition-colors min-h-[46px]"
                     />
                   </div>
                 </div>
@@ -841,7 +841,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                           onClick={() => setFormData({ ...formData, budget: b })}
                           className={`py-2.5 px-3 rounded-xl text-xs font-semibold transition-all cursor-pointer text-center min-h-[44px] flex items-center justify-center ${
                             isSelected
-                              ? 'bg-[#D0FF00] text-[#050505] font-bold shadow-[0_0_15px_rgba(208,255,0,0.25)]'
+                              ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-[0_0_15px_rgba(142, 255, 1, 0.19)]'
                               : 'bg-white/[0.04] border border-white/10 text-white/70 hover:border-white/20'
                           }`}
                         >
@@ -871,7 +871,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-[#FEFFFC] placeholder-white/25 outline-none transition-colors resize-none ${
                       validationErrors.message
                         ? 'border-red-500 focus:border-red-400 focus:ring-1 focus:ring-red-500'
-                        : 'border-white/10 focus:border-[#D0FF00] focus:ring-1 focus:ring-[#D0FF00]'
+                        : 'border-white/10 focus:border-[#8EFF01] focus:ring-1 focus:ring-[#8EFF01]'
                     }`}
                   />
                   {validationErrors.message && (
@@ -886,9 +886,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   type="submit"
                   disabled={loading}
                   id="contact-form-submit"
-                  whileHover={loading ? {} : { scale: 1.012, boxShadow: '0 0 24px rgba(208,255,0,0.45)' }}
+                  whileHover={loading ? {} : { scale: 1.012, boxShadow: '0 0 24px rgba(142, 255, 1, 0.34)' }}
                   whileTap={loading ? {} : { scale: 0.98 }}
-                  className={`w-full py-2.5 sm:py-3 rounded-full bg-[#D0FF00] text-[#050505] font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(208,255,0,0.3)] transition-all duration-300 flex items-center justify-center gap-2 min-h-[42px] sm:min-h-[44px] ${
+                  className={`w-full py-2.5 sm:py-3 rounded-full bg-[#8EFF01] text-[#050505] font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(142, 255, 1, 0.22)] transition-all duration-300 flex items-center justify-center gap-2 min-h-[42px] sm:min-h-[44px] ${
                     loading ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'
                   }`}
                 >

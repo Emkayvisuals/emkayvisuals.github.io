@@ -58,9 +58,9 @@ const StatCounter: React.FC<StatCardProps> = ({ value, suffix, label, sublabel, 
   }, [isInView, value, index]);
 
   const icons = [
-    <Award className="w-5 h-5 text-[#D0FF00] group-hover:rotate-12 transition-transform duration-300" key="award" />,
+    <Award className="w-5 h-5 text-[#8EFF01] group-hover:rotate-12 transition-transform duration-300" key="award" />,
     <Briefcase className="w-5 h-5 text-[#FEFFFC] group-hover:-rotate-12 transition-transform duration-300" key="briefcase" />,
-    <Users className="w-5 h-5 text-[#D0FF00] group-hover:rotate-12 transition-transform duration-300" key="users" />,
+    <Users className="w-5 h-5 text-[#8EFF01] group-hover:rotate-12 transition-transform duration-300" key="users" />,
     <Zap className="w-5 h-5 text-[#FEFFFC] group-hover:scale-110 transition-transform duration-300" key="zap" />,
   ];
 
@@ -80,22 +80,22 @@ const StatCounter: React.FC<StatCardProps> = ({ value, suffix, label, sublabel, 
         scale: 1.015,
         transition: { duration: 0.2 },
       }}
-      className="group relative rounded-2xl glass-panel p-4 sm:p-6 border border-white/[0.08] hover:border-[#D0FF00]/40 transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-default bg-[#050505]/80"
+      className="group relative rounded-2xl glass-panel p-4 sm:p-6 border border-white/[0.08] hover:border-[#8EFF01]/40 transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-default bg-[#050505]/80"
     >
       {/* Corner Tech Notch Indicator */}
-      <div className="absolute top-0 right-0 w-7 h-7 border-t border-r border-white/10 group-hover:border-[#D0FF00]/50 transition-colors" />
+      <div className="absolute top-0 right-0 w-7 h-7 border-t border-r border-white/10 group-hover:border-[#8EFF01]/50 transition-colors" />
 
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold text-white/40 group-hover:text-[#D0FF00] tracking-wide transition-colors">
+        <span className="text-xs font-semibold text-white/40 group-hover:text-[#8EFF01] tracking-wide transition-colors">
           // <span className="font-cormorant italic font-medium text-[1.12em] text-[#FEFFFC]/70">0{index + 1}</span>
         </span>
-        <div className="p-2 rounded-xl bg-white/[0.04] border border-white/[0.08] group-hover:bg-[#D0FF00]/15 group-hover:border-[#D0FF00]/40 transition-all duration-300">
+        <div className="p-2 rounded-xl bg-white/[0.04] border border-white/[0.08] group-hover:bg-[#8EFF01]/15 group-hover:border-[#8EFF01]/40 transition-all duration-300">
           {icons[index % icons.length]}
         </div>
       </div>
 
       <div>
-        <div className="font-montserrat font-medium italic text-3xl sm:text-4xl text-[#FEFFFC] tracking-tight group-hover:text-[#D0FF00] transition-colors duration-300 tabular-nums">
+        <div className="font-montserrat font-medium italic text-3xl sm:text-4xl text-[#FEFFFC] tracking-tight group-hover:text-[#8EFF01] transition-colors duration-300 tabular-nums">
           {count}{suffix}
         </div>
         <div className="font-montserrat font-medium text-xs sm:text-base text-[#FEFFFC]/90 mt-1">
@@ -123,8 +123,8 @@ export const StatsRow: React.FC = () => {
     <section className="relative py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto overflow-hidden">
       {/* Background ambient glow - very subtle */}
       <div
-        className="pointer-events-none absolute inset-x-12 top-1/2 -translate-y-1/2 h-24 blur-[100px] opacity-10 rounded-full"
-        style={{ background: 'linear-gradient(90deg, #8116E0, #D0FF00)' }}
+        className="pointer-events-none absolute inset-x-12 top-1/2 -translate-y-1/2 h-24 blur-[120px] opacity-[0.085] rounded-full"
+        style={{ background: 'linear-gradient(90deg, #8116E0, #8EFF01)' }}
       />
 
       {/* Grid: 2x2 on mobile, 4 on desktop */}

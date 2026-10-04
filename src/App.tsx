@@ -157,7 +157,7 @@ export default function App() {
 
   // Primary Homepage View
   return (
-    <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#D0FF00] selection:text-[#050505] overflow-x-hidden w-full">
+    <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#8EFF01] selection:text-[#050505] overflow-x-hidden w-full">
       {/* Curtain Preloader on first load */}
       <Preloader onLoadingComplete={() => {}} />
 
@@ -176,7 +176,7 @@ export default function App() {
       {/* Bento-Style Services Grid */}
       <ServicesBento onSelectService={handleSelectService} />
 
-      {/* Work Gallery: Filter Buttons, 4-Project Limit on Home, View More Button & Lightbox */}
+      {/* Work Gallery: Filter Buttons, 7-Project Limit on Home, View More Button & Manipulation Gallery Button */}
       <WorkGallery
         onSelectProjectForContact={handleSelectProjectForContact}
         onNavigateToPortfolio={(category) => {
@@ -186,6 +186,7 @@ export default function App() {
               : '/portfolio';
           navigateTo(targetUrl);
         }}
+        onNavigateToGallery={() => navigateTo('/gallery')}
       />
 
       {/* About Me Section with Photo Placeholder & Software Stack */}

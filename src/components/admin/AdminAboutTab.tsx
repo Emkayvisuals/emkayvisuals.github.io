@@ -143,7 +143,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <User className="w-5 h-5" />
             </div>
             <div>
@@ -242,7 +242,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                 value={about.artistIdLabel || ''}
                 onChange={(e) => handleAboutChange('artistIdLabel', e.target.value)}
                 placeholder="Artist ID // 2026.ev"
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -252,7 +252,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                 value={about.experienceBadge || ''}
                 onChange={(e) => handleAboutChange('experienceBadge', e.target.value)}
                 placeholder="5+ Yrs Pro"
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
           </div>
@@ -266,7 +266,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
               value={(about.statusCoordinates || []).join(', ')}
               onChange={(e) => handleStatusCoordinatesChange(e.target.value)}
               placeholder="Worldwide / Remote, Status: Active, 60 FPS Ready"
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
         </div>
@@ -316,7 +316,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                 rows={3}
                 value={paragraph}
                 onChange={(e) => handleBioChange(index, e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
           ))}
@@ -340,7 +340,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
           <button
             type="button"
             onClick={addTool}
-            className="px-3 py-1.5 rounded-lg bg-[#D0FF00] hover:bg-[#b8e600] text-black text-xs font-bold flex items-center gap-1.5 cursor-pointer self-start sm:self-center"
+            className="px-3 py-1.5 rounded-lg bg-[#8EFF01] hover:bg-[#7DE000] text-black text-xs font-bold flex items-center gap-1.5 cursor-pointer self-start sm:self-center"
           >
             <Plus className="w-3.5 h-3.5" /> Add Tool
           </button>
@@ -352,7 +352,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
             type="text"
             value={about.toolkitLabel || 'Production Software & Toolkit'}
             onChange={(e) => handleAboutChange('toolkitLabel', e.target.value)}
-            className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+            className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
           />
         </div>
 
@@ -373,7 +373,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                       type="checkbox"
                       checked={tool.visible !== false}
                       onChange={(e) => handleToolChange(index, 'visible', e.target.checked)}
-                      className="rounded accent-[#D0FF00]"
+                      className="rounded accent-[#8EFF01]"
                     />
                     <span>{tool.visible !== false ? 'Visible' : 'Hidden'}</span>
                   </label>
@@ -411,7 +411,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                     type="text"
                     value={tool.name}
                     onChange={(e) => handleToolChange(index, 'name', e.target.value)}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
                 <div>
@@ -421,7 +421,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                     value={tool.level}
                     onChange={(e) => handleToolChange(index, 'level', e.target.value)}
                     placeholder="Mastery / Advanced"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-[#D0FF00] outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-[#8EFF01] outline-none focus:border-[#8EFF01]"
                   />
                 </div>
                 <div>
@@ -431,7 +431,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                     value={tool.type}
                     onChange={(e) => handleToolChange(index, 'type', e.target.value)}
                     placeholder="Motion Graphics & FX"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>
@@ -444,7 +444,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#D0FF00]/10 border border-[#D0FF00]/20 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-8 h-8 rounded-lg bg-[#8EFF01]/10 border border-[#8EFF01]/20 flex items-center justify-center text-[#8EFF01]">
               <Sparkles className="w-4 h-4" />
             </div>
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
@@ -470,7 +470,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
               }`}
             >
               <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-xs font-bold text-[#D0FF00] font-mono">
+                <span className="text-xs font-bold text-[#8EFF01] font-mono">
                   #{highlight.number} {highlight.title}
                 </span>
 
@@ -480,7 +480,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                       type="checkbox"
                       checked={highlight.visible !== false}
                       onChange={(e) => handleHighlightChange(index, 'visible', e.target.checked)}
-                      className="rounded accent-[#D0FF00]"
+                      className="rounded accent-[#8EFF01]"
                     />
                     <span>{highlight.visible !== false ? 'Visible' : 'Hidden'}</span>
                   </label>
@@ -502,7 +502,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                     type="text"
                     value={highlight.number}
                     onChange={(e) => handleHighlightChange(index, 'number', e.target.value)}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-mono outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-mono outline-none focus:border-[#8EFF01]"
                   />
                 </div>
                 <div className="sm:col-span-3">
@@ -511,7 +511,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                     type="text"
                     value={highlight.title}
                     onChange={(e) => handleHighlightChange(index, 'title', e.target.value)}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>
@@ -522,7 +522,7 @@ export const AdminAboutTab: React.FC<AdminTabProps> = ({
                   rows={2}
                   value={highlight.text}
                   onChange={(e) => handleHighlightChange(index, 'text', e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
               </div>
             </div>

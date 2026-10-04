@@ -88,7 +88,7 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -146,7 +146,7 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
               rows={3}
               value={hero.subtext || ''}
               onChange={(e) => handleHeroChange('subtext', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -182,7 +182,7 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
                   type="text"
                   value={hero.primaryButtonText || 'View Work'}
                   onChange={(e) => handleHeroChange('primaryButtonText', e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
               </div>
               <div>
@@ -191,7 +191,7 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
                   type="text"
                   value={hero.primaryButtonLink || '#work'}
                   onChange={(e) => handleHeroChange('primaryButtonLink', e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
               </div>
             </div>
@@ -206,7 +206,7 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
                   type="text"
                   value={hero.secondaryButtonText || 'Hire Me'}
                   onChange={(e) => handleHeroChange('secondaryButtonText', e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
               </div>
               <div>
@@ -215,7 +215,7 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
                   type="text"
                   value={hero.secondaryButtonLink || '#contact'}
                   onChange={(e) => handleHeroChange('secondaryButtonLink', e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
               </div>
             </div>
@@ -241,7 +241,7 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
                     .filter(Boolean)
                 )
               }
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -270,13 +270,13 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
                     type="text"
                     value={tag.label}
                     onChange={(e) => handleFloatingTagChange(idx, 'label', e.target.value)}
-                    className="flex-1 px-2.5 py-1 rounded bg-black border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="flex-1 px-2.5 py-1 rounded bg-black border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
 
                   <select
                     value={tag.color}
                     onChange={(e) => handleFloatingTagChange(idx, 'color', e.target.value as any)}
-                    className="px-2 py-1 rounded bg-black border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="px-2 py-1 rounded bg-black border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   >
                     <option value="yellow">Banana Yellow</option>
                     <option value="violet">Ultra Violet</option>
@@ -288,7 +288,7 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
                       type="checkbox"
                       checked={tag.visible !== false}
                       onChange={(e) => handleFloatingTagChange(idx, 'visible', e.target.checked)}
-                      className="rounded accent-[#D0FF00]"
+                      className="rounded accent-[#8EFF01]"
                     />
                     <span>Show</span>
                   </label>

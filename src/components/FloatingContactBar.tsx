@@ -31,7 +31,7 @@ export const FloatingContactBar: React.FC = () => {
             className="mb-3 w-72 max-h-[70vh] max-h-[70svh] overflow-y-auto rounded-2xl glass-panel border border-white/15 bg-[#080808]/95 backdrop-blur-xl p-3.5 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col gap-2"
           >
             <div className="flex items-center justify-between pb-2 border-b border-white/10 px-1 shrink-0">
-              <span className="text-[11px] font-bold text-[#D0FF00] tracking-wide flex items-center gap-1.5">
+              <span className="text-[11px] font-bold text-[#8EFF01] tracking-wide flex items-center gap-1.5">
                 <Sparkles className="w-3 h-3" />
                 {quickConnectTitle}
               </span>
@@ -66,7 +66,7 @@ export const FloatingContactBar: React.FC = () => {
                       <IconComp className="w-4 h-4" />
                     </div>
                     <div className="flex flex-col min-w-0">
-                      <span className="text-xs font-bold text-[#FEFFFC] group-hover:text-[#D0FF00] transition-colors truncate">
+                      <span className="text-xs font-bold text-[#FEFFFC] group-hover:text-[#8EFF01] transition-colors truncate">
                         {item.label || item.platform}
                       </span>
                       <span className="text-[10px] text-white/50 truncate">
@@ -89,7 +89,7 @@ export const FloatingContactBar: React.FC = () => {
         aria-label="Open Quick Contact"
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.94 }}
-        className="h-12 w-12 sm:h-13 sm:w-13 rounded-full bg-[#D0FF00] text-[#050505] shadow-[0_0_25px_rgba(208,255,0,0.45)] hover:shadow-[0_0_35px_rgba(208,255,0,0.65)] flex items-center justify-center cursor-pointer transition-shadow"
+        className="h-12 w-12 sm:h-13 sm:w-13 rounded-full bg-[#8EFF01] text-[#050505] shadow-[0_0_25px_rgba(142, 255, 1, 0.34)] hover:shadow-[0_0_35px_rgba(142, 255, 1, 0.4)] flex items-center justify-center cursor-pointer transition-shadow"
       >
         {isOpen ? (
           <X className="w-5 h-5 text-[#050505]" />

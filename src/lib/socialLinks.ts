@@ -530,10 +530,10 @@ export function getPlatformMeta(platform: SocialPlatform) {
     case 'Email':
       return {
         icon: Mail,
-        accentColor: '#D0FF00',
-        badgeBg: 'bg-[#D0FF00]/15 text-[#D0FF00] border-[#D0FF00]/30',
-        hoverBorder: 'hover:border-[#D0FF00]/60',
-        cardBg: 'bg-[#D0FF00]/10 border-[#D0FF00]/30 text-[#D0FF00]',
+        accentColor: '#8EFF01',
+        badgeBg: 'bg-[#8EFF01]/15 text-[#8EFF01] border-[#8EFF01]/30',
+        hoverBorder: 'hover:border-[#8EFF01]/60',
+        cardBg: 'bg-[#8EFF01]/10 border-[#8EFF01]/30 text-[#8EFF01]',
         placeholder: 'e.g. emkayvisuals@gmail.com',
       };
     case 'Website':
@@ -549,10 +549,10 @@ export function getPlatformMeta(platform: SocialPlatform) {
     default:
       return {
         icon: Link2,
-        accentColor: '#D0FF00',
-        badgeBg: 'bg-[#D0FF00]/15 text-[#D0FF00] border-[#D0FF00]/30',
-        hoverBorder: 'hover:border-[#D0FF00]/60',
-        cardBg: 'bg-[#D0FF00]/10 border-[#D0FF00]/30 text-[#D0FF00]',
+        accentColor: '#8EFF01',
+        badgeBg: 'bg-[#8EFF01]/15 text-[#8EFF01] border-[#8EFF01]/30',
+        hoverBorder: 'hover:border-[#8EFF01]/60',
+        cardBg: 'bg-[#8EFF01]/10 border-[#8EFF01]/30 text-[#8EFF01]',
         placeholder: 'e.g. https://...',
       };
   }

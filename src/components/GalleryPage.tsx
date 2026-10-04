@@ -147,7 +147,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
   };
 
   return (
-    <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#D0FF00] selection:text-[#050505] overflow-x-hidden w-full flex flex-col">
+    <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#8EFF01] selection:text-[#050505] overflow-x-hidden w-full flex flex-col">
       {/* Top Floating Navbar */}
       <Navbar />
 
@@ -165,12 +165,12 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
       <main className="flex-1 relative pt-6 sm:pt-10 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         {/* Ambient background glows */}
         <div
-          className="pointer-events-none absolute top-10 right-10 w-[450px] h-[450px] rounded-full blur-[180px] opacity-10"
+          className="pointer-events-none absolute top-10 right-10 w-[450px] h-[450px] rounded-full blur-[170px] opacity-[0.10]"
           style={{ background: '#8116E0' }}
         />
         <div
-          className="pointer-events-none absolute top-96 left-5 w-[400px] h-[400px] rounded-full blur-[160px] opacity-08"
-          style={{ background: '#D0FF00' }}
+          className="pointer-events-none absolute top-96 left-5 w-[400px] h-[400px] rounded-full blur-[150px] opacity-[0.08]"
+          style={{ background: '#8EFF01' }}
         />
 
         {/* Navigation Bar / Breadcrumb back to Home */}
@@ -178,14 +178,14 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
           <button
             type="button"
             onClick={onNavigateHome}
-            className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-white/[0.05] hover:bg-white/[0.12] text-[#D0FF00] hover:text-[#b8e600] border border-white/10 transition-all font-semibold text-xs tracking-wide min-h-[42px] cursor-pointer group shadow-sm"
+            className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-white/[0.05] hover:bg-white/[0.12] text-[#8EFF01] hover:text-[#7DE000] border border-white/10 transition-all font-semibold text-xs tracking-wide min-h-[42px] cursor-pointer group shadow-sm"
           >
             <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
             <span>Back to Portfolio</span>
           </button>
 
           <div className="flex items-center gap-1.5 text-xs text-white/50 font-mono">
-            <Sparkles className="w-3.5 h-3.5 text-[#D0FF00]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#8EFF01]" />
             <span className="hidden xs:inline">YouTube //</span>
             <span>Manipulation Gallery</span>
           </div>
@@ -200,7 +200,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
 
         {/* 2.c "VISIT MY YOUTUBE CHANNEL" SECTION */}
         <div className="relative z-10 mb-14 sm:mb-20">
-          <h2 className="font-montserrat font-medium italic text-xl sm:text-2xl lg:text-3xl text-[#D0FF00] tracking-tight mb-4 flex items-center gap-2.5">
+          <h2 className="font-montserrat font-medium italic text-xl sm:text-2xl lg:text-3xl text-[#8EFF01] tracking-tight mb-4 flex items-center gap-2.5">
             <span>{config.youtubeSectionTitle || 'Visit my YouTube channel'}</span>
           </h2>
 
@@ -209,7 +209,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Visit Emkay Visuals on YouTube (opens in new tab)"
-            className="group relative block max-w-xl rounded-2xl overflow-hidden border border-white/10 hover:border-[#D0FF00]/50 transition-all duration-300 shadow-[0_6px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_0_35px_rgba(208,255,0,0.2)] cursor-pointer bg-[#0A0A0A]"
+            className="group relative block max-w-xl rounded-2xl overflow-hidden border border-white/10 hover:border-[#8EFF01]/50 transition-all duration-300 shadow-[0_6px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_0_35px_rgba(142, 255, 1, 0.15)] cursor-pointer bg-[#0B0B0B]"
           >
             <div className="relative aspect-[16/9] w-full overflow-hidden bg-black/50">
               <img
@@ -237,7 +237,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
                   </svg>
                   <span>Watch Tutorials & Breakdowns</span>
                 </div>
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white/80 group-hover:text-[#D0FF00] group-hover:bg-white/20 transition-all">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white/80 group-hover:text-[#8EFF01] group-hover:bg-white/20 transition-all">
                   <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
               </div>
@@ -248,7 +248,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
         {/* 2.d & 3. "MY GALLERY" SECTION & CARD LAYOUT */}
         <div className="relative z-10">
           <div className="mb-6 sm:mb-8 flex items-baseline justify-between">
-            <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#D0FF00] tracking-tight">
+            <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight">
               {config.gallerySectionTitle || 'My Gallery'}
             </h2>
             <span className="text-xs text-white/50 font-mono">
@@ -280,7 +280,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
                     }
                   }}
                   aria-label={`View artwork: ${item.title}`}
-                  className={`${colSpanClass} group relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 hover:border-[#D0FF00]/50 bg-[#0A0A0A] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D0FF00]/50`}
+                  className={`${colSpanClass} group relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 hover:border-[#8EFF01]/50 bg-[#0B0B0B] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8EFF01]/50`}
                 >
                   <div className={`relative w-full overflow-hidden ${isLandscape ? 'aspect-[16/9]' : 'aspect-[3/4]'}`}>
                     <img
@@ -297,7 +297,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
                         <span className="text-white text-xs sm:text-[13px] font-medium tracking-wide truncate">
                           {item.title}
                         </span>
-                        <Maximize2 className="w-3 h-3 text-[#D0FF00] shrink-0 opacity-80" />
+                        <Maximize2 className="w-3 h-3 text-[#8EFF01] shrink-0 opacity-80" />
                       </div>
                     </div>
                   </div>

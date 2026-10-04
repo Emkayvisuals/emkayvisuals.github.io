@@ -64,7 +64,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
               className="flex flex-col items-center gap-3 relative z-10"
             >
               {brand?.logoUrl || preloader?.logoUrl ? (
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/40 overflow-hidden flex items-center justify-center p-2.5 shadow-[0_0_30px_rgba(208,255,0,0.5)]">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center p-2.5 shadow-[0_0_30px_rgba(142, 255, 1, 0.38)]">
                   <img
                     src={brand?.logoUrl || preloader?.logoUrl}
                     alt={brand?.logoAlt || preloader?.logoAlt || 'Emkay Visuals Logo'}
@@ -72,17 +72,17 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                   />
                 </div>
               ) : (
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#D0FF00] flex items-center justify-center font-bold text-[#050505] text-xl sm:text-2xl shadow-[0_0_30px_rgba(208,255,0,0.5)]">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#8EFF01] flex items-center justify-center font-bold text-[#050505] text-xl sm:text-2xl shadow-[0_0_30px_rgba(142, 255, 1, 0.38)]">
                   {logoAbbr}
                 </div>
               )}
               <div className="flex items-center gap-1.5 font-montserrat font-semibold tracking-wider text-sm sm:text-base text-[#FEFFFC]">
                 <span>{brandMain}</span>
-                <span className="text-[#D0FF00]">{divider}</span>
+                <span className="text-[#8EFF01]">{divider}</span>
                 <span className="text-white/70">{brandAccent}</span>
               </div>
               {preloader?.tagline && (
-                <span className="text-[10px] font-mono tracking-widest text-[#D0FF00]/80 mt-1">
+                <span className="text-[10px] font-mono tracking-widest text-[#8EFF01]/80 mt-1">
                   {preloader.tagline}
                 </span>
               )}

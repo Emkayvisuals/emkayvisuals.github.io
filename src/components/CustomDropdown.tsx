@@ -70,7 +70,7 @@ export function getServiceIconMeta(serviceName: string): {
     return {
       icon: Layers,
       accentColor: '#8116E0',
-      badgeBg: 'bg-[#8116E0]/20 text-[#D0FF00] border-[#8116E0]/40',
+      badgeBg: 'bg-[#8116E0]/20 text-[#8EFF01] border-[#8116E0]/40',
       type: 'branding',
     };
   }
@@ -137,8 +137,8 @@ export function getServiceIconMeta(serviceName: string): {
   ) {
     return {
       icon: Flame,
-      accentColor: '#D0FF00',
-      badgeBg: 'bg-[#D0FF00]/15 text-[#D0FF00] border-[#D0FF00]/30',
+      accentColor: '#8EFF01',
+      badgeBg: 'bg-[#8EFF01]/15 text-[#8EFF01] border-[#8EFF01]/30',
       type: 'motion',
     };
   }
@@ -160,8 +160,8 @@ export function getServiceIconMeta(serviceName: string): {
   // Generic fallback
   return {
     icon: Sparkles,
-    accentColor: '#D0FF00',
-    badgeBg: 'bg-[#D0FF00]/15 text-[#D0FF00] border-[#D0FF00]/30',
+    accentColor: '#8EFF01',
+    badgeBg: 'bg-[#8EFF01]/15 text-[#8EFF01] border-[#8EFF01]/30',
     type: 'default',
   };
 }
@@ -357,8 +357,8 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
           error
             ? 'border-red-500 ring-1 ring-red-500/40'
             : isOpen
-            ? 'border-[#D0FF00] ring-1 ring-[#D0FF00] shadow-[0_0_18px_rgba(208,255,0,0.22)]'
-            : 'border-white/12 hover:border-white/25 focus:border-[#D0FF00] focus:ring-1 focus:ring-[#D0FF00] focus:shadow-[0_0_18px_rgba(208,255,0,0.22)] focus:outline-none'
+            ? 'border-[#8EFF01] ring-1 ring-[#8EFF01] shadow-[0_0_18px_rgba(142, 255, 1, 0.16)]'
+            : 'border-white/12 hover:border-white/25 focus:border-[#8EFF01] focus:ring-1 focus:ring-[#8EFF01] focus:shadow-[0_0_18px_rgba(142, 255, 1, 0.16)] focus:outline-none'
         }`}
       >
         <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -366,7 +366,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
             <>
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${
-                  selectedMeta?.badgeBg || 'bg-[#D0FF00]/15 text-[#D0FF00] border-[#D0FF00]/30'
+                  selectedMeta?.badgeBg || 'bg-[#8EFF01]/15 text-[#8EFF01] border-[#8EFF01]/30'
                 }`}
               >
                 {SelectedIcon ? (
@@ -388,7 +388,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
 
         <ChevronDown
           className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
-            isOpen ? 'rotate-180 text-[#D0FF00]' : 'text-white/60'
+            isOpen ? 'rotate-180 text-[#8EFF01]' : 'text-white/60'
           }`}
         />
       </button>
@@ -414,7 +414,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
-            className="absolute left-0 right-0 top-full mt-2 z-50 rounded-[20px] bg-[#0A0A0A]/95 backdrop-blur-xl border border-white/15 shadow-[0_15px_45px_rgba(129,22,224,0.25),0_0_25px_rgba(129,22,224,0.18)] max-h-80 overflow-y-auto p-2.5 space-y-1.5 focus:outline-none"
+            className="absolute left-0 right-0 top-full mt-2 z-50 rounded-[20px] bg-[#0B0B0B]/95 backdrop-blur-xl border border-white/15 shadow-[0_15px_45px_rgba(129,22,224,0.25),0_0_25px_rgba(129,22,224,0.18)] max-h-80 overflow-y-auto p-2.5 space-y-1.5 focus:outline-none"
           >
             {normalizedOptions.map((opt, idx) => {
               const isSelected = opt.value === value;
@@ -436,17 +436,17 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                   transition={{ duration: 0.2, delay: idx * 0.025 }}
                   className={`w-full min-h-[52px] px-3.5 py-2.5 rounded-xl flex items-center justify-between gap-3 text-left transition-all duration-150 cursor-pointer border ${
                     isSelected
-                      ? 'bg-[#D0FF00]/12 border-[#D0FF00]/60 text-[#D0FF00] shadow-[0_0_12px_rgba(208,255,0,0.12)]'
+                      ? 'bg-[#8EFF01]/12 border-[#8EFF01]/60 text-[#8EFF01] shadow-[0_0_12px_rgba(142, 255, 1, 0.09)]'
                       : isHighlighted
-                      ? 'bg-white/[0.08] border-[#D0FF00]/40 text-white'
-                      : 'bg-white/[0.02] border-transparent hover:bg-white/[0.06] hover:border-[#D0FF00]/30 text-white/80'
+                      ? 'bg-white/[0.08] border-[#8EFF01]/40 text-white'
+                      : 'bg-white/[0.02] border-transparent hover:bg-white/[0.06] hover:border-[#8EFF01]/30 text-white/80'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0 flex-1">
                     <div
                       className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${
                         isSelected
-                          ? 'bg-[#D0FF00]/25 text-[#D0FF00] border-[#D0FF00]/60'
+                          ? 'bg-[#8EFF01]/25 text-[#8EFF01] border-[#8EFF01]/60'
                           : meta.badgeBg
                       }`}
                     >
@@ -456,7 +456,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     <div className="flex flex-col min-w-0">
                       <span
                         className={`font-montserrat text-sm truncate ${
-                          isSelected ? 'font-medium text-[#D0FF00]' : 'font-normal text-white'
+                          isSelected ? 'font-medium text-[#8EFF01]' : 'font-normal text-white'
                         }`}
                       >
                         {opt.label}
@@ -470,7 +470,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                   </div>
 
                   {isSelected && (
-                    <div className="w-6 h-6 rounded-full bg-[#D0FF00]/20 border border-[#D0FF00] flex items-center justify-center text-[#D0FF00] shrink-0">
+                    <div className="w-6 h-6 rounded-full bg-[#8EFF01]/20 border border-[#8EFF01] flex items-center justify-center text-[#8EFF01] shrink-0">
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
                   )}
@@ -509,7 +509,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-              className="relative z-10 w-full max-h-[70vh] max-h-[70svh] rounded-t-[28px] bg-[#0A0A0A] border-t border-x border-white/15 p-4 sm:p-6 pb-8 shadow-[0_-15px_40px_rgba(0,0,0,0.95)] flex flex-col focus:outline-none"
+              className="relative z-10 w-full max-h-[70vh] max-h-[70svh] rounded-t-[28px] bg-[#0B0B0B] border-t border-x border-white/15 p-4 sm:p-6 pb-8 shadow-[0_-15px_40px_rgba(0,0,0,0.95)] flex flex-col focus:outline-none"
             >
               {/* Drag Handle */}
               <div className="w-12 h-1.5 bg-white/25 rounded-full mx-auto mb-3 shrink-0" />
@@ -517,7 +517,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
               {/* Sheet Header */}
               <div className="flex items-center justify-between pb-3 mb-2 border-b border-white/10 shrink-0">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#D0FF00]" />
+                  <Sparkles className="w-4 h-4 text-[#8EFF01]" />
                   <h3
                     id={`${dropdownId}-sheet-title`}
                     className="font-montserrat font-medium text-base text-[#FEFFFC] tracking-wide"
@@ -555,15 +555,15 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                       transition={{ duration: 0.22, delay: idx * 0.025 }}
                       className={`w-full min-h-[52px] px-4 py-3 rounded-xl flex items-center justify-between gap-3 text-left transition-all duration-150 cursor-pointer border ${
                         isSelected
-                          ? 'bg-[#D0FF00]/12 border-[#D0FF00]/70 text-[#D0FF00] shadow-[0_0_12px_rgba(208,255,0,0.15)]'
-                          : 'bg-white/[0.03] border-white/8 active:bg-white/[0.08] active:border-[#D0FF00]/40 text-white/85'
+                          ? 'bg-[#8EFF01]/12 border-[#8EFF01]/70 text-[#8EFF01] shadow-[0_0_12px_rgba(142, 255, 1, 0.11)]'
+                          : 'bg-white/[0.03] border-white/8 active:bg-white/[0.08] active:border-[#8EFF01]/40 text-white/85'
                       }`}
                     >
                       <div className="flex items-center gap-3.5 min-w-0 flex-1">
                         <div
                           className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${
                             isSelected
-                              ? 'bg-[#D0FF00]/20 text-[#D0FF00] border-[#D0FF00]/50'
+                              ? 'bg-[#8EFF01]/20 text-[#8EFF01] border-[#8EFF01]/50'
                               : meta.badgeBg
                           }`}
                         >
@@ -573,7 +573,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                         <div className="flex flex-col min-w-0">
                           <span
                             className={`font-montserrat text-sm truncate ${
-                              isSelected ? 'font-medium text-[#D0FF00]' : 'font-normal text-white'
+                              isSelected ? 'font-medium text-[#8EFF01]' : 'font-normal text-white'
                             }`}
                           >
                             {opt.label}
@@ -587,7 +587,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                       </div>
 
                       {isSelected && (
-                        <div className="w-6 h-6 rounded-full bg-[#D0FF00]/20 border border-[#D0FF00] flex items-center justify-center text-[#D0FF00] shrink-0">
+                        <div className="w-6 h-6 rounded-full bg-[#8EFF01]/20 border border-[#8EFF01] flex items-center justify-center text-[#8EFF01] shrink-0">
                           <Check className="w-3.5 h-3.5 stroke-[3]" />
                         </div>
                       )}

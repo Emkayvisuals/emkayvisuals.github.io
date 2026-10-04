@@ -25,11 +25,11 @@ export const Marquee: React.FC = () => {
             key={`${item}-${index}`}
             className="flex items-center gap-4 sm:gap-6 group cursor-default"
           >
-            <span className="font-medium text-sm sm:text-base tracking-wide text-[#FEFFFC]/85 group-hover:text-[#D0FF00] transition-colors duration-300 font-montserrat italic">
+            <span className="font-medium text-sm sm:text-base tracking-wide text-[#FEFFFC]/85 group-hover:text-[#8EFF01] transition-colors duration-300 font-montserrat italic">
               {item}
             </span>
             <div className="flex items-center gap-1.5">
-              <Sparkles className="w-3 h-3 text-[#D0FF00] opacity-70 group-hover:opacity-100 group-hover:rotate-45 transition-all duration-300" />
+              <Sparkles className="w-3 h-3 text-[#8EFF01] opacity-70 group-hover:opacity-100 group-hover:rotate-45 transition-all duration-300" />
               <span className="w-1.5 h-1.5 rounded-full bg-[#8116E0]"></span>
             </div>
           </div>

@@ -117,7 +117,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
             <div>
               <h2 className="text-base font-bold text-white">YouTube / Manipulation Gallery</h2>
               <p className="text-xs text-white/50">
-                Manage the hidden gallery page hosted at <code className="text-[#D0FF00]">/gallery</code>
+                Manage the hidden gallery page hosted at <code className="text-[#8EFF01]">/gallery</code>
               </p>
             </div>
           </div>
@@ -128,7 +128,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
               href="/gallery"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-xs font-semibold text-[#D0FF00] border border-white/10 transition-colors shadow-sm"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-xs font-semibold text-[#8EFF01] border border-white/10 transition-colors shadow-sm"
               title="Open /gallery in a new tab"
             >
               <span>Preview /gallery</span>
@@ -144,7 +144,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
         </div>
 
         <div className="p-3.5 rounded-xl bg-[#8116E0]/10 border border-[#8116E0]/25 text-xs text-white/70 flex items-start gap-2.5">
-          <Info className="w-4 h-4 text-[#D0FF00] shrink-0 mt-0.5" />
+          <Info className="w-4 h-4 text-[#8EFF01] shrink-0 mt-0.5" />
           <p>
             This page is hidden from the homepage and search feeds. Visitors reach it exclusively via the
             Portfolio Menu (hamburger drawer) link or direct URL access. Any changes saved here update both
@@ -156,7 +156,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
       {/* 1. Header Image Section */}
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10 space-y-4">
         <div className="flex items-center gap-2 pb-2 border-b border-white/10">
-          <ImageIcon className="w-4 h-4 text-[#D0FF00]" />
+          <ImageIcon className="w-4 h-4 text-[#8EFF01]" />
           <h3 className="text-sm font-bold text-white">1. Full-Width Header Image</h3>
         </div>
         <p className="text-xs text-white/60">
@@ -186,7 +186,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
       {/* 2. Intro Text Section */}
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10 space-y-4">
         <div className="flex items-center gap-2 pb-2 border-b border-white/10">
-          <Type className="w-4 h-4 text-[#D0FF00]" />
+          <Type className="w-4 h-4 text-[#8EFF01]" />
           <h3 className="text-sm font-bold text-white">2. Intro Paragraph</h3>
         </div>
         <p className="text-xs text-white/60">
@@ -200,7 +200,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
             value={config.introParagraph || ''}
             onChange={(e) => handleFieldChange('introParagraph', e.target.value)}
             placeholder="Introduce your YouTube channel, tutorials, and photo manipulation philosophy..."
-            className="w-full px-3.5 py-2.5 rounded-xl bg-black/80 border border-white/15 text-xs text-white outline-none focus:border-[#D0FF00] leading-relaxed"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-black/80 border border-white/15 text-xs text-white outline-none focus:border-[#8EFF01] leading-relaxed"
           />
         </div>
       </div>
@@ -222,7 +222,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
               value={config.youtubeSectionTitle || ''}
               onChange={(e) => handleFieldChange('youtubeSectionTitle', e.target.value)}
               placeholder="e.g. Visit my YouTube channel"
-              className="w-full px-3.5 py-2 rounded-xl bg-black/80 border border-white/15 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3.5 py-2 rounded-xl bg-black/80 border border-white/15 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -235,7 +235,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
               value={config.youtubeChannelUrl || ''}
               onChange={(e) => handleFieldChange('youtubeChannelUrl', e.target.value)}
               placeholder="https://youtube.com/@emkayvisuals"
-              className="w-full px-3.5 py-2 rounded-xl bg-black/80 border border-white/15 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3.5 py-2 rounded-xl bg-black/80 border border-white/15 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
         </div>
@@ -266,7 +266,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-white/10">
           <div>
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#D0FF00]" />
+              <Sparkles className="w-4 h-4 text-[#8EFF01]" />
               <h3 className="text-sm font-bold text-white">4. Gallery Section &amp; Artworks Manager</h3>
             </div>
             <p className="text-xs text-white/50 mt-0.5">
@@ -277,7 +277,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
           <button
             type="button"
             onClick={addItem}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#D0FF00] hover:bg-[#b8e600] text-black font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer shrink-0"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#8EFF01] hover:bg-[#7DE000] text-black font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer shrink-0"
           >
             <Plus className="w-4 h-4" />
             <span>Add Artwork</span>
@@ -294,7 +294,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
             value={config.gallerySectionTitle || ''}
             onChange={(e) => handleFieldChange('gallerySectionTitle', e.target.value)}
             placeholder="e.g. My Gallery"
-            className="w-full max-w-md px-3.5 py-2 rounded-xl bg-black/80 border border-white/15 text-xs text-white outline-none focus:border-[#D0FF00]"
+            className="w-full max-w-md px-3.5 py-2 rounded-xl bg-black/80 border border-white/15 text-xs text-white outline-none focus:border-[#8EFF01]"
           />
         </div>
 
@@ -305,11 +305,11 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search artworks by title..."
-            className="px-3.5 py-1.5 rounded-xl bg-black/60 border border-white/15 text-xs text-white outline-none focus:border-[#D0FF00] w-full max-w-xs"
+            className="px-3.5 py-1.5 rounded-xl bg-black/60 border border-white/15 text-xs text-white outline-none focus:border-[#8EFF01] w-full max-w-xs"
           />
           <span className="text-xs text-white/50 font-mono shrink-0">
             Total: <strong>{items.length}</strong> | Visible:{' '}
-            <strong className="text-[#D0FF00]">
+            <strong className="text-[#8EFF01]">
               {items.filter((it) => it.visible !== false).length}
             </strong>
           </span>
@@ -416,7 +416,7 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
                         value={item.title || ''}
                         onChange={(e) => handleItemChange(rawIndex, 'title', e.target.value)}
                         placeholder="e.g. The Celestial Voyager // Flying Tortoise"
-                        className="w-full px-3 py-1.5 rounded-lg bg-black/80 border border-white/15 text-xs text-white outline-none focus:border-[#D0FF00]"
+                        className="w-full px-3 py-1.5 rounded-lg bg-black/80 border border-white/15 text-xs text-white outline-none focus:border-[#8EFF01]"
                       />
                     </div>
 

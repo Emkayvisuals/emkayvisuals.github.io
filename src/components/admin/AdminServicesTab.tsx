@@ -99,7 +99,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <Layers className="w-5 h-5" />
             </div>
             <div>
@@ -157,7 +157,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
               rows={2}
               value={servicesSection.subtext || ''}
               onChange={(e) => handleSectionChange('subtext', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -169,7 +169,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={servicesSection.cardButtonText || 'Request Quote'}
                 onChange={(e) => handleSectionChange('cardButtonText', e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -178,7 +178,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={servicesSection.refPrefix || 'Ref //'}
                 onChange={(e) => handleSectionChange('refPrefix', e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
           </div>
@@ -210,7 +210,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
             >
               <div className="flex items-center justify-between gap-3 mb-3 border-b border-white/10 pb-2.5">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-[#D0FF00] px-2 py-0.5 rounded bg-[#D0FF00]/10 border border-[#D0FF00]/20">
+                  <span className="text-xs font-bold text-[#8EFF01] px-2 py-0.5 rounded bg-[#8EFF01]/10 border border-[#8EFF01]/20">
                     {service.tag || 'Service'}
                   </span>
                   <span className="text-xs font-bold text-white">{service.title}</span>
@@ -222,7 +222,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
                       type="checkbox"
                       checked={service.visible !== false}
                       onChange={(e) => handleServiceChange(index, 'visible', e.target.checked)}
-                      className="rounded accent-[#D0FF00]"
+                      className="rounded accent-[#8EFF01]"
                     />
                     <span>{service.visible !== false ? 'Visible' : 'Hidden'}</span>
                   </label>
@@ -263,7 +263,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
                     type="text"
                     value={service.title || ''}
                     onChange={(e) => handleServiceChange(index, 'title', e.target.value)}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -274,7 +274,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
                     value={service.tag || ''}
                     onChange={(e) => handleServiceChange(index, 'tag', e.target.value)}
                     placeholder="e.g. Flagship Craft"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>
@@ -286,7 +286,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
                     type="text"
                     value={service.shortDesc || ''}
                     onChange={(e) => handleServiceChange(index, 'shortDesc', e.target.value)}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -296,7 +296,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
                     rows={2}
                     value={service.fullDesc || ''}
                     onChange={(e) => handleServiceChange(index, 'fullDesc', e.target.value)}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>
@@ -339,7 +339,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
                     value={service.colSpan || 'col-span-12 sm:col-span-6 lg:col-span-4'}
                     onChange={(e) => handleServiceChange(index, 'colSpan', e.target.value)}
                     placeholder="col-span-12 sm:col-span-6 lg:col-span-4"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-mono outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-mono outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>
@@ -362,7 +362,7 @@ export const AdminServicesTab: React.FC<AdminTabProps> = ({
                     )
                   }
                   placeholder="Logo Reveals, Audio Visualizers, Social Reels"
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
               </div>
             </div>

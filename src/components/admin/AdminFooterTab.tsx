@@ -74,7 +74,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <PanelBottom className="w-5 h-5" />
             </div>
             <div>
@@ -109,7 +109,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={footer.logoAbbr || 'EV'}
                 onChange={(e) => handleFooterChange('logoAbbr', e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -118,7 +118,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={footer.brandName || 'Emkay'}
                 onChange={(e) => handleFooterChange('brandName', e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -127,7 +127,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={footer.brandDivider || '//'}
                 onChange={(e) => handleFooterChange('brandDivider', e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
             <div>
@@ -136,7 +136,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                 type="text"
                 value={footer.brandAccent || 'Visuals'}
                 onChange={(e) => handleFooterChange('brandAccent', e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
           </div>
@@ -179,7 +179,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
               rows={2}
               value={footer.tagline || ''}
               onChange={(e) => handleFooterChange('tagline', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
@@ -192,7 +192,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                 value={footer.copyright || ''}
                 onChange={(e) => handleFooterChange('copyright', e.target.value)}
                 placeholder="© 2026 Emkay Visuals. All rights reserved."
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
 
@@ -203,7 +203,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                 value={footer.rightsNote || ''}
                 onChange={(e) => handleFooterChange('rightsNote', e.target.value)}
                 placeholder="Handcrafted with precision..."
-                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
               />
             </div>
           </div>
@@ -215,14 +215,14 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
               type="text"
               value={footer.backToTopAria || 'Scroll to Top'}
               onChange={(e) => handleFooterChange('backToTopAria', e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+              className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
             />
           </div>
 
           {/* Social Profiles */}
           <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-4">
             <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-              <Share2 className="w-3.5 h-3.5 text-[#D0FF00]" />
+              <Share2 className="w-3.5 h-3.5 text-[#8EFF01]" />
               Social Media Channels &amp; Handles
             </h3>
 
@@ -240,7 +240,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                     })
                   }
                   placeholder="@emkayvisuals"
-                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
                 <input
                   type="url"
@@ -252,7 +252,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                     })
                   }
                   placeholder="https://instagram.com/..."
-                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#D0FF00] font-mono"
+                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#8EFF01] font-mono"
                 />
               </div>
 
@@ -269,7 +269,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                     })
                   }
                   placeholder="@emkayvisuals_fx"
-                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
                 <input
                   type="url"
@@ -281,7 +281,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                     })
                   }
                   placeholder="https://instagram.com/..."
-                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#D0FF00] font-mono"
+                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#8EFF01] font-mono"
                 />
               </div>
 
@@ -293,7 +293,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                   value={socials.behance || ''}
                   onChange={(e) => handleSocialsChange('behance', e.target.value)}
                   placeholder="https://behance.net/emkayvisuals"
-                  className="sm:col-span-2 px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#D0FF00] font-mono"
+                  className="sm:col-span-2 px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#8EFF01] font-mono"
                 />
               </div>
 
@@ -305,7 +305,7 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                   value={socials.dribbble || ''}
                   onChange={(e) => handleSocialsChange('dribbble', e.target.value)}
                   placeholder="https://dribbble.com/emkayvisuals"
-                  className="sm:col-span-2 px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#D0FF00] font-mono"
+                  className="sm:col-span-2 px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#8EFF01] font-mono"
                 />
               </div>
 
@@ -317,14 +317,14 @@ export const AdminFooterTab: React.FC<AdminTabProps> = ({
                   value={socials.whatsappDisplay || ''}
                   onChange={(e) => handleSocialsChange('whatsappDisplay', e.target.value)}
                   placeholder="09161889909"
-                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                 />
                 <input
                   type="url"
                   value={socials.whatsappUrl || ''}
                   onChange={(e) => handleSocialsChange('whatsappUrl', e.target.value)}
                   placeholder="https://wa.me/2349161889909"
-                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#D0FF00] font-mono"
+                  className="px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white/80 outline-none focus:border-[#8EFF01] font-mono"
                 />
               </div>
             </div>

@@ -43,23 +43,23 @@ export const Hero: React.FC = () => {
       <motion.div
         style={{
           y: glowY1,
-          background: 'radial-gradient(circle, #8116E0 20%, #D0FF00 90%)',
+          background: 'radial-gradient(circle, #8116E0 20%, #8EFF01 90%)',
         }}
-        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[90vw] max-w-[700px] h-[350px] sm:h-[450px] rounded-full blur-[140px] opacity-15"
+        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[90vw] max-w-[700px] h-[350px] sm:h-[450px] rounded-full blur-[160px] opacity-[0.12]"
       />
       <motion.div
         style={{
           y: glowY2,
           background: '#8116E0',
         }}
-        className="pointer-events-none absolute top-1/3 -left-32 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] rounded-full blur-[130px] opacity-10"
+        className="pointer-events-none absolute top-1/3 -left-32 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] rounded-full blur-[140px] opacity-[0.10]"
       />
       <motion.div
         style={{
           y: glowY3,
-          background: '#D0FF00',
+          background: '#8EFF01',
         }}
-        className="pointer-events-none absolute bottom-10 -right-32 w-[320px] sm:w-[420px] h-[320px] sm:h-[420px] rounded-full blur-[130px] opacity-08"
+        className="pointer-events-none absolute bottom-10 -right-32 w-[320px] sm:w-[420px] h-[320px] sm:h-[420px] rounded-full blur-[150px] opacity-[0.08]"
       />
 
       <div className="relative z-10 w-full max-w-4xl mx-auto text-center flex flex-col items-center">
@@ -71,13 +71,13 @@ export const Hero: React.FC = () => {
           className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full glass-panel border border-white/10 mb-8 sm:mb-10 max-w-full text-center"
         >
           <span className="relative flex h-2 w-2 shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D0FF00] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D0FF00]"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8EFF01] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8EFF01]"></span>
           </span>
           <span className="text-[11px] sm:text-xs font-semibold text-[#FEFFFC]/90 tracking-wide">
             {badgeMain}{' '}
             {badgeAccent && (
-              <span className="font-cormorant italic font-medium text-[#D0FF00]">
+              <span className="font-cormorant italic font-medium text-[#8EFF01]">
                 {badgeAccent}
               </span>
             )}
@@ -85,7 +85,7 @@ export const Hero: React.FC = () => {
           {brand?.statusBadge && (
             <>
               <span className="text-[#8116E0] text-xs hidden xs:inline">●</span>
-              <span className="text-[11px] sm:text-xs font-medium text-[#D0FF00] tracking-wide">
+              <span className="text-[11px] sm:text-xs font-medium text-[#8EFF01] tracking-wide">
                 {brand.statusBadge}
               </span>
             </>
@@ -100,7 +100,7 @@ export const Hero: React.FC = () => {
           className="font-montserrat font-medium not-italic text-[clamp(1.85rem,5.8vw,4.4rem)] tracking-tight leading-[1.12] max-w-4xl px-2 break-words"
           style={{ fontStyle: 'normal' }}
         >
-          <span className="font-cormorant italic font-medium sm:font-semibold text-[#D0FF00] text-[1.12em]">
+          <span className="font-cormorant italic font-medium sm:font-semibold text-[#8EFF01] text-[1.12em]">
             {headingMain}{' '}
           </span>
           <span className="font-montserrat font-medium text-[#FEFFFC]">{headingAccent}</span>
@@ -131,18 +131,18 @@ export const Hero: React.FC = () => {
                   id={`hero-chip-${idx}`}
                   className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-medium tracking-wide transition-all duration-300 min-h-[28px] ${
                     tag.color === 'yellow'
-                      ? 'bg-[#D0FF00]/10 border border-[#D0FF00]/30 text-[#D0FF00] shadow-[0_0_12px_rgba(208,255,0,0.12)]'
+                      ? 'bg-[#8EFF01]/10 border border-[#8EFF01]/30 text-[#8EFF01] shadow-[0_0_12px_rgba(142, 255, 1, 0.09)]'
                       : tag.color === 'violet'
                       ? 'bg-[#8116E0]/15 border border-[#8116E0]/40 text-[#FEFFFC] shadow-[0_0_15px_rgba(129,22,224,0.15)]'
                       : 'bg-white/5 border border-white/10 text-[#FEFFFC]/80'
                   }`}
                 >
                   {tag.label === 'Motion Graphics' ? (
-                    <Film className="w-3 h-3 text-[#D0FF00]" />
+                    <Film className="w-3 h-3 text-[#8EFF01]" />
                   ) : tag.label === 'Visual Branding' ? (
                     <Palette className="w-3 h-3 text-[#8116E0]" />
                   ) : (
-                    <Layers className="w-3 h-3 text-[#D0FF00]" />
+                    <Layers className="w-3 h-3 text-[#8EFF01]" />
                   )}
                   <span>{tag.label}</span>
                 </span>
@@ -162,9 +162,9 @@ export const Hero: React.FC = () => {
             <a
               href={primaryButtonLink}
               id="hero-view-work-btn"
-              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white/[0.05] hover:bg-white/[0.1] text-[#FEFFFC] border border-white/15 font-semibold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:border-[#D0FF00]/50 active:scale-95 min-h-[38px] sm:min-h-[42px]"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white/[0.05] hover:bg-white/[0.1] text-[#FEFFFC] border border-white/15 font-semibold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:border-[#8EFF01]/50 active:scale-95 min-h-[38px] sm:min-h-[42px]"
             >
-              <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D0FF00]" />
+              <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8EFF01]" />
               <span>{primaryButtonText}</span>
               <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/60" />
             </a>
@@ -174,7 +174,7 @@ export const Hero: React.FC = () => {
             <a
               href={secondaryButtonLink}
               id="hero-hire-me-btn"
-              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#D0FF00] text-[#050505] font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(208,255,0,0.35)] hover:shadow-[0_0_30px_rgba(208,255,0,0.55)] transition-all duration-300 hover:scale-105 active:scale-95 min-h-[38px] sm:min-h-[42px]"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#8EFF01] text-[#050505] font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(142, 255, 1, 0.26)] hover:shadow-[0_0_30px_rgba(142, 255, 1, 0.4)] transition-all duration-300 hover:scale-105 active:scale-95 min-h-[38px] sm:min-h-[42px]"
             >
               <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#050505]" />
               <span>{secondaryButtonText}</span>

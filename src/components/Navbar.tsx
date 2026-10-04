@@ -121,7 +121,7 @@ export const Navbar: React.FC = () => {
           className="flex items-center gap-2 group cursor-pointer focus:outline-none min-h-[44px]"
         >
           {brand?.logoUrl || navbar?.logoUrl ? (
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(208,255,0,0.4)] p-0.5">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(142, 255, 1, 0.3)] p-0.5">
               <img
                 src={brand?.logoUrl || navbar?.logoUrl}
                 alt={brand?.logoAlt || navbar?.logoAlt || 'Emkay Visuals Logo'}
@@ -133,7 +133,7 @@ export const Navbar: React.FC = () => {
               />
             </div>
           ) : (
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D0FF00] flex items-center justify-center font-bold text-[#050505] text-[11px] sm:text-xs transition-transform duration-300 group-hover:scale-105 shadow-[0_0_12px_rgba(208,255,0,0.4)] shrink-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#8EFF01] flex items-center justify-center font-bold text-[#050505] text-[11px] sm:text-xs transition-transform duration-300 group-hover:scale-105 shadow-[0_0_12px_rgba(142, 255, 1, 0.3)] shrink-0">
               {logoAbbr}
             </div>
           )}
@@ -141,7 +141,7 @@ export const Navbar: React.FC = () => {
             <span className="font-bold text-xs sm:text-sm tracking-wide text-[#FEFFFC]">
               {brandName}
             </span>
-            <span className="text-[#D0FF00] text-[11px] font-bold">{brandDivider}</span>
+            <span className="text-[#8EFF01] text-[11px] font-bold">{brandDivider}</span>
             <span className="text-white/70 text-[11px] sm:text-xs font-normal hidden xs:inline">
               {brandAccent}
             </span>
@@ -186,7 +186,7 @@ export const Navbar: React.FC = () => {
                 handleLinkClick(ctaLink);
               }
             }}
-            className="group relative inline-flex items-center justify-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#D0FF00] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_18px_rgba(208,255,0,0.35)] whitespace-nowrap min-h-[38px] sm:min-h-[42px]"
+            className="group relative inline-flex items-center justify-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#8EFF01] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_18px_rgba(142, 255, 1, 0.26)] whitespace-nowrap min-h-[38px] sm:min-h-[42px]"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#050505] group-hover:rotate-12 transition-transform shrink-0" />
             <span className="whitespace-nowrap">{ctaText}</span>
@@ -202,7 +202,7 @@ export const Navbar: React.FC = () => {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full text-white/85 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors focus:outline-none cursor-pointer"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5 text-[#D0FF00]" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-[#8EFF01]" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </nav>
@@ -219,10 +219,10 @@ export const Navbar: React.FC = () => {
           {/* Drawer Menu */}
           <div
             id="mobile-nav-dropdown"
-            className="pointer-events-auto fixed top-18 left-3 right-3 sm:left-auto sm:right-6 sm:w-96 z-50 bg-[#0A0A0A] border border-white/15 rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex flex-col gap-3 max-h-[85vh] max-h-[85svh] overflow-y-auto"
+            className="pointer-events-auto fixed top-18 left-3 right-3 sm:left-auto sm:right-6 sm:w-96 z-50 bg-[#0B0B0B] border border-white/15 rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex flex-col gap-3 max-h-[85vh] max-h-[85svh] overflow-y-auto"
           >
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
-              <span className="text-xs font-semibold text-[#D0FF00] tracking-wide">
+              <span className="text-xs font-semibold text-[#8EFF01] tracking-wide">
                 {mobileMenuTitle}
               </span>
               <button
@@ -251,7 +251,7 @@ export const Navbar: React.FC = () => {
                     }}
                     className={`px-4 py-3 rounded-2xl text-sm font-medium tracking-wide transition-all min-h-[44px] flex items-center ${
                       isActive
-                        ? 'bg-[#D0FF00] text-[#050505] font-bold shadow-md'
+                        ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-md'
                         : 'text-[#FEFFFC]/85 hover:bg-white/[0.08] hover:text-[#FEFFFC]'
                     }`}
                   >
@@ -275,12 +275,12 @@ export const Navbar: React.FC = () => {
                 }}
                 className={`px-4 py-3 rounded-2xl text-sm font-medium tracking-wide transition-all min-h-[44px] flex items-center justify-between group ${
                   window.location.pathname === '/gallery'
-                    ? 'bg-[#D0FF00] text-[#050505] font-bold shadow-md'
+                    ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-md'
                     : 'text-[#FEFFFC]/85 hover:bg-white/[0.08] hover:text-[#FEFFFC]'
                 }`}
               >
                 <span>YouTube / Manipulation Gallery</span>
-                <ArrowUpRight className="w-4 h-4 text-[#D0FF00] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <ArrowUpRight className="w-4 h-4 text-[#8EFF01] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
             </div>
 
@@ -293,14 +293,14 @@ export const Navbar: React.FC = () => {
                     handleLinkClick(ctaLink);
                   }
                 }}
-                className="w-full text-center py-3.5 rounded-2xl bg-[#D0FF00] text-[#050505] font-bold text-sm min-h-[44px] flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(208,255,0,0.4)] cursor-pointer"
+                className="w-full text-center py-3.5 rounded-2xl bg-[#8EFF01] text-[#050505] font-bold text-sm min-h-[44px] flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(142, 255, 1, 0.3)] cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-[#050505]" />
                 <span>{mobileCtaText}</span>
               </a>
               {brand?.statusBadge && (
                 <div className="flex justify-center items-center gap-2 text-xs text-white/50 pt-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D0FF00]"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8EFF01]"></span>
                   <span>{brand.statusBadge}</span>
                 </div>
               )}

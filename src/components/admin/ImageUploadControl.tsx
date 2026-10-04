@@ -165,7 +165,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
   return (
     <div
       className={`rounded-2xl border border-white/[0.08] bg-[#080808]/90 p-4 sm:p-5 transition-all duration-200 ${
-        isDragging ? 'border-[#D0FF00] bg-[#D0FF00]/5 ring-1 ring-[#D0FF00]/30' : ''
+        isDragging ? 'border-[#8EFF01] bg-[#8EFF01]/5 ring-1 ring-[#8EFF01]/30' : ''
       } ${className}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
@@ -183,7 +183,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
       <div className="flex items-center justify-between gap-3 mb-2.5">
         <div>
           <label className="text-xs sm:text-sm font-semibold text-[#FEFFFC] flex items-center gap-2">
-            <ImageIcon className="w-3.5 h-3.5 text-[#D0FF00]" />
+            <ImageIcon className="w-3.5 h-3.5 text-[#8EFF01]" />
             <span>{label}</span>
           </label>
           {description && (
@@ -198,7 +198,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
           <button
             type="button"
             onClick={() => setShowDirectUrlInput(!showDirectUrlInput)}
-            className="text-[10px] text-white/40 hover:text-[#D0FF00] underline transition-colors px-1"
+            className="text-[10px] text-white/40 hover:text-[#8EFF01] underline transition-colors px-1"
           >
             {showDirectUrlInput ? 'Hide URL' : 'Direct URL'}
           </button>
@@ -232,7 +232,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
               <span
                 className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide transition-colors ${
                   progress.step === 'compressing'
-                    ? 'bg-[#D0FF00]/15 text-[#D0FF00] border border-[#D0FF00]/30'
+                    ? 'bg-[#8EFF01]/15 text-[#8EFF01] border border-[#8EFF01]/30'
                     : progress.step === 'uploading' || progress.step === 'completed'
                     ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
                     : 'bg-white/5 text-white/40'
@@ -241,7 +241,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
                 {progress.step === 'uploading' || progress.step === 'completed' ? (
                   <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                 ) : (
-                  <RefreshCw className="w-3 h-3 animate-spin text-[#D0FF00]" />
+                  <RefreshCw className="w-3 h-3 animate-spin text-[#8EFF01]" />
                 )}
                 1. Compressing
               </span>
@@ -251,7 +251,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
               <span
                 className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide transition-colors ${
                   progress.step === 'uploading'
-                    ? 'bg-[#D0FF00]/15 text-[#D0FF00] border border-[#D0FF00]/30'
+                    ? 'bg-[#8EFF01]/15 text-[#8EFF01] border border-[#8EFF01]/30'
                     : progress.step === 'completed'
                     ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
                     : 'bg-white/5 text-white/40'
@@ -260,7 +260,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
                 {progress.step === 'completed' ? (
                   <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                 ) : progress.step === 'uploading' ? (
-                  <UploadCloud className="w-3 h-3 animate-pulse text-[#D0FF00]" />
+                  <UploadCloud className="w-3 h-3 animate-pulse text-[#8EFF01]" />
                 ) : (
                   <UploadCloud className="w-3 h-3 text-white/30" />
                 )}
@@ -268,7 +268,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
               </span>
             </div>
 
-            <span className="text-xs font-mono font-bold text-[#D0FF00]">
+            <span className="text-xs font-mono font-bold text-[#8EFF01]">
               {progress.percent}%
             </span>
           </div>
@@ -276,7 +276,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
           {/* Actual Progress Bar */}
           <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-[#D0FF00] to-emerald-400 rounded-full transition-all duration-150 ease-out"
+              className="h-full bg-gradient-to-r from-[#8EFF01] to-emerald-400 rounded-full transition-all duration-150 ease-out"
               style={{ width: `${Math.max(4, Math.min(100, progress.percent))}%` }}
             />
           </div>
@@ -338,7 +338,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="px-3.5 py-2 rounded-xl bg-[#D0FF00] text-[#050505] text-xs font-bold flex items-center gap-1.5 shadow-lg hover:scale-105 transition-transform active:scale-95 cursor-pointer"
+              className="px-3.5 py-2 rounded-xl bg-[#8EFF01] text-[#050505] text-xs font-bold flex items-center gap-1.5 shadow-lg hover:scale-105 transition-transform active:scale-95 cursor-pointer"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Replace Image</span>
@@ -362,7 +362,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="text-xs text-[#D0FF00] hover:underline font-medium cursor-pointer"
+                className="text-xs text-[#8EFF01] hover:underline font-medium cursor-pointer"
               >
                 Replace
               </button>
@@ -381,19 +381,19 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
         /* Empty Upload Dropzone */
         <div
           onClick={() => fileInputRef.current?.click()}
-          className="rounded-xl border-2 border-dashed border-white/15 hover:border-[#D0FF00]/60 bg-white/[0.02] hover:bg-white/[0.04] p-6 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 group"
+          className="rounded-xl border-2 border-dashed border-white/15 hover:border-[#8EFF01]/60 bg-white/[0.02] hover:bg-white/[0.04] p-6 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 group"
         >
-          <div className="w-12 h-12 rounded-2xl bg-white/[0.05] group-hover:bg-[#D0FF00]/10 border border-white/10 group-hover:border-[#D0FF00]/40 flex items-center justify-center mb-3 transition-colors">
-            <UploadCloud className="w-6 h-6 text-white/60 group-hover:text-[#D0FF00] transition-colors" />
+          <div className="w-12 h-12 rounded-2xl bg-white/[0.05] group-hover:bg-[#8EFF01]/10 border border-white/10 group-hover:border-[#8EFF01]/40 flex items-center justify-center mb-3 transition-colors">
+            <UploadCloud className="w-6 h-6 text-white/60 group-hover:text-[#8EFF01] transition-colors" />
           </div>
           <p className="text-xs sm:text-sm font-semibold text-white/90 group-hover:text-[#FEFFFC]">
             Click to upload or drag & drop image
           </p>
           <p className="text-[11px] text-white/40 mt-1">
-            Auto-converted to <span className="text-[#D0FF00] font-semibold">WebP (quality 0.8)</span> • Max 15 MB
+            Auto-converted to <span className="text-[#8EFF01] font-semibold">WebP (quality 0.8)</span> • Max 15 MB
           </p>
           <span className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] text-white/60 font-medium">
-            <FileCheck className="w-3 h-3 text-[#D0FF00]" />
+            <FileCheck className="w-3 h-3 text-[#8EFF01]" />
             Target: {preset} preset
           </span>
         </div>
@@ -403,22 +403,22 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
       {lastStats && (
         <div className="mt-3 p-3 rounded-xl bg-white/[0.03] border border-white/10 text-[11px] text-white/80 flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#D0FF00] shrink-0" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#8EFF01] shrink-0" />
             <span>
               <strong className="text-[#FEFFFC]">Original:</strong> {lastStats.originalSizeFormatted} →{' '}
-              <strong className="text-[#D0FF00]">WebP:</strong> {lastStats.newSizeFormatted} ({lastStats.compressionRatio})
+              <strong className="text-[#8EFF01]">WebP:</strong> {lastStats.newSizeFormatted} ({lastStats.compressionRatio})
             </span>
           </div>
 
           <div className="flex items-center gap-1.5 text-[10px]">
             {storageMethod === 'firebase_storage' ? (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#8116E0]/20 border border-[#8116E0]/40 text-[#FEFFFC] font-medium">
-                <Cloud className="w-3 h-3 text-[#D0FF00]" />
+                <Cloud className="w-3 h-3 text-[#8EFF01]" />
                 Firebase Storage (Public URL)
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#D0FF00]/10 border border-[#D0FF00]/30 text-[#D0FF00] font-medium">
-                <Database className="w-3 h-3 text-[#D0FF00]" />
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#8EFF01]/10 border border-[#8EFF01]/30 text-[#8EFF01] font-medium">
+                <Database className="w-3 h-3 text-[#8EFF01]" />
                 Firestore Media Doc (&lt;700KB, /media/:id)
               </span>
             )}
@@ -437,7 +437,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
             value={altText}
             onChange={handleAltChange}
             placeholder={altPlaceholder}
-            className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 focus:border-[#D0FF00]/50 text-xs text-white placeholder-white/30 outline-none transition-colors"
+            className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 focus:border-[#8EFF01]/50 text-xs text-white placeholder-white/30 outline-none transition-colors"
           />
         </div>
       )}

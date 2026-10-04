@@ -84,7 +84,7 @@ export const AdminStatsTab: React.FC<AdminTabProps> = ({
       <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D0FF00]/15 border border-[#D0FF00]/30 flex items-center justify-center text-[#D0FF00]">
+            <div className="w-10 h-10 rounded-xl bg-[#8EFF01]/15 border border-[#8EFF01]/30 flex items-center justify-center text-[#8EFF01]">
               <BarChart2 className="w-5 h-5" />
             </div>
             <div>
@@ -120,7 +120,7 @@ export const AdminStatsTab: React.FC<AdminTabProps> = ({
             value={statsSection.satisfactionText || ''}
             onChange={(e) => handleSectionChange('satisfactionText', e.target.value)}
             placeholder="5.0 Average Client Satisfaction"
-            className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+            className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
           />
           <p className="text-[10px] text-white/40 mt-1">
             Displayed alongside satisfaction ratings throughout the portfolio.
@@ -152,7 +152,7 @@ export const AdminStatsTab: React.FC<AdminTabProps> = ({
               }`}
             >
               <div className="flex items-center justify-between gap-3 mb-3 border-b border-white/10 pb-2">
-                <span className="text-xs font-mono font-bold text-[#D0FF00]">
+                <span className="text-xs font-mono font-bold text-[#8EFF01]">
                   #{index + 1} — {stat.value}
                   {stat.suffix}
                 </span>
@@ -163,7 +163,7 @@ export const AdminStatsTab: React.FC<AdminTabProps> = ({
                       type="checkbox"
                       checked={stat.visible !== false}
                       onChange={(e) => handleStatChange(index, 'visible', e.target.checked)}
-                      className="rounded accent-[#D0FF00]"
+                      className="rounded accent-[#8EFF01]"
                     />
                     <span>{stat.visible !== false ? 'Visible' : 'Hidden'}</span>
                   </label>
@@ -204,7 +204,7 @@ export const AdminStatsTab: React.FC<AdminTabProps> = ({
                     type="number"
                     value={stat.value}
                     onChange={(e) => handleStatChange(index, 'value', e.target.value)}
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-mono outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-mono outline-none focus:border-[#8EFF01]"
                   />
                 </div>
                 <div>
@@ -214,7 +214,7 @@ export const AdminStatsTab: React.FC<AdminTabProps> = ({
                     value={stat.suffix || ''}
                     onChange={(e) => handleStatChange(index, 'suffix', e.target.value)}
                     placeholder="+"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-mono text-center outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white font-mono text-center outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>
@@ -227,7 +227,7 @@ export const AdminStatsTab: React.FC<AdminTabProps> = ({
                     value={stat.label || ''}
                     onChange={(e) => handleStatChange(index, 'label', e.target.value)}
                     placeholder="e.g. Projects Completed"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
 
@@ -238,7 +238,7 @@ export const AdminStatsTab: React.FC<AdminTabProps> = ({
                     value={stat.sublabel || ''}
                     onChange={(e) => handleStatChange(index, 'sublabel', e.target.value)}
                     placeholder="e.g. Album art, key art, brand systems & animations"
-                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#D0FF00]"
+                    className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
                   />
                 </div>
               </div>

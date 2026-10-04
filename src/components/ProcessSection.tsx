@@ -25,8 +25,8 @@ export const ProcessSection: React.FC = () => {
     <section id="process" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background Glow */}
       <div
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full blur-[170px] opacity-10"
-        style={{ background: 'radial-gradient(circle, #8116E0 0%, #D0FF00 100%)' }}
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full blur-[160px] opacity-[0.085]"
+        style={{ background: 'radial-gradient(circle, #8116E0 0%, #8EFF01 100%)' }}
       />
 
       {/* Header with Scroll Fade/Slide */}
@@ -37,7 +37,7 @@ export const ProcessSection: React.FC = () => {
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 text-center max-w-2xl mx-auto mb-8 sm:mb-12"
       >
-        <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#D0FF00] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
+        <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
           <Sparkles className="w-3.5 h-3.5" />
           <span>
             {badgeMain}{' '}
@@ -48,7 +48,7 @@ export const ProcessSection: React.FC = () => {
             )}
           </span>
         </div>
-        <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#D0FF00] tracking-tight leading-[1.15]">
+        <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15]">
           {headingMain}{' '}
           <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
             {headingAccent}
@@ -78,16 +78,16 @@ export const ProcessSection: React.FC = () => {
               scale: 1.01,
               transition: { duration: 0.2, ease: 'easeOut' },
             }}
-            className="group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#D0FF00]/40 p-4 sm:p-5 flex flex-col justify-between cursor-default transition-colors duration-300 bg-[#050505]/80"
+            className="group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/40 p-4 sm:p-5 flex flex-col justify-between cursor-default transition-colors duration-300 bg-[#050505]/80"
           >
             {/* Top Step Number & Duration */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <span className="font-cormorant italic font-medium text-2xl sm:text-3xl text-[#FEFFFC]/30 group-hover:text-[#D0FF00] group-hover:scale-105 transition-all duration-300 inline-block">
+                <span className="font-cormorant italic font-medium text-2xl sm:text-3xl text-[#FEFFFC]/30 group-hover:text-[#8EFF01] group-hover:scale-105 transition-all duration-300 inline-block">
                   {step.stepNumber}
                 </span>
-                <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-medium px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-white/60 group-hover:border-[#D0FF00]/30 transition-colors">
-                  <Clock className="w-3 h-3 text-[#D0FF00]" />
+                <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-medium px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-white/60 group-hover:border-[#8EFF01]/30 transition-colors">
+                  <Clock className="w-3 h-3 text-[#8EFF01]" />
                   <span>{step.duration}</span>
                 </span>
               </div>
@@ -96,7 +96,7 @@ export const ProcessSection: React.FC = () => {
                 {step.highlightBadge}
               </span>
 
-              <h3 className="font-montserrat font-medium italic text-base sm:text-lg text-[#D0FF00] mb-1.5">
+              <h3 className="font-montserrat font-medium italic text-base sm:text-lg text-[#8EFF01] mb-1.5">
                 {step.title}
               </h3>
 
@@ -113,7 +113,7 @@ export const ProcessSection: React.FC = () => {
                   0{idx + 1}
                 </span>
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D0FF00] opacity-40 group-hover:opacity-100 group-hover:shadow-[0_0_8px_#D0FF00] transition-all"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#8EFF01] opacity-40 group-hover:opacity-100 group-hover:shadow-[0_0_8px_#8EFF01] transition-all"></span>
             </div>
           </motion.div>
         ))}

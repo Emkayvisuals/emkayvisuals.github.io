@@ -20,7 +20,7 @@ export const SectionToggle: React.FC<SectionToggleProps> = ({
         <div
           className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs transition-colors ${
             checked
-              ? 'bg-[#D0FF00]/15 text-[#D0FF00] border border-[#D0FF00]/30'
+              ? 'bg-[#8EFF01]/15 text-[#8EFF01] border border-[#8EFF01]/30'
               : 'bg-white/5 text-white/40 border border-white/10'
           }`}
         >
@@ -37,7 +37,7 @@ export const SectionToggle: React.FC<SectionToggleProps> = ({
         onClick={() => onChange(!checked)}
         className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
           checked
-            ? 'bg-[#D0FF00] text-black shadow-[0_0_12px_rgba(208,255,0,0.3)]'
+            ? 'bg-[#8EFF01] text-black shadow-[0_0_12px_rgba(142, 255, 1, 0.22)]'
             : 'bg-white/10 text-white/60 hover:bg-white/15'
         }`}
       >
