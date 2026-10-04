@@ -34,28 +34,40 @@ function escapeHtml(str: string): string {
     .replace(/>/g, '&gt;');
 }
 
-async function fetchLatestSeo(): Promise<SeoData> {
-  let seo: SeoData = { ...DEFAULT_SEO };
+function getFirestoreUrl(): string {
+  let projectId = 'hidden-messenger-rcbh2';
+  let databaseId = 'ai-studio-emkayvisuals-2f5ceff9-8fbc-4aed-b4bd-12e98affc571';
+  let apiKey = '';
 
-  // 1. Check local cache file as first fallback
-  if (fs.existsSync(CACHE_FILE)) {
-    try {
-      const raw = fs.readFileSync(CACHE_FILE, 'utf-8');
-      const cached = JSON.parse(raw);
-      if (cached && typeof cached === 'object') {
-        seo = { ...seo, ...cached };
-      }
-    } catch {
-      // ignore
+  try {
+    const configPath = path.resolve(process.cwd(), 'firebase-applet-config.json');
+    if (fs.existsSync(configPath)) {
+      const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+      if (config.projectId) projectId = config.projectId;
+      if (config.firestoreDatabaseId) databaseId = config.firestoreDatabaseId;
+      if (config.apiKey) apiKey = config.apiKey;
     }
+  } catch {
+    // ignore
   }
 
-  // 2. Fetch fresh live data from Firestore REST API at build time
+  const queryParam = apiKey ? `?key=${encodeURIComponent(apiKey)}` : '';
+  return `https://firestore.googleapis.com/v1/projects/${projectId}/databases/${databaseId}/documents/portfolio/content${queryParam}`;
+}
+
+async function fetchLatestSeo(): Promise<SeoData> {
+  const url = getFirestoreUrl();
+  console.log('[build-seo] Fetching live SEO data directly from Firestore...');
+
   try {
-    console.log('[build-seo] Fetching latest live content from Firestore...');
-    const res = await fetch(FIRESTORE_URL, {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+    const res = await fetch(url, {
       headers: { Accept: 'application/json' },
+      signal: controller.signal,
     });
+    clearTimeout(timeoutId);
 
     if (res.ok) {
       const doc = await res.json();
@@ -63,43 +75,51 @@ async function fetchLatestSeo(): Promise<SeoData> {
       const seoFields = fields?.seo?.mapValue?.fields;
       const preloaderFields = fields?.preloader?.mapValue?.fields;
 
-      if (seoFields) {
-        if (seoFields.metaTitle?.stringValue) {
-          seo.metaTitle = seoFields.metaTitle.stringValue;
-        }
-        if (seoFields.metaDescription?.stringValue) {
-          seo.metaDescription = seoFields.metaDescription.stringValue;
-        }
-        if (seoFields.ogImage?.stringValue) {
-          seo.ogImage = seoFields.ogImage.stringValue;
-        }
-        if (seoFields.ogImageAlt?.stringValue) {
-          seo.ogImageAlt = seoFields.ogImageAlt.stringValue;
-        }
-        if (seoFields.faviconUrl?.stringValue) {
-          seo.faviconUrl = seoFields.faviconUrl.stringValue;
-        }
-      }
+      const liveSeo: SeoData = {
+        metaTitle: seoFields?.metaTitle?.stringValue || DEFAULT_SEO.metaTitle,
+        metaDescription: seoFields?.metaDescription?.stringValue || DEFAULT_SEO.metaDescription,
+        ogImage: seoFields?.ogImage?.stringValue || DEFAULT_SEO.ogImage,
+        ogImageAlt: seoFields?.ogImageAlt?.stringValue || DEFAULT_SEO.ogImageAlt,
+        faviconUrl:
+          seoFields?.faviconUrl?.stringValue ||
+          preloaderFields?.faviconUrl?.stringValue ||
+          DEFAULT_SEO.faviconUrl,
+      };
 
-      if (preloaderFields?.faviconUrl?.stringValue && !seoFields?.faviconUrl?.stringValue) {
-        seo.faviconUrl = preloaderFields.faviconUrl.stringValue;
-      }
-
-      // Save freshly fetched data to cache file
+      // Always overwrite the local cache with freshly fetched live data
       try {
-        fs.writeFileSync(CACHE_FILE, JSON.stringify(seo, null, 2), 'utf-8');
-        console.log('[build-seo] Updated .seo-cache.json with fresh Firestore data');
+        fs.writeFileSync(CACHE_FILE, JSON.stringify(liveSeo, null, 2), 'utf-8');
+        console.log('[build-seo] Successfully updated .seo-cache.json with fresh Firestore data');
       } catch (writeErr) {
         console.warn('[build-seo] Warning: could not write .seo-cache.json:', writeErr);
       }
+
+      return liveSeo;
     } else {
-      console.warn(`[build-seo] Firestore API returned ${res.status} ${res.statusText}, using cached/fallback SEO`);
+      console.warn(
+        `[build-seo] Firestore REST API returned ${res.status} ${res.statusText}. Checking cache fallback...`
+      );
     }
-  } catch (err) {
-    console.warn('[build-seo] Network error fetching Firestore, using cached/fallback SEO:', err);
+  } catch (err: any) {
+    console.warn('[build-seo] Network error fetching Firestore:', err?.message || err);
   }
 
-  return seo;
+  // Fallback to cache file if network was unavailable
+  if (fs.existsSync(CACHE_FILE)) {
+    try {
+      const raw = fs.readFileSync(CACHE_FILE, 'utf-8');
+      const cached = JSON.parse(raw);
+      if (cached && typeof cached === 'object') {
+        console.log('[build-seo] Loaded fallback SEO from .seo-cache.json');
+        return { ...DEFAULT_SEO, ...cached };
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  console.log('[build-seo] Using built-in default SEO values');
+  return { ...DEFAULT_SEO };
 }
 
 function resolveAbsoluteUrl(urlOrPath: string): string {
@@ -197,6 +217,14 @@ async function main() {
   const updatedHtml = injectSeoIntoHtml(indexHtml, seo);
   fs.writeFileSync(INDEX_HTML_PATH, updatedHtml, 'utf-8');
   console.log('[build-seo] Successfully baked latest Firestore SEO tags into index.html!');
+
+  const distHtmlPath = path.resolve(process.cwd(), 'dist/index.html');
+  if (fs.existsSync(distHtmlPath)) {
+    const distHtml = fs.readFileSync(distHtmlPath, 'utf-8');
+    const updatedDistHtml = injectSeoIntoHtml(distHtml, seo);
+    fs.writeFileSync(distHtmlPath, updatedDistHtml, 'utf-8');
+    console.log('[build-seo] Also updated dist/index.html with latest SEO tags');
+  }
 }
 
 main().catch((err) => {

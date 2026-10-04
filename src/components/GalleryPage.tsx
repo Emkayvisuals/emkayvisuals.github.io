@@ -57,6 +57,14 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
   }) as ManipulationGalleryConfig;
 
   const [selectedItem, setSelectedItem] = useState<ManipulationGalleryItem | null>(null);
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
+  const [lightboxLoaded, setLightboxLoaded] = useState<Record<string, boolean>>({});
+
+  // Lightbox gesture and transition states
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [touchDelta, setTouchDelta] = useState(0);
+  const [isBouncing, setIsBouncing] = useState<'left' | 'right' | null>(null);
+  const [transitioningTo, setTransitioningTo] = useState<number | null>(null);
 
   // Dynamic automatic image orientation detector
   const [orientations, setOrientations] = useState<Record<string, 'portrait' | 'landscape'>>(() => {
@@ -82,8 +90,16 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
     window.scrollTo({ top: 0, behavior: 'instant' as any });
   }, []);
 
-  // Update orientation automatically when an image finishes loading from natural dimensions
+  // Reset gesture state when selected item changes
+  useEffect(() => {
+    setTouchDelta(0);
+    setIsBouncing(null);
+    setTransitioningTo(null);
+  }, [selectedItem?.id]);
+
+  // Update orientation and loaded status automatically
   const handleImageLoad = (id: string, e: React.SyntheticEvent<HTMLImageElement>) => {
+    setLoadedImages((prev) => ({ ...prev, [id]: true }));
     const img = e.currentTarget;
     if (img.naturalWidth && img.naturalHeight) {
       const isLandscape = img.naturalWidth > img.naturalHeight;
@@ -111,38 +127,136 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
         setSelectedItem(null);
       } else if (e.key === 'ArrowRight') {
         const currIdx = galleryItems.findIndex((it) => it.id === selectedItem.id);
-        if (currIdx !== -1) {
-          const nextIdx = (currIdx + 1) % galleryItems.length;
-          setSelectedItem(galleryItems[nextIdx]);
+        if (currIdx !== -1 && currIdx < galleryItems.length - 1) {
+          setSelectedItem(galleryItems[currIdx + 1]);
         }
       } else if (e.key === 'ArrowLeft') {
         const currIdx = galleryItems.findIndex((it) => it.id === selectedItem.id);
-        if (currIdx !== -1) {
-          const prevIdx = (currIdx - 1 + galleryItems.length) % galleryItems.length;
-          setSelectedItem(galleryItems[prevIdx]);
+        if (currIdx !== -1 && currIdx > 0) {
+          setSelectedItem(galleryItems[currIdx - 1]);
         }
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    if (selectedItem) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [selectedItem, galleryItems]);
+
+  const currentItemIndex = selectedItem
+    ? galleryItems.findIndex((it) => it.id === selectedItem.id)
+    : 0;
+
+  const isDragging = touchStart !== null && transitioningTo === null;
+
+  // Real-time swipe crossfade tracking
+  let incomingIndex: number | null = null;
+  let incomingDirection: 'next' | 'prev' | null = null;
+  let swipeProgress = 0;
+
+  if (transitioningTo !== null) {
+    incomingIndex = transitioningTo;
+    incomingDirection = incomingIndex > currentItemIndex ? 'next' : 'prev';
+    swipeProgress = 1;
+  } else if (touchDelta < 0 && currentItemIndex < galleryItems.length - 1) {
+    incomingIndex = currentItemIndex + 1;
+    incomingDirection = 'next';
+    swipeProgress = Math.min(1, Math.max(0, -touchDelta / 120));
+  } else if (touchDelta > 0 && currentItemIndex > 0) {
+    incomingIndex = currentItemIndex - 1;
+    incomingDirection = 'prev';
+    swipeProgress = Math.min(1, Math.max(0, touchDelta / 120));
+  }
+
+  const incomingItem = incomingIndex !== null ? galleryItems[incomingIndex] : null;
+
+  // Touch handlers for swipe navigation between artworks
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (galleryItems.length <= 1 || transitioningTo !== null) return;
+    const touch = e.touches[0];
+    setTouchStart({ x: touch.clientX, y: touch.clientY });
+    setTouchDelta(0);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStart || galleryItems.length <= 1 || transitioningTo !== null) return;
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - touchStart.x;
+    const deltaY = touch.clientY - touchStart.y;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+      const isAtStart = currentItemIndex === 0 && deltaX > 0;
+      const isAtEnd = currentItemIndex === galleryItems.length - 1 && deltaX < 0;
+
+      if (isAtStart || isAtEnd) {
+        setTouchDelta(deltaX * 0.25); // Boundary resistance
+      } else {
+        setTouchDelta(deltaX);
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || galleryItems.length <= 1 || transitioningTo !== null) {
+      setTouchStart(null);
+      setTouchDelta(0);
+      return;
+    }
+
+    const threshold = 40;
+    if (touchDelta < -threshold) {
+      if (currentItemIndex < galleryItems.length - 1) {
+        const targetIdx = currentItemIndex + 1;
+        setTransitioningTo(targetIdx);
+        setTouchStart(null);
+        setTimeout(() => {
+          setSelectedItem(galleryItems[targetIdx]);
+          setTransitioningTo(null);
+          setTouchDelta(0);
+        }, 240);
+        return;
+      } else {
+        setIsBouncing('right');
+        setTimeout(() => setIsBouncing(null), 300);
+      }
+    } else if (touchDelta > threshold) {
+      if (currentItemIndex > 0) {
+        const targetIdx = currentItemIndex - 1;
+        setTransitioningTo(targetIdx);
+        setTouchStart(null);
+        setTimeout(() => {
+          setSelectedItem(galleryItems[targetIdx]);
+          setTransitioningTo(null);
+          setTouchDelta(0);
+        }, 240);
+        return;
+      } else {
+        setIsBouncing('left');
+        setTimeout(() => setIsBouncing(null), 300);
+      }
+    }
+
+    setTouchStart(null);
+    setTouchDelta(0);
+  };
 
   const handleNextItem = () => {
     if (!selectedItem) return;
-    const currIdx = galleryItems.findIndex((it) => it.id === selectedItem.id);
-    if (currIdx !== -1) {
-      const nextIdx = (currIdx + 1) % galleryItems.length;
-      setSelectedItem(galleryItems[nextIdx]);
+    if (currentItemIndex < galleryItems.length - 1) {
+      setSelectedItem(galleryItems[currentItemIndex + 1]);
     }
   };
 
   const handlePrevItem = () => {
     if (!selectedItem) return;
-    const currIdx = galleryItems.findIndex((it) => it.id === selectedItem.id);
-    if (currIdx !== -1) {
-      const prevIdx = (currIdx - 1 + galleryItems.length) % galleryItems.length;
-      setSelectedItem(galleryItems[prevIdx]);
+    if (currentItemIndex > 0) {
+      setSelectedItem(galleryItems[currentItemIndex - 1]);
     }
   };
 
@@ -256,11 +370,8 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
             </span>
           </div>
 
-          {/* Responsive Grid:
-              Mobile: 2-column grid. Portrait takes 1 column, Landscape spans 2 columns (full row by itself).
-              Desktop: 4 to 6 columns. Portrait takes 1 column, Landscape spans 2 columns.
-              grid-auto-flow: dense ensures automatic tight packing without big empty holes. */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 [grid-auto-flow:dense] gap-3 sm:gap-4 md:gap-5">
+          {/* Sharp corners, tighter gaps, dense responsive grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 [grid-auto-flow:dense] gap-1.5 sm:gap-2 md:gap-2.5">
             {galleryItems.map((item) => {
               const isLandscape = orientations[item.id] === 'landscape';
               const colSpanClass = isLandscape
@@ -280,21 +391,28 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
                     }
                   }}
                   aria-label={`View artwork: ${item.title}`}
-                  className={`${colSpanClass} group relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 hover:border-[#8EFF01]/50 bg-[#0B0B0B] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8EFF01]/50`}
+                  className={`${colSpanClass} group relative rounded-none overflow-hidden border border-white/10 hover:border-[#8EFF01]/50 bg-[#0B0B0B] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8EFF01]/50`}
                 >
-                  <div className={`relative w-full overflow-hidden ${isLandscape ? 'aspect-[16/9]' : 'aspect-[3/4]'}`}>
+                  <div className={`relative w-full overflow-hidden ${isLandscape ? 'aspect-[16/9]' : 'aspect-[3/4]'} bg-[#121212]`}>
+                    {!loadedImages[item.id] && (
+                      <div className="absolute inset-0 bg-[#121212] overflow-hidden">
+                        <div className="animate-shimmer" />
+                      </div>
+                    )}
                     <img
                       src={item.image}
                       alt={item.title}
                       loading="lazy"
                       onLoad={(e) => handleImageLoad(item.id, e)}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                        loadedImages[item.id] ? 'opacity-100' : 'opacity-0'
+                      }`}
                     />
 
                     {/* Subtle overlay at bottom on hover/tap with small artwork title */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-2.5 sm:p-3">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-2 sm:p-2.5">
                       <div className="flex items-center justify-between gap-1.5">
-                        <span className="text-white text-xs sm:text-[13px] font-medium tracking-wide truncate">
+                        <span className="text-white text-[11px] sm:text-xs font-medium tracking-wide truncate">
                           {item.title}
                         </span>
                         <Maximize2 className="w-3 h-3 text-[#8EFF01] shrink-0 opacity-80" />
@@ -308,18 +426,18 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
         </div>
       </main>
 
-      {/* Lightbox Modal for Full View Inspection */}
+      {/* Lightbox Modal with Swipe Navigation and Smooth Real-time Crossfade */}
       <AnimatePresence>
         {selectedItem && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/92 backdrop-blur-xl"
             onClick={() => setSelectedItem(null)}
           >
             <div
-              className="relative max-w-5xl max-h-[90vh] max-h-[90svh] w-full flex flex-col items-center"
+              className="relative max-w-5xl max-h-[92vh] max-h-[92svh] w-full flex flex-col items-center select-none"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
@@ -327,7 +445,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
                 type="button"
                 onClick={() => setSelectedItem(null)}
                 aria-label="Close Lightbox"
-                className="absolute -top-11 right-0 sm:right-2 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer z-10"
+                className="absolute -top-11 right-0 sm:right-2 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer z-20"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -338,36 +456,108 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
                   <button
                     type="button"
                     onClick={handlePrevItem}
+                    disabled={currentItemIndex === 0}
                     aria-label="Previous Artwork"
-                    className="absolute left-1 sm:left-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/70 hover:bg-black/90 border border-white/15 text-white flex items-center justify-center transition-transform hover:scale-105 cursor-pointer z-10"
+                    className="absolute left-1 sm:left-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/80 hover:bg-black border border-white/15 text-white flex items-center justify-center transition-all hover:scale-105 disabled:opacity-20 cursor-pointer z-20"
                   >
                     <ArrowLeft className="w-5 h-5" />
                   </button>
                   <button
                     type="button"
                     onClick={handleNextItem}
+                    disabled={currentItemIndex === galleryItems.length - 1}
                     aria-label="Next Artwork"
-                    className="absolute right-1 sm:right-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/70 hover:bg-black/90 border border-white/15 text-white flex items-center justify-center transition-transform hover:scale-105 cursor-pointer z-10"
+                    className="absolute right-1 sm:right-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/80 hover:bg-black border border-white/15 text-white flex items-center justify-center transition-all hover:scale-105 disabled:opacity-20 cursor-pointer z-20"
                   >
                     <ArrowRight className="w-5 h-5" />
                   </button>
                 </>
               )}
 
-              {/* Artwork Image Container */}
-              <div className="rounded-2xl overflow-hidden border border-white/15 max-h-[75vh] max-h-[75svh] flex items-center justify-center bg-black/60 shadow-[0_10px_40px_rgba(0,0,0,0.9)]">
+              {/* Artwork Image Container with Reserved Size & Shimmer Sweep */}
+              <div
+                className="relative w-full min-h-[300px] sm:min-h-[460px] lg:min-h-[580px] max-h-[75vh] max-h-[75svh] flex items-center justify-center overflow-hidden rounded-xl sm:rounded-2xl border border-white/15 bg-[#0a0a0a] shadow-[0_10px_40px_rgba(0,0,0,0.9)]"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
+                {/* Shimmer sweep placeholder while current image loads */}
+                {!lightboxLoaded[selectedItem.image] && (
+                  <div className="absolute inset-0 flex items-center justify-center p-2 sm:p-4 z-10 pointer-events-none">
+                    <div className="relative w-full h-full rounded-lg overflow-hidden bg-[#0e0e0e] border border-white/10 flex items-center justify-center">
+                      <div className="animate-shimmer" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Current Artwork Image */}
                 <img
+                  key={`gallery-curr-${selectedItem.id}`}
                   src={selectedItem.image}
                   alt={selectedItem.title}
-                  className="max-h-[75vh] max-h-[75svh] max-w-full w-auto object-contain rounded-2xl"
+                  draggable={false}
+                  onLoad={() => setLightboxLoaded((prev) => ({ ...prev, [selectedItem.image]: true }))}
+                  style={{
+                    transform:
+                      isBouncing === 'left'
+                        ? 'translateX(18px)'
+                        : isBouncing === 'right'
+                        ? 'translateX(-18px)'
+                        : transitioningTo !== null
+                        ? incomingDirection === 'next'
+                          ? 'translateX(-60px)'
+                          : 'translateX(60px)'
+                        : touchDelta
+                        ? `translateX(${touchDelta * 0.45}px)`
+                        : 'none',
+                    opacity: incomingItem
+                      ? Math.max(0, 1 - swipeProgress)
+                      : lightboxLoaded[selectedItem.image]
+                      ? 1
+                      : 0,
+                    transition: isDragging
+                      ? 'none'
+                      : 'transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.24s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                  }}
+                  className="max-h-[74vh] max-h-[74svh] max-w-full w-auto object-contain rounded-lg sm:rounded-xl select-none transition-opacity duration-300 pointer-events-auto"
                 />
+
+                {/* Incoming Artwork Image for Smooth Real-time Crossfade */}
+                {incomingItem && (
+                  <div
+                    className="absolute inset-0 flex items-center justify-center p-1 sm:p-2 pointer-events-none"
+                    style={{
+                      opacity: swipeProgress,
+                      transform:
+                        transitioningTo !== null
+                          ? 'translateX(0px)'
+                          : incomingDirection === 'next'
+                          ? `translateX(${45 * (1 - swipeProgress) + touchDelta * 0.25}px)`
+                          : `translateX(${-45 * (1 - swipeProgress) + touchDelta * 0.25}px)`,
+                      transition: isDragging
+                        ? 'none'
+                        : 'transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.24s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                    }}
+                  >
+                    <img
+                      src={incomingItem.image}
+                      alt={incomingItem.title}
+                      draggable={false}
+                      onLoad={() => setLightboxLoaded((prev) => ({ ...prev, [incomingItem.image]: true }))}
+                      className="max-h-[74vh] max-h-[74svh] max-w-full w-auto object-contain rounded-lg sm:rounded-xl select-none"
+                    />
+                  </div>
+                )}
               </div>
 
-              {/* Caption */}
-              <div className="mt-3.5 text-center px-4">
+              {/* Caption with Index */}
+              <div className="mt-3 text-center px-4 flex items-center justify-center gap-2">
                 <h3 className="text-sm sm:text-base font-medium text-[#FEFFFC] tracking-wide">
                   {selectedItem.title}
                 </h3>
+                <span className="text-xs text-white/40 font-mono">
+                  ({currentItemIndex + 1}/{galleryItems.length})
+                </span>
               </div>
             </div>
           </motion.div>

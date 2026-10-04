@@ -106,6 +106,8 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
     }
   };
 
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
+
   useEffect(() => {
     if (hasVideo) {
       setActiveMediaIndex('video');
@@ -310,9 +312,9 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
           </div>
         )}
 
-        {/* Visual / Media Side - Capped on mobile to fit portrait images without pushing content off-screen */}
-        <div className="relative flex-shrink-0 lg:flex-1 bg-black flex flex-col items-center justify-center min-h-0 overflow-hidden group border-b lg:border-b-0 border-white/10">
-          <div className="w-full flex-1 min-h-0 flex items-center justify-center p-2 sm:p-3 max-h-[50vh] max-h-[50svh] sm:max-h-[58vh] sm:max-h-[58svh] lg:max-h-[70vh] lg:max-h-[70svh]">
+        {/* Visual / Media Side - Reserved height to eliminate shrinking and layout shift */}
+        <div className="relative flex-shrink-0 lg:flex-1 bg-black flex flex-col items-center justify-center min-h-[300px] sm:min-h-[420px] lg:min-h-[520px] overflow-hidden group border-b lg:border-b-0 border-white/10">
+          <div className="w-full flex-1 min-h-[300px] sm:min-h-[420px] lg:min-h-[520px] flex items-center justify-center p-2 sm:p-3 max-h-[50vh] max-h-[50svh] sm:max-h-[58vh] sm:max-h-[58svh] lg:max-h-[70vh] lg:max-h-[70svh] relative">
             {activeMediaIndex === 'video' && hasVideo && videoEmbedUrl ? (
               <div className="w-full h-full aspect-video flex items-center justify-center bg-black rounded-xl overflow-hidden shadow-2xl">
                 {videoType === 'mp4' ? (
@@ -334,11 +336,20 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
               </div>
             ) : (
               <div
-                className="relative w-full h-full min-h-0 flex items-center justify-center p-1 sm:p-2 overflow-hidden select-none"
+                className="relative w-full h-full min-h-[280px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center p-1 sm:p-2 overflow-hidden select-none"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
               >
+                {/* Shimmer Sweep Loading Placeholder */}
+                {!loadedImages[currentImage?.url] && (
+                  <div className="absolute inset-0 flex items-center justify-center p-2 sm:p-4 z-10 pointer-events-none">
+                    <div className="relative w-full h-full max-h-[46vh] max-h-[46svh] sm:max-h-[54vh] sm:max-h-[54svh] lg:max-h-[68vh] lg:max-h-[68svh] rounded-lg sm:rounded-xl overflow-hidden bg-[#0d0d0d] border border-white/10 flex items-center justify-center">
+                      <div className="animate-shimmer" />
+                    </div>
+                  </div>
+                )}
+
                 {/* Current Active Image */}
                 <img
                   key={`curr-${currentImageIndex}`}
@@ -348,6 +359,11 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
                   height="1200"
                   loading="lazy"
                   draggable={false}
+                  onLoad={() => {
+                    if (currentImage?.url) {
+                      setLoadedImages((prev) => ({ ...prev, [currentImage.url]: true }));
+                    }
+                  }}
                   style={{
                     transform:
                       isBouncing === 'left'
@@ -361,12 +377,16 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
                         : touchDelta
                         ? `translateX(${touchDelta * 0.45}px)`
                         : 'none',
-                    opacity: incomingImage ? Math.max(0, 1 - swipeProgress) : 1,
+                    opacity: incomingImage
+                      ? Math.max(0, 1 - swipeProgress)
+                      : loadedImages[currentImage?.url]
+                      ? 1
+                      : 0,
                     transition: isDragging
                       ? 'none'
                       : 'transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.24s cubic-bezier(0.2, 0.8, 0.2, 1)',
                   }}
-                  className="max-h-[46vh] max-h-[46svh] sm:max-h-[54vh] sm:max-h-[54svh] lg:max-h-[68vh] lg:max-h-[68svh] w-auto max-w-full object-contain rounded-lg sm:rounded-xl shadow-2xl select-none pointer-events-auto"
+                  className="max-h-[46vh] max-h-[46svh] sm:max-h-[54vh] sm:max-h-[54svh] lg:max-h-[68vh] lg:max-h-[68svh] w-auto max-w-full object-contain rounded-lg sm:rounded-xl shadow-2xl select-none pointer-events-auto transition-opacity duration-300"
                   referrerPolicy="no-referrer"
                 />
 
@@ -394,6 +414,11 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
                       height="1200"
                       loading="lazy"
                       draggable={false}
+                      onLoad={() => {
+                        if (incomingImage?.url) {
+                          setLoadedImages((prev) => ({ ...prev, [incomingImage.url]: true }));
+                        }
+                      }}
                       className="max-h-[46vh] max-h-[46svh] sm:max-h-[54vh] sm:max-h-[54svh] lg:max-h-[68vh] lg:max-h-[68svh] w-auto max-w-full object-contain rounded-lg sm:rounded-xl shadow-2xl select-none"
                       referrerPolicy="no-referrer"
                     />

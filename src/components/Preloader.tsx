@@ -64,15 +64,15 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
               className="flex flex-col items-center gap-3 relative z-10"
             >
               {brand?.logoUrl || preloader?.logoUrl ? (
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center p-2.5 shadow-[0_0_30px_rgba(142, 255, 1, 0.38)]">
+                <div className="w-18 h-18 sm:w-22 sm:h-22 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center p-1 sm:p-1.5 shadow-[0_0_30px_rgba(142, 255, 1, 0.38)]">
                   <img
                     src={brand?.logoUrl || preloader?.logoUrl}
                     alt={brand?.logoAlt || preloader?.logoAlt || 'Emkay Visuals Logo'}
-                    className="w-full h-full object-contain object-center block select-none"
+                    className="w-full h-full object-contain object-center block select-none scale-105"
                   />
                 </div>
               ) : (
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#8EFF01] flex items-center justify-center font-bold text-[#050505] text-xl sm:text-2xl shadow-[0_0_30px_rgba(142, 255, 1, 0.38)]">
+                <div className="w-18 h-18 sm:w-22 sm:h-22 rounded-full bg-[#8EFF01] flex items-center justify-center font-bold text-[#050505] text-xl sm:text-2xl shadow-[0_0_30px_rgba(142, 255, 1, 0.38)]">
                   {logoAbbr}
                 </div>
               )}
