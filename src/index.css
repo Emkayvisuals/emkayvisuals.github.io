@@ -67,11 +67,11 @@
 
 /* Custom subtle glow utility classes (very subtle accents) */
 .glow-violet {
-  box-shadow: 0 0 35px -8px rgba(129, 22, 224, 0.25);
+  box-shadow: 0 0 45px -4px rgba(129, 22, 224, 0.45);
 }
 
 .glow-yellow {
-  box-shadow: 0 0 25px -6px rgba(142, 255, 1, 0.25);
+  box-shadow: 0 0 35px -3px rgba(142, 255, 1, 0.45);
 }
 
 .border-glow-violet {

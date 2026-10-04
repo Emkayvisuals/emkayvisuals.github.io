@@ -887,9 +887,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   type="submit"
                   disabled={loading}
                   id="contact-form-submit"
-                  whileHover={loading ? {} : { scale: 1.012, boxShadow: '0 0 24px rgba(142, 255, 1, 0.34)' }}
+                  whileHover={loading ? {} : { scale: 1.012, boxShadow: '0 0 60px rgba(142, 255, 1, 0.95)' }}
                   whileTap={loading ? {} : { scale: 0.98 }}
-                  className={`w-full py-2.5 sm:py-3 rounded-full bg-[#8EFF01] text-[#050505] font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(142, 255, 1, 0.22)] transition-all duration-300 flex items-center justify-center gap-2 min-h-[42px] sm:min-h-[44px] ${
+                  className={`w-full py-2.5 sm:py-3 rounded-full bg-[#8EFF01] text-[#050505] font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_0_45px_rgba(142, 255, 1, 0.75)] transition-all duration-300 flex items-center justify-center gap-2 min-h-[42px] sm:min-h-[44px] ${
                     loading ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'
                   }`}
                 >

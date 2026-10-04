@@ -129,9 +129,9 @@ export const Hero: React.FC = () => {
                   id={`hero-chip-${idx}`}
                   className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-medium tracking-wide transition-all duration-300 min-h-[28px] ${
                     tag.color === 'yellow'
-                      ? 'bg-[#8EFF01]/10 border border-[#8EFF01]/30 text-[#8EFF01] shadow-[0_0_12px_rgba(142, 255, 1, 0.09)]'
+                      ? 'bg-[#8EFF01]/10 border border-[#8EFF01]/30 text-[#8EFF01] shadow-[0_0_18px_rgba(142, 255, 1, 0.22)]'
                       : tag.color === 'violet'
-                      ? 'bg-[#8116E0]/15 border border-[#8116E0]/40 text-[#FEFFFC] shadow-[0_0_15px_rgba(129,22,224,0.15)]'
+                      ? 'bg-[#8116E0]/15 border border-[#8116E0]/40 text-[#FEFFFC] shadow-[0_0_22px_rgba(129,22,224,0.3)]'
                       : 'bg-white/5 border border-white/10 text-[#FEFFFC]/80'
                   }`}
                 >
@@ -160,7 +160,7 @@ export const Hero: React.FC = () => {
             <a
               href={primaryButtonLink}
               id="hero-view-work-btn"
-              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(142, 255, 1, 0.26)] hover:shadow-[0_0_30px_rgba(142, 255, 1, 0.4)] transition-all duration-300 hover:scale-105 active:scale-95 min-h-[42px] sm:min-h-[46px]"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_42px_rgba(142, 255, 1, 0.75)] hover:shadow-[0_0_60px_rgba(142, 255, 1, 0.95)] transition-all duration-300 hover:scale-105 active:scale-95 min-h-[42px] sm:min-h-[46px]"
             >
               <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#050505]" />
               <span>{primaryButtonText}</span>

@@ -357,8 +357,8 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
           error
             ? 'border-red-500 ring-1 ring-red-500/40'
             : isOpen
-            ? 'border-[#8EFF01] ring-1 ring-[#8EFF01] shadow-[0_0_18px_rgba(142, 255, 1, 0.16)]'
-            : 'border-white/12 hover:border-white/25 focus:border-[#8EFF01] focus:ring-1 focus:ring-[#8EFF01] focus:shadow-[0_0_18px_rgba(142, 255, 1, 0.16)] focus:outline-none'
+            ? 'border-[#8EFF01] ring-1 ring-[#8EFF01] shadow-[0_0_28px_rgba(142, 255, 1, 0.38)]'
+            : 'border-white/12 hover:border-white/25 focus:border-[#8EFF01] focus:ring-1 focus:ring-[#8EFF01] focus:shadow-[0_0_28px_rgba(142, 255, 1, 0.38)] focus:outline-none'
         }`}
       >
         <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -436,7 +436,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                   transition={{ duration: 0.2, delay: idx * 0.025 }}
                   className={`w-full min-h-[52px] px-3.5 py-2.5 rounded-xl flex items-center justify-between gap-3 text-left transition-all duration-150 cursor-pointer border ${
                     isSelected
-                      ? 'bg-[#8EFF01]/12 border-[#8EFF01]/60 text-[#8EFF01] shadow-[0_0_12px_rgba(142, 255, 1, 0.09)]'
+                      ? 'bg-[#8EFF01]/12 border-[#8EFF01]/60 text-[#8EFF01] shadow-[0_0_22px_rgba(142, 255, 1, 0.25)]'
                       : isHighlighted
                       ? 'bg-white/[0.08] border-[#8EFF01]/40 text-white'
                       : 'bg-white/[0.02] border-transparent hover:bg-white/[0.06] hover:border-[#8EFF01]/30 text-white/80'

@@ -155,7 +155,7 @@ export const Navbar: React.FC = () => {
           className="flex items-center gap-1.5 sm:gap-2 group cursor-pointer focus:outline-none min-h-[38px] shrink-0"
         >
           {brand?.logoUrl || navbar?.logoUrl ? (
-            <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(142, 255, 1, 0.3)] p-0.5">
+            <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_24px_rgba(142, 255, 1, 0.6)] p-0.5">
               <img
                 src={brand?.logoUrl || navbar?.logoUrl}
                 alt={brand?.logoAlt || navbar?.logoAlt || 'Emkay Visuals Logo'}
@@ -167,7 +167,7 @@ export const Navbar: React.FC = () => {
               />
             </div>
           ) : (
-            <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-[#8EFF01] flex items-center justify-center font-bold text-[#050505] text-[11px] sm:text-xs transition-transform duration-300 group-hover:scale-105 shadow-[0_0_12px_rgba(142, 255, 1, 0.3)] shrink-0">
+            <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-[#8EFF01] flex items-center justify-center font-bold text-[#050505] text-[11px] sm:text-xs transition-transform duration-300 group-hover:scale-105 shadow-[0_0_24px_rgba(142, 255, 1, 0.6)] shrink-0">
               {logoAbbr}
             </div>
           )}
@@ -223,7 +223,7 @@ export const Navbar: React.FC = () => {
                 handleLinkClick(ctaLink);
               }
             }}
-            className="group relative inline-flex items-center justify-center gap-1 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#8EFF01] text-[#050505] font-bold text-xs tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_16px_rgba(142, 255, 1, 0.25)] whitespace-nowrap min-h-[34px] sm:min-h-[36px]"
+            className="group relative inline-flex items-center justify-center gap-1 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#8EFF01] text-[#050505] font-bold text-xs tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_28px_rgba(142, 255, 1, 0.65)] whitespace-nowrap min-h-[34px] sm:min-h-[36px]"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#050505] group-hover:rotate-12 transition-transform shrink-0" />
             <span className="whitespace-nowrap">{ctaText}</span>
@@ -316,7 +316,7 @@ export const Navbar: React.FC = () => {
                     handleLinkClick(ctaLink);
                   }
                 }}
-                className="w-full text-center py-3.5 rounded-2xl bg-[#8EFF01] text-[#050505] font-bold text-sm min-h-[44px] flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(142, 255, 1, 0.3)] cursor-pointer"
+                className="w-full text-center py-3.5 rounded-2xl bg-[#8EFF01] text-[#050505] font-bold text-sm min-h-[44px] flex items-center justify-center gap-1.5 shadow-[0_0_32px_rgba(142, 255, 1, 0.75)] cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-[#050505]" />
                 <span>{mobileCtaText}</span>

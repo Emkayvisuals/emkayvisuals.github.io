@@ -89,7 +89,7 @@ export const AboutSection: React.FC = () => {
                   />
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#0e0e0e] to-[#050505]">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#8EFF01]/10 border-2 border-[#8EFF01]/40 flex items-center justify-center mb-3.5 shadow-[0_0_24px_rgba(142, 255, 1, 0.11)] group-hover:scale-105 transition-transform">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#8EFF01]/10 border-2 border-[#8EFF01]/40 flex items-center justify-center mb-3.5 shadow-[0_0_36px_rgba(142, 255, 1, 0.35)] group-hover:scale-105 transition-transform">
                       <User className="w-10 h-10 sm:w-12 sm:h-12 text-[#8EFF01]" />
                     </div>
                     <span className="text-[11px] font-semibold text-[#8EFF01] tracking-widest">{brand?.name || 'EMKAY VISUALS'}</span>

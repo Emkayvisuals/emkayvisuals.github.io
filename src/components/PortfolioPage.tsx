@@ -419,7 +419,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
 
                       {/* Hover Center Indicator */}
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#8EFF01] text-[#050505] flex items-center justify-center shadow-[0_0_25px_rgba(142, 255, 1, 0.4)] transform group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#8EFF01] text-[#050505] flex items-center justify-center shadow-[0_0_35px_rgba(142, 255, 1, 0.65)] transform group-hover:scale-110 transition-transform duration-300">
                           {isMotion ? (
                             <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5" />
                           ) : (

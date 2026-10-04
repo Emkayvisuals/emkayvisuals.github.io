@@ -234,7 +234,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
                   onClick={() => setActiveCategory(cat)}
                   className={`px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap min-h-[38px] sm:min-h-[40px] flex items-center active:scale-95 ${
                     isActive
-                      ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-[0_0_16px_rgba(142, 255, 1, 0.26)]'
+                      ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-[0_0_36px_rgba(142, 255, 1, 0.75)]'
                       : 'glass-panel text-[#FEFFFC]/70 hover:text-[#FEFFFC] hover:border-white/20'
                   }`}
                 >
@@ -354,7 +354,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
 
                     {/* Hover Center Indicator */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      <div className="w-10 h-10 rounded-full bg-[#8EFF01] text-[#050505] flex items-center justify-center shadow-[0_0_20px_rgba(142, 255, 1, 0.4)] transform group-hover:scale-110 transition-transform duration-300">
+                      <div className="w-10 h-10 rounded-full bg-[#8EFF01] text-[#050505] flex items-center justify-center shadow-[0_0_35px_rgba(142, 255, 1, 0.65)] transform group-hover:scale-110 transition-transform duration-300">
                         {isMotion ? (
                           <Play className="w-4 h-4 fill-current ml-0.5" />
                         ) : (
@@ -414,7 +414,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
               type="button"
               id="portfolio-view-more-button"
               onClick={handleViewMoreClick}
-              className="group px-6 py-3 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-[0_0_24px_rgba(142, 255, 1, 0.22)] hover:shadow-[0_0_34px_rgba(142, 255, 1, 0.38)] flex items-center gap-2.5 cursor-pointer min-h-[42px] sm:min-h-[46px] transform hover:scale-[1.02] active:scale-[0.98]"
+              className="group px-6 py-3 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-[0_0_45px_rgba(142, 255, 1, 0.75)] hover:shadow-[0_0_65px_rgba(142, 255, 1, 0.95)] flex items-center gap-2.5 cursor-pointer min-h-[42px] sm:min-h-[46px] transform hover:scale-[1.02] active:scale-[0.98]"
             >
               <Grid className="w-3.5 h-3.5 text-[#050505]" />
               <span>{viewMoreButtonText}</span>

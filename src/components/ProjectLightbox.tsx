@@ -582,7 +582,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
                   onClose();
                   onInquire(project.title);
                 }}
-                className="flex-1 py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:scale-[1.01] active:scale-[0.98] shadow-[0_0_20px_rgba(142, 255, 1, 0.26)] flex items-center justify-center gap-2 cursor-pointer min-h-[46px]"
+                className="flex-1 py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:scale-[1.01] active:scale-[0.98] shadow-[0_0_45px_rgba(142, 255, 1, 0.75)] flex items-center justify-center gap-2 cursor-pointer min-h-[46px]"
               >
                 <Sparkles className="w-4 h-4 text-[#050505]" />
                 <span>{inquireButtonText}</span>
