@@ -145,12 +145,18 @@ export const AdminDashboard: React.FC = () => {
     loadLiveContent();
   }, []);
 
-  // Auth listener: ONLY emkayvisuals@gmail.com
+  const isAuthorizedAdmin = (email: string | null | undefined) => {
+    if (!email) return false;
+    const normalized = email.toLowerCase().trim();
+    return normalized === 'emkayvisuals@gmail.com' || normalized === 'nuru28893@gmail.com';
+  };
+
+  // Auth listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setAuthLoading(false);
       if (firebaseUser) {
-        if (firebaseUser.email !== 'emkayvisuals@gmail.com') {
+        if (!isAuthorizedAdmin(firebaseUser.email)) {
           setAccessDenied(true);
           await signOut(auth);
           setUser(null);
@@ -201,11 +207,11 @@ export const AdminDashboard: React.FC = () => {
       const briefsSnap2 = await getDocs(collection(db, 'projectBriefs'));
       const map = new Map();
       briefsSnap1.forEach((d) => {
-        map.set(d.id, { id: d.id, ...d.data() });
+        map.set(d.id, { id: d.id, _collection: 'briefs', ...d.data() });
       });
       briefsSnap2.forEach((d) => {
         if (!map.has(d.id)) {
-          map.set(d.id, { id: d.id, ...d.data() });
+          map.set(d.id, { id: d.id, _collection: 'projectBriefs', ...d.data() });
         }
       });
       const briefs = Array.from(map.values());
@@ -226,37 +232,45 @@ export const AdminDashboard: React.FC = () => {
   ) => {
     try {
       await updateDoc(doc(db, 'briefs', id), { [field]: value });
+      setBriefsList((prev) =>
+        prev.map((b) => (b.id === id ? { ...b, [field]: value } : b))
+      );
     } catch (e) {
       try {
         await updateDoc(doc(db, 'projectBriefs', id), { [field]: value });
-      } catch (err) {
-        console.log('Error updating brief', err);
+        setBriefsList((prev) =>
+          prev.map((b) => (b.id === id ? { ...b, [field]: value } : b))
+        );
+      } catch (err: unknown) {
+        console.error('Error updating brief field in Firestore:', err);
+        const msg = err instanceof Error ? err.message : 'Permission denied';
+        alert(`Failed to update brief in Firestore: ${msg}`);
       }
     }
-    setBriefsList(
-      briefsList.map((b) => (b.id === id ? { ...b, [field]: value } : b))
-    );
   };
 
   const handleDeleteBrief = async (id: string) => {
     if (!window.confirm('Delete this project brief permanently from Firestore?')) return;
     try {
-      await deleteDoc(doc(db, 'briefs', id));
-    } catch {
-      try {
-        await deleteDoc(doc(db, 'projectBriefs', id));
-      } catch (err) {
-        console.log('Error deleting brief', err);
-      }
+      // Execute Firestore delete operations on both collections
+      await Promise.all([
+        deleteDoc(doc(db, 'briefs', id)),
+        deleteDoc(doc(db, 'projectBriefs', id)),
+      ]);
+      // Only remove from local state once Firestore deletion actually succeeds
+      setBriefsList((prev) => prev.filter((b) => b.id !== id));
+    } catch (err: unknown) {
+      console.error('Error deleting brief from Firestore:', err);
+      const errMsg = err instanceof Error ? err.message : 'Unknown error';
+      alert(`Failed to delete brief from Firestore: ${errMsg}\nPlease verify you are signed in as an authorized admin.`);
     }
-    setBriefsList((prev) => prev.filter((b) => b.id !== id));
   };
 
   const handleGoogleLogin = async () => {
     try {
       setAccessDenied(false);
       const result = await signInWithPopup(auth, googleProvider);
-      if (result.user.email !== 'emkayvisuals@gmail.com') {
+      if (!isAuthorizedAdmin(result.user.email)) {
         setAccessDenied(true);
         await signOut(auth);
         setUser(null);

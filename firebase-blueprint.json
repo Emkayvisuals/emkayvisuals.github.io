@@ -16,6 +16,23 @@
         "manipulationGallery": { "type": "object" }
       }
     },
+    "ProjectBrief": {
+      "title": "ProjectBrief",
+      "description": "Incoming project brief submitted by a visitor",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "service": { "type": "string" },
+        "budget": { "type": "string" },
+        "deadline": { "type": "string" },
+        "message": { "type": "string" },
+        "referenceLink": { "type": "string" },
+        "date": { "type": "string" },
+        "status": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
     "MediaItem": {
       "title": "MediaItem",
       "description": "Converted WebP image stored in its own Firestore document",
@@ -33,6 +50,10 @@
     "/portfolio/content": {
       "schema": { "$ref": "#/entities/PortfolioContent" },
       "description": "Main portfolio content managed via admin panel"
+    },
+    "/briefs/{briefId}": {
+      "schema": { "$ref": "#/entities/ProjectBrief" },
+      "description": "Submitted project briefs"
     },
     "/media/{mediaId}": {
       "schema": { "$ref": "#/entities/MediaItem" },

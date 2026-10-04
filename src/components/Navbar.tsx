@@ -60,6 +60,25 @@ export const Navbar: React.FC = () => {
 
   const handleLinkClick = (href: string) => {
     setMobileMenuOpen(false);
+
+    if (href === '/gallery' || href.startsWith('/gallery')) {
+      if (window.location.pathname !== '/gallery') {
+        window.history.pushState({}, '', '/gallery');
+        window.dispatchEvent(new PopStateEvent('popstate'));
+        window.scrollTo({ top: 0, behavior: 'instant' as any });
+      }
+      return;
+    }
+
+    if (href === '/portfolio' || href.startsWith('/portfolio')) {
+      if (window.location.pathname !== href) {
+        window.history.pushState({}, '', href);
+        window.dispatchEvent(new PopStateEvent('popstate'));
+        window.scrollTo({ top: 0, behavior: 'instant' as any });
+      }
+      return;
+    }
+
     const isOnOtherPage =
       window.location.pathname.startsWith('/portfolio') ||
       window.location.pathname.startsWith('/gallery');
@@ -90,7 +109,22 @@ export const Navbar: React.FC = () => {
     }
   };
 
-  const visibleNavLinks = (navigation || []).filter((item) => item.visible !== false);
+  // Ensure YouTube / Manipulation Gallery link is included in navigation list
+  const rawNavLinks = navigation && navigation.length > 0 ? navigation : [];
+  const hasGalleryNav = rawNavLinks.some(
+    (item) =>
+      item.href === '/gallery' ||
+      item.label.toLowerCase().includes('manipulation') ||
+      item.label.toLowerCase().includes('gallery')
+  );
+  const effectiveNavLinks = hasGalleryNav
+    ? rawNavLinks
+    : [
+        ...rawNavLinks,
+        { label: 'YouTube / Manipulation Gallery', href: '/gallery', visible: true },
+      ];
+
+  const visibleNavLinks = effectiveNavLinks.filter((item) => item.visible !== false);
   const logoAbbr = navbar?.logoAbbr || 'EV';
   const brandName = navbar?.brandName || 'Emkay';
   const brandDivider = navbar?.brandDivider || '//';
@@ -149,21 +183,24 @@ export const Navbar: React.FC = () => {
         </a>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-1 lg:gap-1.5">
+        <div className="hidden md:flex items-center gap-1 lg:gap-1.5 overflow-x-auto no-scrollbar">
           {visibleNavLinks.map((item) => {
-            const sectionId = item.href.replace('#', '');
-            const isActive = activeSection === sectionId;
+            const isGalleryLink = item.href === '/gallery' || item.href.includes('gallery');
+            const sectionId = item.href.replace('#', '').replace('/', '');
+            const isActive = isGalleryLink
+              ? window.location.pathname === '/gallery'
+              : activeSection === sectionId && window.location.pathname === '/';
 
             return (
               <a
-                key={item.label}
+                key={item.label + item.href}
                 href={item.href}
-                id={`nav-link-${sectionId}`}
+                id={`nav-link-${sectionId || 'home'}`}
                 onClick={(e) => {
                   e.preventDefault();
                   handleLinkClick(item.href);
                 }}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-200 min-h-[44px] flex items-center justify-center ${
+                className={`px-2.5 lg:px-3 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-200 min-h-[44px] flex items-center justify-center whitespace-nowrap ${
                   isActive
                     ? 'text-[#050505] bg-[#FEFFFC] font-semibold shadow-sm'
                     : 'text-[#FEFFFC]/75 hover:text-[#FEFFFC] hover:bg-white/[0.08]'
@@ -236,52 +273,38 @@ export const Navbar: React.FC = () => {
 
             <div className="flex flex-col gap-1 pt-1">
               {visibleNavLinks.map((item) => {
-                const sectionId = item.href.replace('#', '');
-                const isActive =
-                  activeSection === sectionId && window.location.pathname === '/';
+                const isGalleryLink = item.href === '/gallery' || item.href.includes('gallery');
+                const sectionId = item.href.replace('#', '').replace('/', '');
+                const isActive = isGalleryLink
+                  ? window.location.pathname === '/gallery'
+                  : activeSection === sectionId && window.location.pathname === '/';
 
                 return (
                   <a
-                    key={item.label}
+                    key={item.label + item.href}
                     href={item.href}
-                    id={`mobile-nav-${sectionId}`}
+                    id={`mobile-nav-${sectionId || 'home'}`}
                     onClick={(e) => {
                       e.preventDefault();
                       handleLinkClick(item.href);
                     }}
-                    className={`px-4 py-3 rounded-2xl text-sm font-medium tracking-wide transition-all min-h-[44px] flex items-center ${
+                    className={`px-4 py-3 rounded-2xl text-sm font-medium tracking-wide transition-all min-h-[44px] flex items-center justify-between group ${
                       isActive
                         ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-md'
                         : 'text-[#FEFFFC]/85 hover:bg-white/[0.08] hover:text-[#FEFFFC]'
                     }`}
                   >
-                    {item.label}
+                    <span>{item.label}</span>
+                    {isGalleryLink && (
+                      <ArrowUpRight
+                        className={`w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
+                          isActive ? 'text-[#050505]' : 'text-[#8EFF01]'
+                        }`}
+                      />
+                    )}
                   </a>
                 );
               })}
-
-              {/* YouTube / Manipulation Gallery: Hidden page accessible from the Portfolio Menu */}
-              <a
-                href="/gallery"
-                id="mobile-nav-gallery"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                  if (window.location.pathname !== '/gallery') {
-                    window.history.pushState({}, '', '/gallery');
-                    window.dispatchEvent(new PopStateEvent('popstate'));
-                    window.scrollTo({ top: 0, behavior: 'instant' as any });
-                  }
-                }}
-                className={`px-4 py-3 rounded-2xl text-sm font-medium tracking-wide transition-all min-h-[44px] flex items-center justify-between group ${
-                  window.location.pathname === '/gallery'
-                    ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-md'
-                    : 'text-[#FEFFFC]/85 hover:bg-white/[0.08] hover:text-[#FEFFFC]'
-                }`}
-              >
-                <span>YouTube / Manipulation Gallery</span>
-                <ArrowUpRight className="w-4 h-4 text-[#8EFF01] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
             </div>
 
             <div className="pt-3 border-t border-white/10 flex flex-col gap-2">

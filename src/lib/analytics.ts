@@ -103,20 +103,12 @@ export async function saveProjectBrief(brief: {
     notes: '',
   };
 
-  let saved = false;
   try {
     await addDoc(collection(db, 'briefs'), briefData);
-    saved = true;
+    return true;
   } catch (err) {
-    console.error("Error saving brief to briefs collection:", err);
+    console.error("Error saving brief to Firestore briefs collection:", err);
+    return false;
   }
-
-  try {
-    await addDoc(collection(db, 'projectBriefs'), briefData);
-    saved = true;
-  } catch (err) {
-    console.error("Error saving brief to projectBriefs collection:", err);
-  }
-
-  return saved;
 }
+

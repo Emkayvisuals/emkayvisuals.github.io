@@ -1,26 +1,32 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAuthorizedAdmin() {
+      return request.auth != null && (
+        request.auth.token.email.lower() == 'emkayvisuals@gmail.com' ||
+        request.auth.token.email.lower() == 'nuru28893@gmail.com'
+      );
+    }
+
     match /portfolio/content {
       allow read: if true;
-      allow write: if request.auth != null && request.auth.token.email == 'emkayvisuals@gmail.com';
+      allow write: if isAuthorizedAdmin();
     }
     match /briefs/{document} {
       allow create: if true;
-      allow read, update, delete: if request.auth != null && request.auth.token.email == 'emkayvisuals@gmail.com';
+      allow read, update, delete: if isAuthorizedAdmin();
     }
     match /projectBriefs/{document} {
       allow create: if true;
-      allow read, update, delete: if request.auth != null && request.auth.token.email == 'emkayvisuals@gmail.com';
+      allow read, update, delete: if isAuthorizedAdmin();
     }
     match /analytics/{document} {
-      allow read: if request.auth != null && request.auth.token.email == 'emkayvisuals@gmail.com';
+      allow read, delete: if isAuthorizedAdmin();
       allow create, update: if true;
-      allow delete: if request.auth != null && request.auth.token.email == 'emkayvisuals@gmail.com';
     }
     match /media/{document} {
       allow read: if true;
-      allow write, delete: if request.auth != null && request.auth.token.email == 'emkayvisuals@gmail.com';
+      allow write, delete: if isAuthorizedAdmin();
     }
   }
 }

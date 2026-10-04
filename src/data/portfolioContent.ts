@@ -318,6 +318,7 @@ export const DEFAULT_PORTFOLIO_CONTENT = {
     { label: 'About', href: '#about', visible: true },
     { label: 'Process', href: '#process', visible: true },
     { label: 'Contact', href: '#contact', visible: true },
+    { label: 'YouTube / Manipulation Gallery', href: '/gallery', visible: true },
   ] as NavLinkItem[],
 
   // ==========================================

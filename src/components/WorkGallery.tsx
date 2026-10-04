@@ -66,9 +66,9 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
           (p) => p.category?.trim().toLowerCase() === activeCategory.trim().toLowerCase()
         );
 
-  // Homepage 7 projects limit
-  const displayedProjects = filteredProjects.slice(0, 7);
-  const hasMoreProjects = filteredProjects.length > 7;
+  // Homepage 6 projects limit
+  const displayedProjects = filteredProjects.slice(0, 6);
+  const hasMoreProjects = filteredProjects.length > 6;
 
   // Lightbox navigation
   const handleNext = () => {
@@ -375,7 +375,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
               <Grid className="w-3.5 h-3.5 text-[#050505]" />
               <span>{viewMoreButtonText}</span>
               <span className="px-1.5 py-0.5 rounded-full bg-black/15 text-[11px] font-black">
-                +{filteredProjects.length - 7} More
+                +{filteredProjects.length - 6} More
               </span>
               <ArrowRight className="w-3.5 h-3.5 text-[#050505] transition-transform group-hover:translate-x-1" />
             </button>

@@ -5,6 +5,9 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    # Daily automatic rebuild at 03:00 UTC to keep static SEO and OG tags fresh from Firestore
+    - cron: '0 3 * * *'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

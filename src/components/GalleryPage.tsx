@@ -199,8 +199,8 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
         </div>
 
         {/* 2.c "VISIT MY YOUTUBE CHANNEL" SECTION */}
-        <div className="relative z-10 mb-14 sm:mb-20">
-          <h2 className="font-montserrat font-medium italic text-xl sm:text-2xl lg:text-3xl text-[#8EFF01] tracking-tight mb-4 flex items-center gap-2.5">
+        <div className="relative z-10 mb-14 sm:mb-20 flex flex-col items-center">
+          <h2 className="font-montserrat font-medium italic text-xl sm:text-2xl lg:text-3xl text-[#8EFF01] tracking-tight mb-4 flex items-center justify-center gap-2.5 text-center">
             <span>{config.youtubeSectionTitle || 'Visit my YouTube channel'}</span>
           </h2>
 
@@ -209,7 +209,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Visit Emkay Visuals on YouTube (opens in new tab)"
-            className="group relative block max-w-xl rounded-2xl overflow-hidden border border-white/10 hover:border-[#8EFF01]/50 transition-all duration-300 shadow-[0_6px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_0_35px_rgba(142, 255, 1, 0.15)] cursor-pointer bg-[#0B0B0B]"
+            className="group relative block w-full max-w-xl mx-auto rounded-2xl overflow-hidden border border-white/10 hover:border-[#8EFF01]/50 transition-all duration-300 shadow-[0_6px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_0_35px_rgba(142, 255, 1, 0.15)] cursor-pointer bg-[#0B0B0B]"
           >
             <div className="relative aspect-[16/9] w-full overflow-hidden bg-black/50">
               <img
