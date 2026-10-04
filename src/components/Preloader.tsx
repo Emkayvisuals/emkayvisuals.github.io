@@ -2,40 +2,45 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PORTFOLIO_CONTENT } from '../data/portfolioContent';
 
+// Track whether the preloader has played during this page lifecycle / session
+let hasPreloaderPlayedInSession = false;
+
 interface PreloaderProps {
-  onLoadingComplete: () => void;
+  onLoadingComplete?: () => void;
 }
 
 export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
-  const [isLoading, setIsLoading] = useState(true);
   const { preloader, brand } = PORTFOLIO_CONTENT;
+  const shouldSkip = hasPreloaderPlayedInSession || preloader?.enabled === false;
+  const [isLoading, setIsLoading] = useState(!shouldSkip);
 
   useEffect(() => {
-    // If preloader is disabled via admin settings
-    if (preloader?.enabled === false) {
-      setIsLoading(false);
-      onLoadingComplete();
+    if (shouldSkip) {
+      onLoadingComplete?.();
       return;
     }
 
     // Check prefers-reduced-motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
+      hasPreloaderPlayedInSession = true;
       setIsLoading(false);
-      onLoadingComplete();
+      onLoadingComplete?.();
       return;
     }
 
-    // Total animation time: ~1.4 seconds
+    hasPreloaderPlayedInSession = true;
+
+    // Total animation time: ~1.3 seconds
     const timer = setTimeout(() => {
       setIsLoading(false);
-      onLoadingComplete();
+      onLoadingComplete?.();
     }, 1300);
 
     return () => clearTimeout(timer);
-  }, [onLoadingComplete, preloader?.enabled]);
+  }, [onLoadingComplete, shouldSkip]);
 
-  if (preloader?.enabled === false) {
+  if (shouldSkip) {
     return null;
   }
 

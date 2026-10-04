@@ -130,88 +130,95 @@ export default function App() {
     setPrefilledProject(projectTitle);
   };
 
-  // Dedicated /portfolio archive route
-  if (currentPath === '/portfolio' || currentPath.startsWith('/portfolio/')) {
-    return (
-      <PortfolioPage
-        onNavigateHome={() => navigateTo('/')}
-        onSelectProjectForContact={handleSelectProjectForContact}
-      />
-    );
-  }
+  const renderActivePage = () => {
+    // Dedicated /portfolio archive route
+    if (currentPath === '/portfolio' || currentPath.startsWith('/portfolio/')) {
+      return (
+        <PortfolioPage
+          onNavigateHome={() => navigateTo('/')}
+          onSelectProjectForContact={handleSelectProjectForContact}
+        />
+      );
+    }
 
-  // Dedicated /gallery YouTube / Manipulation Gallery route
-  if (
-    currentPath === '/gallery' ||
-    currentPath === '/gallery/' ||
-    currentPath.startsWith('/gallery') ||
-    currentPath === '/manipulation-gallery' ||
-    currentPath.startsWith('/manipulation-gallery')
-  ) {
-    return (
-      <GalleryPage
-        onNavigateHome={() => navigateTo('/')}
-      />
-    );
-  }
+    // Dedicated /gallery YouTube / Manipulation Gallery route
+    if (
+      currentPath === '/gallery' ||
+      currentPath === '/gallery/' ||
+      currentPath.startsWith('/gallery') ||
+      currentPath === '/manipulation-gallery' ||
+      currentPath.startsWith('/manipulation-gallery')
+    ) {
+      return (
+        <GalleryPage
+          onNavigateHome={() => navigateTo('/')}
+        />
+      );
+    }
 
-  // Primary Homepage View
+    // Primary Homepage View
+    return (
+      <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#8EFF01] selection:text-[#050505] overflow-x-hidden w-full">
+        {/* Floating Pill Navigation Bar */}
+        <Navbar />
+
+        {/* Hero Section with Glowing Gradients and Floating Tags */}
+        <Hero />
+
+        {/* Infinite Scrolling Ribbon / Marquee of Services */}
+        <Marquee />
+
+        {/* Key Stats Row: 5+ Years Experience, Projects Completed, Happy Clients */}
+        <StatsRow />
+
+        {/* Bento-Style Services Grid */}
+        <ServicesBento onSelectService={handleSelectService} />
+
+        {/* Work Gallery: Filter Buttons, 7-Project Limit on Home, View More Button & Manipulation Gallery Button */}
+        <WorkGallery
+          onSelectProjectForContact={handleSelectProjectForContact}
+          onNavigateToPortfolio={(category) => {
+            const targetUrl =
+              category && category !== 'All'
+                ? `/portfolio?category=${encodeURIComponent(category)}`
+                : '/portfolio';
+            navigateTo(targetUrl);
+          }}
+          onNavigateToGallery={() => navigateTo('/gallery')}
+        />
+
+        {/* About Me Section with Photo Placeholder & Software Stack */}
+        <AboutSection />
+
+        {/* Simple 4-Step Creative Process */}
+        <ProcessSection />
+
+        {/* Client Testimonials & Endorsements */}
+        <Testimonials />
+
+        {/* Frequently Asked Questions */}
+        <FAQSection />
+
+        {/* Contact Section: Interactive Form + WhatsApp, Instagram, Email Buttons */}
+        <ContactSection
+          prefilledService={prefilledService}
+          prefilledProject={prefilledProject}
+        />
+
+        {/* Footer */}
+        <Footer />
+
+        {/* Floating Quick Contact Bar with WhatsApp, Instagram & Email */}
+        <FloatingContactBar />
+      </div>
+    );
+  };
+
   return (
-    <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#8EFF01] selection:text-[#050505] overflow-x-hidden w-full">
-      {/* Curtain Preloader on first load */}
+    <>
+      {/* Curtain Preloader on fresh visits and page reloads */}
       <Preloader onLoadingComplete={() => {}} />
-
-      {/* Floating Pill Navigation Bar */}
-      <Navbar />
-
-      {/* Hero Section with Glowing Gradients and Floating Tags */}
-      <Hero />
-
-      {/* Infinite Scrolling Ribbon / Marquee of Services */}
-      <Marquee />
-
-      {/* Key Stats Row: 5+ Years Experience, Projects Completed, Happy Clients */}
-      <StatsRow />
-
-      {/* Bento-Style Services Grid */}
-      <ServicesBento onSelectService={handleSelectService} />
-
-      {/* Work Gallery: Filter Buttons, 7-Project Limit on Home, View More Button & Manipulation Gallery Button */}
-      <WorkGallery
-        onSelectProjectForContact={handleSelectProjectForContact}
-        onNavigateToPortfolio={(category) => {
-          const targetUrl =
-            category && category !== 'All'
-              ? `/portfolio?category=${encodeURIComponent(category)}`
-              : '/portfolio';
-          navigateTo(targetUrl);
-        }}
-        onNavigateToGallery={() => navigateTo('/gallery')}
-      />
-
-      {/* About Me Section with Photo Placeholder & Software Stack */}
-      <AboutSection />
-
-      {/* Simple 4-Step Creative Process */}
-      <ProcessSection />
-
-      {/* Client Testimonials & Endorsements */}
-      <Testimonials />
-
-      {/* Frequently Asked Questions */}
-      <FAQSection />
-
-      {/* Contact Section: Interactive Form + WhatsApp, Instagram, Email Buttons */}
-      <ContactSection
-        prefilledService={prefilledService}
-        prefilledProject={prefilledProject}
-      />
-
-      {/* Footer */}
-      <Footer />
-
-      {/* Floating Quick Contact Bar with WhatsApp, Instagram & Email */}
-      <FloatingContactBar />
-    </div>
+      {renderActivePage()}
+    </>
   );
 }

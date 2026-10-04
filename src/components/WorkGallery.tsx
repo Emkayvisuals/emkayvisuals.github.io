@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { PORTFOLIO_CONTENT, ProjectItem } from '../data/portfolioContent';
+import {
+  PORTFOLIO_CONTENT,
+  ProjectItem,
+  subscribeToPortfolio,
+  isPortfolioContentReady,
+} from '../data/portfolioContent';
 import { ProjectLightbox } from './ProjectLightbox';
 import {
   Sparkles,
@@ -26,6 +31,16 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
   onNavigateToPortfolio,
   onNavigateToGallery,
 }) => {
+  const [, setContentVersion] = useState(0);
+
+  useEffect(() => {
+    const unsub = subscribeToPortfolio(() => {
+      setContentVersion((v) => v + 1);
+    });
+    return unsub;
+  }, []);
+
+  const isReady = isPortfolioContentReady();
   const { categories, projects, projectsSection } = PORTFOLIO_CONTENT;
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
@@ -156,11 +171,11 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
     <section id="work" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background Section Glows */}
       <div
-        className="pointer-events-none absolute top-40 right-10 w-[400px] h-[400px] rounded-full blur-[160px] opacity-[0.10]"
+        className="pointer-events-none absolute top-40 right-10 w-[400px] h-[400px] rounded-full blur-[160px] opacity-[0.115]"
         style={{ background: '#8116E0' }}
       />
       <div
-        className="pointer-events-none absolute bottom-40 left-10 w-[350px] h-[350px] rounded-full blur-[150px] opacity-[0.08]"
+        className="pointer-events-none absolute bottom-40 left-10 w-[350px] h-[350px] rounded-full blur-[150px] opacity-[0.092]"
         style={{ background: '#8EFF01' }}
       />
 
@@ -231,129 +246,158 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
         </motion.div>
       )}
 
-      {/* Main Portfolio Grid - Limited to 4 projects on homepage */}
+      {/* Main Portfolio Grid */}
       <motion.div
         layout
         className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5"
       >
-        <AnimatePresence mode="popLayout">
-          {displayedProjects.map((project, idx) => {
-            const isMotion = isMotionCategory(project.category) || !!project.videoUrl;
-            const effectiveImage = getEffectiveProjectImage(project);
-
-            return (
-              <motion.div
-                layout
-                key={project.id}
-                id={`portfolio-item-${project.id}`}
-                initial={{ opacity: 0, y: 20, scale: 0.98 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: '-30px' }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{
-                  duration: 0.45,
-                  delay: Math.min(idx * 0.04, 0.25),
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                whileHover={{
-                  y: -5,
-                  scale: 1.012,
-                  transition: { duration: 0.2, ease: 'easeOut' },
-                }}
-                onClick={() => setSelectedProject(project)}
-                className="group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/50 overflow-hidden cursor-pointer flex flex-col bg-[#050505]"
-              >
-                {/* Subtle top glow bar on hover */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#8EFF01]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
-
-                {/* Media Container with Zoom */}
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#121212]">
-                  {!loadedImages[project.id] && (
-                    <div className="absolute inset-0 bg-white/5 animate-pulse filter blur-xl transform scale-105" />
-                  )}
-                  <img
-                    src={effectiveImage}
-                    alt={project.imageAlt || project.title}
-                    width="800"
-                    height="600"
-                    onLoad={() => setLoadedImages((prev) => ({ ...prev, [project.id]: true }))}
-                    className={`w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-108 ${
-                      loadedImages[project.id] ? 'opacity-100 blur-0 scale-100' : 'opacity-60 blur-md scale-105'
-                    }`}
-                    loading="lazy"
-                    referrerPolicy="no-referrer"
-                  />
-
-                  {/* Gradient vignette overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-black/20 opacity-80 group-hover:opacity-90 transition-opacity" />
-
-                  {/* Top Category Badge */}
-                  <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5">
-                    <span className="text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-white/15 text-[#FEFFFC]">
-                      {project.category}
-                    </span>
-                    {isMotion && (
-                      <span className="text-[10px] sm:text-[11px] font-bold px-1.5 py-0.5 rounded-full bg-[#8EFF01] text-[#050505] flex items-center gap-1 shadow-sm">
-                        <Play className="w-2.5 h-2.5 fill-current" />
-                        Motion
-                      </span>
-                    )}
+        {!isReady && visibleProjects.length === 0 ? (
+          [...Array(4)].map((_, idx) => (
+            <div
+              key={`work-skeleton-${idx}`}
+              className="relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] overflow-hidden flex flex-col bg-[#050505]"
+            >
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#121212]">
+                <div className="animate-shimmer" />
+              </div>
+              <div className="p-4 sm:p-4.5 flex flex-col justify-between flex-1 bg-[#050505] space-y-3">
+                <div className="space-y-2">
+                  <div className="h-4 w-3/4 rounded bg-white/10 overflow-hidden relative">
+                    <div className="animate-shimmer" />
                   </div>
-
-                  {/* Year tag (if present) */}
-                  {project.year && (
-                    <div className="absolute top-3 right-3 z-10">
-                      <span className="text-[10px] sm:text-[11px] font-medium px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-white/15 text-white/70">
-                        {project.year}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Hover Center Indicator */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <div className="w-10 h-10 rounded-full bg-[#8EFF01] text-[#050505] flex items-center justify-center shadow-[0_0_20px_rgba(142, 255, 1, 0.4)] transform group-hover:scale-110 transition-transform duration-300">
-                      {isMotion ? (
-                        <Play className="w-4 h-4 fill-current ml-0.5" />
-                      ) : (
-                        <Maximize2 className="w-4 h-4" />
-                      )}
-                    </div>
+                  <div className="h-3 w-1/2 rounded bg-white/5 overflow-hidden relative">
+                    <div className="animate-shimmer" />
                   </div>
                 </div>
+                <div className="pt-2.5 border-t border-white/[0.06] flex items-center justify-between">
+                  <div className="h-3 w-20 rounded bg-white/5" />
+                  <div className="h-3 w-16 rounded bg-white/5" />
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <AnimatePresence mode="popLayout">
+            {displayedProjects.map((project, idx) => {
+              const isMotion = isMotionCategory(project.category) || !!project.videoUrl;
+              const effectiveImage = getEffectiveProjectImage(project);
 
-                {/* Card Meta Content */}
-                <div className="p-4 sm:p-4.5 flex flex-col justify-between flex-1 bg-[#050505]">
-                  <div>
-                    <h3 className="font-montserrat font-medium italic text-base sm:text-lg text-[#8EFF01] tracking-tight line-clamp-1 mb-1">
-                      {project.title}
-                    </h3>
-                    {project.description && project.description.trim() && (
-                      <p className="text-[11px] sm:text-xs text-white/65 line-clamp-2 leading-relaxed font-normal">
-                        {project.description}
-                      </p>
+              return (
+                <motion.div
+                  layout
+                  key={project.id}
+                  id={`portfolio-item-${project.id}`}
+                  initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{
+                    duration: 0.45,
+                    delay: Math.min(idx * 0.04, 0.25),
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  whileHover={{
+                    y: -5,
+                    scale: 1.012,
+                    transition: { duration: 0.2, ease: 'easeOut' },
+                  }}
+                  onClick={() => setSelectedProject(project)}
+                  className="group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/50 overflow-hidden cursor-pointer flex flex-col bg-[#050505]"
+                >
+                  {/* Subtle top glow bar on hover */}
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#8EFF01]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+
+                  {/* Media Container with Zoom */}
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#121212]">
+                    {!loadedImages[project.id] && (
+                      <div className="absolute inset-0 bg-[#121212] overflow-hidden">
+                        <div className="animate-shimmer" />
+                      </div>
                     )}
-                  </div>
+                    <img
+                      src={effectiveImage}
+                      alt={project.imageAlt || project.title}
+                      width="800"
+                      height="600"
+                      onLoad={() => setLoadedImages((prev) => ({ ...prev, [project.id]: true }))}
+                      className={`w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-108 ${
+                        loadedImages[project.id] ? 'opacity-100 blur-0 scale-100' : 'opacity-0 scale-105'
+                      }`}
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                    />
 
-                  <div className="mt-3 pt-2.5 border-t border-white/[0.06] flex items-center justify-between min-h-[36px]">
-                    <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-medium text-white/45">
-                      {project.tools && project.tools.filter(Boolean).length > 0 ? (
-                        <>
-                          <span>{project.tools[0]}</span>
-                          {project.tools[1] && <span>• {project.tools[1]}</span>}
-                        </>
-                      ) : (
-                        <span>{project.category}</span>
+                    {/* Gradient vignette overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-black/20 opacity-80 group-hover:opacity-90 transition-opacity" />
+
+                    {/* Top Category Badge */}
+                    <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5">
+                      <span className="text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-white/15 text-[#FEFFFC]">
+                        {project.category}
+                      </span>
+                      {isMotion && (
+                        <span className="text-[10px] sm:text-[11px] font-bold px-1.5 py-0.5 rounded-full bg-[#8EFF01] text-[#050505] flex items-center gap-1 shadow-sm">
+                          <Play className="w-2.5 h-2.5 fill-current" />
+                          Motion
+                        </span>
                       )}
                     </div>
-                    <span className="text-[11px] sm:text-xs text-[#8EFF01] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-bold">
-                      {viewProjectText} <ArrowRight className="w-3 h-3" />
-                    </span>
+
+                    {/* Year tag (if present) */}
+                    {project.year && (
+                      <div className="absolute top-3 right-3 z-10">
+                        <span className="text-[10px] sm:text-[11px] font-medium px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-white/15 text-white/70">
+                          {project.year}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Hover Center Indicator */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                      <div className="w-10 h-10 rounded-full bg-[#8EFF01] text-[#050505] flex items-center justify-center shadow-[0_0_20px_rgba(142, 255, 1, 0.4)] transform group-hover:scale-110 transition-transform duration-300">
+                        {isMotion ? (
+                          <Play className="w-4 h-4 fill-current ml-0.5" />
+                        ) : (
+                          <Maximize2 className="w-4 h-4" />
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
+
+                  {/* Card Meta Content */}
+                  <div className="p-4 sm:p-4.5 flex flex-col justify-between flex-1 bg-[#050505]">
+                    <div>
+                      <h3 className="font-montserrat font-medium italic text-base sm:text-lg text-[#8EFF01] tracking-tight line-clamp-1 mb-1">
+                        {project.title}
+                      </h3>
+                      {project.description && project.description.trim() && (
+                        <p className="text-[11px] sm:text-xs text-white/65 line-clamp-2 leading-relaxed font-normal">
+                          {project.description}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mt-3 pt-2.5 border-t border-white/[0.06] flex items-center justify-between min-h-[36px]">
+                      <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-medium text-white/45">
+                        {project.tools && project.tools.filter(Boolean).length > 0 ? (
+                          <>
+                            <span>{project.tools[0]}</span>
+                            {project.tools[1] && <span>• {project.tools[1]}</span>}
+                          </>
+                        ) : (
+                          <span>{project.category}</span>
+                        )}
+                      </div>
+                      <span className="text-[11px] sm:text-xs text-[#8EFF01] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-bold">
+                        {viewProjectText} <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        )}
       </motion.div>
 
       {/* Centered Actions under projects (View More if >7 exist, followed directly by View My Photo Manipulation Gallery button) */}

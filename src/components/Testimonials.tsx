@@ -23,7 +23,7 @@ export const Testimonials: React.FC = () => {
     <section className="relative py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background glow */}
       <div
-        className="pointer-events-none absolute bottom-0 left-1/3 w-[360px] h-[260px] rounded-full blur-[150px] opacity-[0.085]"
+        className="pointer-events-none absolute bottom-0 left-1/3 w-[360px] h-[260px] rounded-full blur-[150px] opacity-[0.098]"
         style={{ background: '#8116E0' }}
       />
 

@@ -279,11 +279,11 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
       <main className="flex-1 relative pt-6 sm:pt-10 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         {/* Ambient background glows */}
         <div
-          className="pointer-events-none absolute top-10 right-10 w-[450px] h-[450px] rounded-full blur-[170px] opacity-[0.10]"
+          className="pointer-events-none absolute top-10 right-10 w-[450px] h-[450px] rounded-full blur-[170px] opacity-[0.115]"
           style={{ background: '#8116E0' }}
         />
         <div
-          className="pointer-events-none absolute top-96 left-5 w-[400px] h-[400px] rounded-full blur-[150px] opacity-[0.08]"
+          className="pointer-events-none absolute top-96 left-5 w-[400px] h-[400px] rounded-full blur-[150px] opacity-[0.092]"
           style={{ background: '#8EFF01' }}
         />
 

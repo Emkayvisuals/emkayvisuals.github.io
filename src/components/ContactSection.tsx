@@ -408,11 +408,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     <section id="contact" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background Soft Glows */}
       <div
-        className="pointer-events-none absolute top-10 left-10 w-[400px] h-[400px] rounded-full blur-[160px] opacity-[0.10]"
+        className="pointer-events-none absolute top-10 left-10 w-[400px] h-[400px] rounded-full blur-[160px] opacity-[0.115]"
         style={{ background: '#8116E0' }}
       />
       <div
-        className="pointer-events-none absolute bottom-10 right-10 w-[350px] h-[350px] rounded-full blur-[150px] opacity-[0.08]"
+        className="pointer-events-none absolute bottom-10 right-10 w-[350px] h-[350px] rounded-full blur-[150px] opacity-[0.092]"
         style={{ background: '#8EFF01' }}
       />
 

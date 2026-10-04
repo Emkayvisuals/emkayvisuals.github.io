@@ -123,7 +123,7 @@ export const StatsRow: React.FC = () => {
     <section className="relative py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto overflow-hidden">
       {/* Background ambient glow - very subtle */}
       <div
-        className="pointer-events-none absolute inset-x-12 top-1/2 -translate-y-1/2 h-24 blur-[120px] opacity-[0.085] rounded-full"
+        className="pointer-events-none absolute inset-x-12 top-1/2 -translate-y-1/2 h-24 blur-[120px] opacity-[0.098] rounded-full"
         style={{ background: 'linear-gradient(90deg, #8116E0, #8EFF01)' }}
       />
 

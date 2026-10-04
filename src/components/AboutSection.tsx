@@ -34,11 +34,11 @@ export const AboutSection: React.FC = () => {
     <section id="about" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Ambient background glows */}
       <div
-        className="pointer-events-none absolute top-1/3 left-0 w-[350px] sm:w-[450px] h-[350px] sm:h-[450px] rounded-full blur-[150px] opacity-[0.10]"
+        className="pointer-events-none absolute top-1/3 left-0 w-[350px] sm:w-[450px] h-[350px] sm:h-[450px] rounded-full blur-[150px] opacity-[0.115]"
         style={{ background: '#8116E0' }}
       />
       <div
-        className="pointer-events-none absolute bottom-10 right-0 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] rounded-full blur-[150px] opacity-[0.06]"
+        className="pointer-events-none absolute bottom-10 right-0 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] rounded-full blur-[150px] opacity-[0.069]"
         style={{ background: '#8EFF01' }}
       />
 

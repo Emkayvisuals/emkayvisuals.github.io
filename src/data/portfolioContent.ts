@@ -562,222 +562,7 @@ export const DEFAULT_PORTFOLIO_CONTENT = {
     'Product Design',
   ] as string[],
 
-  projects: [
-    {
-      id: 'proj-motion-1',
-      title: 'Neon Odyssey // 3D Kinetic Brand Reveal',
-      category: 'Motion Graphics',
-      image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'High-energy 3D kinetic brand sequence engineered with Cinema 4D, Octane Render, and After Effects. Featuring sound-reactive visualizers, camera tracking, and metallic fluid reflections.',
-      client: 'Hyperion Interactive',
-      year: '2025',
-      tools: ['After Effects', 'Cinema 4D', 'Octane Render', 'Premiere Pro'],
-      aspectRatio: 'landscape',
-      featured: true,
-      visible: true,
-      videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-      videoEmbedType: 'youtube',
-    },
-    {
-      id: 'proj-sports-1',
-      title: 'Apex Championship // Game Day Key Art',
-      category: 'Sports Design',
-      image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'High-octane game day match poster engineered with electric lightning visual effects, dynamic athlete cutouts, stadium atmosphere, and bold athletic typography.',
-      client: 'Apex Championship League',
-      year: '2025',
-      tools: ['Photoshop', 'Illustrator', 'Camera Raw'],
-      aspectRatio: 'portrait',
-      featured: true,
-      visible: true,
-    },
-    {
-      id: 'proj-1',
-      title: 'Cyberpunk Protocol // Neural Void',
-      category: 'Movie Posters',
-      image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Official theatrical key art for an independent neo-noir sci-fi thriller set in 2088. Handcrafted composite art featuring volumetric lighting, particle disintegration, and distressed Japanese/English typography.',
-      client: 'Aetheria Pictures',
-      year: '2025',
-      tools: ['Photoshop', 'Illustrator', 'Lightroom', 'Topaz Gigapixel'],
-      aspectRatio: 'portrait',
-      featured: true,
-      visible: true,
-    },
-    {
-      id: 'proj-3',
-      title: 'Solaris Echo // Album Artwork',
-      category: 'Music Covers',
-      image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Hypnotic vinyl and digital cover design for an ambient synthwave album. Exploring celestial geometry, iridescent liquid chrome, and minimal tracklist typography.',
-      client: 'Ghostly Ambient Collective',
-      year: '2024',
-      tools: ['Photoshop', 'Illustrator', 'Lightroom'],
-      aspectRatio: 'square',
-      featured: true,
-      visible: true,
-    },
-    {
-      id: 'proj-motion-2',
-      title: 'Pulse Distortion // Audio-Reactive Title Loop',
-      category: 'Motion Graphics',
-      image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Hypnotic visual loop for festival stage LED walls, calibrated with glitch displacement, neon scanlines, and 60 FPS buttery smooth transitions.',
-      client: 'Sub-Zero Festival',
-      year: '2025',
-      tools: ['After Effects', 'Blender', 'Photoshop'],
-      aspectRatio: 'landscape',
-      featured: true,
-      visible: true,
-      videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-      videoEmbedType: 'youtube',
-    },
-    {
-      id: 'proj-sports-2',
-      title: 'Courtside Dynasty // Signature Athlete Poster',
-      category: 'Sports Design',
-      image: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Cinematic pro basketball poster featuring volumetric stadium smoke, motion blur dynamics, high-contrast rim lighting, and distressed team typography.',
-      client: 'Vanguard Hoops Pro',
-      year: '2025',
-      tools: ['Photoshop', 'Lightroom', 'Illustrator'],
-      aspectRatio: 'portrait',
-      featured: true,
-      visible: true,
-    },
-    {
-      id: 'proj-sports-3',
-      title: 'Velocity Grand Prix // Motorsport Athlete Banner',
-      category: 'Sports Design',
-      image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Ultra-fast racing driver promotional artwork with particle sparks, aerodynamic motion trails, sleek carbon fiber textures, and futuristic speed typography.',
-      client: 'Monza Velocity Circuit',
-      year: '2024',
-      tools: ['Photoshop', 'Illustrator'],
-      aspectRatio: 'landscape',
-      featured: false,
-      visible: true,
-    },
-    {
-      id: 'proj-4',
-      title: 'Nexus Matrix // Brutalist Exhibition Poster',
-      category: 'Posters',
-      image: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'International design biennial promotional poster featuring Swiss architectural grids collided with glitch distortion and high-contrast dual-tone duotone palette.',
-      client: 'Zurich Design Pavilion',
-      year: '2024',
-      tools: ['Illustrator', 'Photoshop'],
-      aspectRatio: 'portrait',
-      featured: false,
-      visible: true,
-    },
-    {
-      id: 'proj-5',
-      title: 'Synthetic Awakening // Bio-Mecha Manipulation',
-      category: 'Photo Manipulation',
-      image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Multi-layer digital artwork melding human portraiture with intricate fiber-optic cyberware, neon vein illumination, and atmospheric volumetric smoke.',
-      client: 'Vanguard Visuals Magazine',
-      year: '2025',
-      tools: ['Photoshop', 'Illustrator', 'Lightroom'],
-      aspectRatio: 'portrait',
-      featured: true,
-      visible: true,
-    },
-    {
-      id: 'proj-7',
-      title: 'Orbital Ventures // Identity & Brand System',
-      category: 'Visual Branding',
-      image: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Comprehensive futuristic brand identity for an aerospace venture fund, spanning custom geometric monogram, dark-mode print stationery, and digital brand guidelines.',
-      client: 'Orbital Capital',
-      year: '2024',
-      tools: ['Illustrator', 'Figma', 'Photoshop'],
-      aspectRatio: 'square',
-      featured: false,
-      visible: true,
-    },
-    {
-      id: 'proj-8',
-      title: 'Subterranean Pulse // Warehouse Rave Flyer',
-      category: 'Flyers',
-      image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Industrial techno event flyer series engineered with brutalist thermal effects, neon green safety typography, and high-impact hierarchy for social feeds.',
-      client: 'Warehouse 09 Berlin',
-      year: '2025',
-      tools: ['Photoshop', 'Illustrator'],
-      aspectRatio: 'portrait',
-      featured: false,
-      visible: true,
-    },
-    {
-      id: 'proj-9',
-      title: 'The $10,000,000 Quantum Heist // Thumbnail',
-      category: 'Thumbnails',
-      image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Custom high-conversion YouTube thumbnail for a tech documentary channel (2.4M subscribers). Elevated dynamic lighting, clean subject cutouts, and 14.8% click-through rate.',
-      client: 'Apex Documentaries',
-      year: '2025',
-      tools: ['Photoshop', 'Illustrator', 'Lightroom'],
-      aspectRatio: 'landscape',
-      featured: false,
-      visible: true,
-    },
-    {
-      id: 'proj-10',
-      title: 'Astral Rebirth // Surreal Psychedelic Poster',
-      category: 'Posters',
-      image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Limited edition 24x36 screenprint design combining Renaissance anatomical engravings with psychedelic sacred geometry and holographic foil stamp layers.',
-      client: 'Metropolis Gallery',
-      year: '2024',
-      tools: ['Photoshop', 'Illustrator'],
-      aspectRatio: 'portrait',
-      featured: false,
-      visible: true,
-    },
-    {
-      id: 'proj-11',
-      title: 'Valkyrie Horizon // Cinematic Key Art',
-      category: 'Movie Posters',
-      image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Hero promotional artwork for an action-adventure series featuring custom cloud mattes, fighter jet propulsion trails, and distressed metallic title typography.',
-      client: 'Horizon Stream Original',
-      year: '2024',
-      tools: ['Photoshop', 'Illustrator', 'Lightroom'],
-      aspectRatio: 'portrait',
-      featured: false,
-      visible: true,
-    },
-    {
-      id: 'proj-12',
-      title: 'Metallic Overdrive // Single Art',
-      category: 'Music Covers',
-      image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80',
-      description:
-        'Liquid chrome emblem suspended in a zero-gravity dark abyss with typography etched in Blanche White and Banana Yellow neon highlights.',
-      client: 'Void Pulse Audio',
-      year: '2025',
-      tools: ['Photoshop', 'Illustrator'],
-      aspectRatio: 'square',
-      featured: false,
-      visible: true,
-    },
-  ] as ProjectItem[],
+  projects: [] as ProjectItem[],
 
   // ==========================================
   // 8. ABOUT ME SECTION
@@ -1320,6 +1105,12 @@ export function cleanForFirestore(obj: any): any {
   return cleaned;
 }
 
+let isFirestoreDataLoaded = false;
+
+export function isPortfolioContentReady(): boolean {
+  return isFirestoreDataLoaded;
+}
+
 // Current singleton in-memory object initialized from default
 export const PORTFOLIO_CONTENT: PortfolioContentType = JSON.parse(
   JSON.stringify(DEFAULT_PORTFOLIO_CONTENT)
@@ -1362,20 +1153,25 @@ export function initRealtimePortfolio() {
           const rawData = snapshot.data();
           const merged = deepMerge(DEFAULT_PORTFOLIO_CONTENT, rawData);
           Object.assign(PORTFOLIO_CONTENT, merged);
+          isFirestoreDataLoaded = true;
           notifyListeners();
         } else {
           // Document does not exist yet; populate with default
           Object.assign(PORTFOLIO_CONTENT, JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_CONTENT)));
+          isFirestoreDataLoaded = true;
           notifyListeners();
         }
       },
       (error) => {
         console.warn('Real-time Firestore snapshot listener notice (using defaults):', error);
+        isFirestoreDataLoaded = true;
+        notifyListeners();
       }
     );
     return realtimeUnsubscribe;
   } catch (err) {
     console.warn('Could not initialize real-time Firestore listener:', err);
+    isFirestoreDataLoaded = true;
     return null;
   }
 }
@@ -1391,12 +1187,15 @@ export async function loadPortfolioFromFirestore(): Promise<PortfolioContentType
       const data = snap.data();
       const merged = deepMerge(DEFAULT_PORTFOLIO_CONTENT, data);
       Object.assign(PORTFOLIO_CONTENT, merged);
+      isFirestoreDataLoaded = true;
       notifyListeners();
       return merged;
     }
   } catch (err) {
     console.log('Using local portfolio fallback (offline or empty):', err);
   }
+  isFirestoreDataLoaded = true;
+  notifyListeners();
   return null;
 }
 
@@ -1410,6 +1209,7 @@ export async function savePortfolioToFirestore(newData: PortfolioContentType) {
     const cleaned = cleanForFirestore(newData);
     await setDoc(docRef, cleaned, { merge: true });
     Object.assign(PORTFOLIO_CONTENT, newData);
+    isFirestoreDataLoaded = true;
     notifyListeners();
     return true;
   } catch (err) {
@@ -1426,6 +1226,7 @@ export async function resetPortfolioToDefault() {
     const docRef = doc(db, 'portfolio', 'content');
     await deleteDoc(docRef);
     Object.assign(PORTFOLIO_CONTENT, JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_CONTENT)));
+    isFirestoreDataLoaded = true;
     notifyListeners();
     window.location.reload();
   } catch (err) {

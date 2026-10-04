@@ -25,11 +25,11 @@ export const FAQSection: React.FC = () => {
     <section id="faq" className="relative py-14 sm:py-18 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto overflow-hidden">
       {/* Background ambient glows */}
       <div
-        className="pointer-events-none absolute top-1/2 left-1/3 -translate-y-1/2 w-[320px] h-[320px] rounded-full blur-[140px] opacity-[0.10]"
+        className="pointer-events-none absolute top-1/2 left-1/3 -translate-y-1/2 w-[320px] h-[320px] rounded-full blur-[140px] opacity-[0.115]"
         style={{ background: '#8116E0' }}
       />
       <div
-        className="pointer-events-none absolute bottom-10 right-1/4 w-[250px] h-[250px] rounded-full blur-[130px] opacity-[0.08]"
+        className="pointer-events-none absolute bottom-10 right-1/4 w-[250px] h-[250px] rounded-full blur-[130px] opacity-[0.092]"
         style={{ background: '#8EFF01' }}
       />
 

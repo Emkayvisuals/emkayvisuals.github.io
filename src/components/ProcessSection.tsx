@@ -25,7 +25,7 @@ export const ProcessSection: React.FC = () => {
     <section id="process" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background Glow */}
       <div
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full blur-[160px] opacity-[0.085]"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full blur-[160px] opacity-[0.098]"
         style={{ background: 'radial-gradient(circle, #8116E0 0%, #8EFF01 100%)' }}
       />
 

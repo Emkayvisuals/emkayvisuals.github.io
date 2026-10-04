@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { PORTFOLIO_CONTENT, ProjectItem } from '../data/portfolioContent';
+import {
+  PORTFOLIO_CONTENT,
+  ProjectItem,
+  subscribeToPortfolio,
+  isPortfolioContentReady,
+} from '../data/portfolioContent';
 import { ProjectLightbox } from './ProjectLightbox';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
@@ -29,6 +34,16 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
   onNavigateHome,
   onSelectProjectForContact,
 }) => {
+  const [, setContentVersion] = useState(0);
+
+  useEffect(() => {
+    const unsub = subscribeToPortfolio(() => {
+      setContentVersion((v) => v + 1);
+    });
+    return unsub;
+  }, []);
+
+  const isReady = isPortfolioContentReady();
   const { categories, projects, projectsSection } = PORTFOLIO_CONTENT;
 
   // Read initial category from URL search params e.g. /portfolio?category=Posters
@@ -166,11 +181,11 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
       <main className="flex-1 relative pt-28 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         {/* Background Glows */}
         <div
-          className="pointer-events-none absolute top-20 right-10 w-[500px] h-[500px] rounded-full blur-[180px] opacity-[0.12]"
+          className="pointer-events-none absolute top-20 right-10 w-[500px] h-[500px] rounded-full blur-[180px] opacity-[0.138]"
           style={{ background: '#8116E0' }}
         />
         <div
-          className="pointer-events-none absolute top-96 left-10 w-[450px] h-[450px] rounded-full blur-[160px] opacity-[0.085]"
+          className="pointer-events-none absolute top-96 left-10 w-[450px] h-[450px] rounded-full blur-[160px] opacity-[0.098]"
           style={{ background: '#8EFF01' }}
         />
 
@@ -188,8 +203,14 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
           <div className="flex items-center gap-2 text-xs text-white/50">
             <FolderKanban className="w-4 h-4 text-[#8EFF01]" />
             <span>
-              Showing <strong className="text-white">{filteredProjects.length}</strong> of{' '}
-              <strong className="text-white">{visibleProjects.length}</strong> Works
+              {isReady || visibleProjects.length > 0 ? (
+                <>
+                  Showing <strong className="text-white">{filteredProjects.length}</strong> of{' '}
+                  <strong className="text-white">{visibleProjects.length}</strong> Works
+                </>
+              ) : (
+                <span className="inline-block w-24 h-3.5 rounded bg-white/10 animate-pulse align-middle" />
+              )}
             </span>
           </div>
         </div>
@@ -198,25 +219,27 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="relative z-10 mb-10"
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-10 flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-5"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-xs font-semibold tracking-wide mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>
-              {badgeMain}{' '}
-              {badgeAccent && (
-                <span className="font-baskervville italic text-[#FEFFFC]">{badgeAccent}</span>
-              )}
-            </span>
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>
+                {badgeMain}{' '}
+                {badgeAccent && (
+                  <span className="font-baskervville italic text-[#FEFFFC]">{badgeAccent}</span>
+                )}
+              </span>
+            </div>
+            <h1 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15]">
+              {headingMain}{' '}
+              <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
+                {headingAccent} Archive
+              </span>
+            </h1>
           </div>
-          <h1 className="font-montserrat font-medium italic text-3xl sm:text-5xl lg:text-6xl text-[#8EFF01] tracking-tight leading-[1.12] mb-4">
-            {headingMain}{' '}
-            <span className="font-cormorant italic font-medium text-[1.1em] text-[#FEFFFC]">
-              {headingAccent} Archive
-            </span>
-          </h1>
-          <p className="max-w-2xl text-sm sm:text-base text-white/70 leading-relaxed font-normal">
+          <p className="max-w-md text-xs sm:text-sm text-white/70 font-normal leading-relaxed">
             Complete high-resolution archive of graphic design, sports visual key art, movie posters,
             music cover artworks, and kinetic motion reels created over 5+ years of craft.
           </p>
@@ -227,12 +250,12 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.1 }}
-            className="relative z-10 mb-10 overflow-x-auto pb-3 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="relative z-10 mb-6 sm:mb-8 overflow-x-auto pb-2.5 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar"
           >
             <div className="flex items-center gap-2 min-w-max">
-              <div className="flex items-center gap-1.5 pl-1 pr-2 text-xs font-semibold text-white/50">
-                <Filter className="w-3.5 h-3.5 text-[#8EFF01]" />
+              <div className="flex items-center gap-1.5 pl-1 pr-2 text-[11px] sm:text-xs font-semibold text-white/50">
+                <Filter className="w-3 h-3 text-[#8EFF01]" />
                 <span>{filterLabel}</span>
               </div>
 
@@ -251,7 +274,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
                     type="button"
                     id={`portfolio-page-filter-${cat.toLowerCase().replace(/\s+/g, '-')}`}
                     onClick={() => handleCategorySelect(cat)}
-                    className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap min-h-[44px] flex items-center gap-1.5 active:scale-95 ${
+                    className={`px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap min-h-[38px] sm:min-h-[40px] flex items-center gap-1.5 active:scale-95 ${
                       isActive
                         ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-[0_0_16px_rgba(142, 255, 1, 0.26)]'
                         : 'glass-panel text-[#FEFFFC]/70 hover:text-[#FEFFFC] hover:border-white/20'
@@ -275,7 +298,34 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
         )}
 
         {/* Portfolio Projects Grid - All items */}
-        {filteredProjects.length === 0 ? (
+        {!isReady && visibleProjects.length === 0 ? (
+          <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+            {[...Array(10)].map((_, idx) => (
+              <div
+                key={`portfolio-skeleton-${idx}`}
+                className="relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] overflow-hidden flex flex-col bg-[#050505]"
+              >
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#121212]">
+                  <div className="animate-shimmer" />
+                </div>
+                <div className="p-3 sm:p-4 md:p-5 flex flex-col justify-between flex-1 bg-[#050505] space-y-2.5">
+                  <div className="space-y-1.5">
+                    <div className="h-3.5 w-3/4 rounded bg-white/10 overflow-hidden relative">
+                      <div className="animate-shimmer" />
+                    </div>
+                    <div className="h-2.5 w-1/2 rounded bg-white/5 overflow-hidden relative">
+                      <div className="animate-shimmer" />
+                    </div>
+                  </div>
+                  <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between">
+                    <div className="h-2.5 w-12 rounded bg-white/5" />
+                    <div className="h-2.5 w-14 rounded bg-white/5" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : filteredProjects.length === 0 ? (
           <div className="text-center py-20 border border-white/10 rounded-3xl bg-white/[0.02]">
             <p className="text-white/50 text-sm">No visible projects found in this category.</p>
             <button

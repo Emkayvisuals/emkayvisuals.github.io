@@ -43,21 +43,21 @@ export const Hero: React.FC = () => {
           y: glowY1,
           background: 'radial-gradient(circle, #8116E0 20%, #8EFF01 90%)',
         }}
-        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[90vw] max-w-[700px] h-[350px] sm:h-[450px] rounded-full blur-[160px] opacity-[0.12]"
+        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[90vw] max-w-[700px] h-[350px] sm:h-[450px] rounded-full blur-[160px] opacity-[0.138]"
       />
       <motion.div
         style={{
           y: glowY2,
           background: '#8116E0',
         }}
-        className="pointer-events-none absolute top-1/3 -left-32 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] rounded-full blur-[140px] opacity-[0.10]"
+        className="pointer-events-none absolute top-1/3 -left-32 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] rounded-full blur-[140px] opacity-[0.115]"
       />
       <motion.div
         style={{
           y: glowY3,
           background: '#8EFF01',
         }}
-        className="pointer-events-none absolute bottom-10 -right-32 w-[320px] sm:w-[420px] h-[320px] sm:h-[420px] rounded-full blur-[150px] opacity-[0.08]"
+        className="pointer-events-none absolute bottom-10 -right-32 w-[320px] sm:w-[420px] h-[320px] sm:h-[420px] rounded-full blur-[150px] opacity-[0.092]"
       />
 
       <div className="relative z-10 w-full max-w-4xl mx-auto text-center flex flex-col items-center">
