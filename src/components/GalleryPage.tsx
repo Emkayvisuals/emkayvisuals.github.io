@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   PORTFOLIO_CONTENT,
   ManipulationGalleryItem,
@@ -22,23 +22,48 @@ interface GalleryPageProps {
 }
 
 // Pre-seeded aspect ratio dictionary from actual image dimensions to prevent any layout shifts
-const KNOWN_DIMENSIONS: Record<string, 'portrait' | 'landscape'> = {
-  'Flying tortise.webp': 'landscape',
-  'NY1.webp': 'landscape',
-  'NY2.webp': 'landscape',
-  'doom1.webp': 'portrait',
-  'doom2.webp': 'portrait',
-  'forest1.webp': 'portrait',
-  'forest2.webp': 'portrait',
-  'forest3.webp': 'portrait',
-  'judgement1.webp': 'portrait',
-  'judgement2.webp': 'portrait',
-  'judgement3.webp': 'portrait',
-  'new year.webp': 'portrait',
-  'victim0.webp': 'portrait',
-  'victim1.webp': 'portrait',
-  'victim2.webp': 'portrait',
+const KNOWN_ASPECT_RATIOS: Record<string, number> = {
+  'Flying tortise.webp': 1.835,
+  'NY1.webp': 1.777,
+  'NY2.webp': 1.777,
+  'doom1.webp': 0.75,
+  'doom2.webp': 0.75,
+  'forest1.webp': 0.75,
+  'forest2.webp': 0.75,
+  'forest3.webp': 0.75,
+  'judgement1.webp': 0.743,
+  'judgement2.webp': 0.75,
+  'judgement3.webp': 0.744,
+  'new year.webp': 1.0,
+  'victim0.webp': 0.751,
+  'victim1.webp': 0.749,
+  'victim2.webp': 0.749,
+  'Action manipulation.webp': 1.164,
+  'Deer.webp': 1.363,
+  'MEDEVIAL.webp': 1.348,
+  'Scifi Landscape.webp': 1.601,
+  'desert hunter.webp': 0.8,
+  'fantasy manipulation.webp': 1.164,
+  'keeper of worlds.webp': 0.75,
+  'last carriage standing.webp': 0.75,
+  'samurai.webp': 1.206,
+  'what remains.webp': 0.767,
+  'wonderland.webp': 1.67,
 };
+
+const getInitialItemRatio = (item: ManipulationGalleryItem): number => {
+  if (item.image) {
+    for (const [filename, ratio] of Object.entries(KNOWN_ASPECT_RATIOS)) {
+      if (item.image.includes(filename)) {
+        return ratio;
+      }
+    }
+  }
+  if (item.aspectRatio === 'landscape') return 1.777;
+  if (item.aspectRatio === 'square') return 1.0;
+  return 0.75;
+};
+
 
 export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
   const content = PORTFOLIO_CONTENT;
@@ -66,52 +91,115 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
   const [isBouncing, setIsBouncing] = useState<'left' | 'right' | null>(null);
   const [transitioningTo, setTransitioningTo] = useState<number | null>(null);
 
-  // Dynamic automatic image orientation detector
-  const [orientations, setOrientations] = useState<Record<string, 'portrait' | 'landscape'>>(() => {
-    const initial: Record<string, 'portrait' | 'landscape'> = {};
+  // Dynamic automatic image aspect ratio detector
+  const [ratios, setRatios] = useState<Record<string, number>>(() => {
+    const initial: Record<string, number> = {};
     (config.items || []).forEach((item) => {
-      // Check known files first
-      for (const [filename, orient] of Object.entries(KNOWN_DIMENSIONS)) {
-        if (item.image && item.image.includes(filename)) {
-          initial[item.id] = orient;
-          return;
-        }
-      }
-      if (item.aspectRatio === 'landscape' || item.aspectRatio === 'portrait') {
-        initial[item.id] = item.aspectRatio;
-      } else {
-        initial[item.id] = 'portrait';
-      }
+      initial[item.id] = getInitialItemRatio(item);
     });
     return initial;
+  });
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      return Math.min(1280, Math.max(320, window.innerWidth - 32));
+    }
+    return 1200;
   });
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' as any });
   }, []);
 
-  // Reset gesture state when selected item changes
+  // Responsive container width observer
   useEffect(() => {
-    setTouchDelta(0);
-    setIsBouncing(null);
-    setTransitioningTo(null);
-  }, [selectedItem?.id]);
+    const el = containerRef.current;
+    if (!el) return;
 
-  // Update orientation and loaded status automatically
+    let animationFrameId: number;
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const cr = entry.contentRect;
+        if (cr && cr.width > 0) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = requestAnimationFrame(() => {
+            const rounded = Math.round(cr.width);
+            setContainerWidth((prev) => (Math.abs(prev - rounded) > 1 ? rounded : prev));
+          });
+        }
+      }
+    });
+
+    ro.observe(el);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      ro.disconnect();
+    };
+  }, []);
+
+  // Pre-load natural dimensions for any custom or external artwork
+  const galleryItems = useMemo(
+    () => (config.items || []).filter((item) => item.visible !== false),
+    [config.items]
+  );
+
+  useEffect(() => {
+    galleryItems.forEach((item) => {
+      if (item.image && !ratios[item.id]) {
+        const img = new Image();
+        img.src = item.image;
+        img.onload = () => {
+          if (img.naturalWidth && img.naturalHeight) {
+            const detected = img.naturalWidth / img.naturalHeight;
+            setRatios((prev) => ({ ...prev, [item.id]: detected }));
+          }
+        };
+      }
+    });
+  }, [galleryItems]);
+
+  // Update ratio and loaded status automatically on load
   const handleImageLoad = (id: string, e: React.SyntheticEvent<HTMLImageElement>) => {
     setLoadedImages((prev) => ({ ...prev, [id]: true }));
     const img = e.currentTarget;
     if (img.naturalWidth && img.naturalHeight) {
-      const isLandscape = img.naturalWidth > img.naturalHeight;
-      const detected = isLandscape ? 'landscape' : 'portrait';
-      setOrientations((prev) => {
-        if (prev[id] === detected) return prev;
+      const detected = img.naturalWidth / img.naturalHeight;
+      setRatios((prev) => {
+        if (Math.abs((prev[id] || 0) - detected) < 0.02) return prev;
         return { ...prev, [id]: detected };
       });
     }
   };
 
-  const galleryItems = (config.items || []).filter((item) => item.visible !== false);
+  // Responsive layout: Single column on mobile (< 640px), multi-column masonry on tablet (2 cols) & desktop (3 cols)
+  const isMobile = containerWidth < 640;
+  const numColumns = isMobile ? 1 : containerWidth < 1024 ? 2 : 3;
+
+  // Distribute items into columns to balance column heights with zero gaps,
+  // prioritizing portrait images to display taller/larger than landscapes
+  const masonryColumns = useMemo(() => {
+    if (numColumns <= 1) return [galleryItems];
+
+    const cols: ManipulationGalleryItem[][] = Array.from({ length: numColumns }, () => []);
+    const heights = new Array(numColumns).fill(0);
+
+    galleryItems.forEach((item) => {
+      const ratio = ratios[item.id] || getInitialItemRatio(item);
+      // Find the column that currently has the minimum accumulated height
+      let minIdx = 0;
+      for (let i = 1; i < numColumns; i++) {
+        if (heights[i] < heights[minIdx]) {
+          minIdx = i;
+        }
+      }
+      cols[minIdx].push(item);
+      // Height added is inversely proportional to aspect ratio (width / ratio)
+      heights[minIdx] += 1 / ratio;
+    });
+
+    return cols;
+  }, [galleryItems, numColumns, ratios]);
 
   // YouTube Channel URL resolution
   const resolvedYoutubeUrl =
@@ -260,6 +348,65 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
     }
   };
 
+  const renderArtworkCard = (item: ManipulationGalleryItem) => {
+    const ratio = ratios[item.id] || getInitialItemRatio(item);
+    return (
+      <div
+        key={item.id}
+        role="button"
+        tabIndex={0}
+        onClick={() => setSelectedItem(item)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setSelectedItem(item);
+          }
+        }}
+        aria-label={`View artwork: ${item.title}`}
+        className="relative block w-full overflow-hidden cursor-pointer group focus:outline-none focus:z-10 group-hover:z-10 p-0 m-0 border-0 rounded-none bg-[#0a0a0a] leading-none shrink-0"
+      >
+        <div
+          className="relative w-full overflow-hidden block p-0 m-0 rounded-none bg-[#0e0e0e]"
+          style={{ aspectRatio: `${ratio}` }}
+        >
+          {/* Shimmer loading placeholder */}
+          {!loadedImages[item.id] && (
+            <div className="absolute inset-0 bg-[#0e0e0e] overflow-hidden z-0 pointer-events-none">
+              <div className="animate-shimmer" />
+            </div>
+          )}
+
+          {/* Artwork Image */}
+          <img
+            src={item.image}
+            alt={item.title}
+            loading="lazy"
+            decoding="async"
+            onLoad={(e) => handleImageLoad(item.id, e)}
+            className={`block w-full h-full object-cover rounded-none transition-transform duration-500 ease-out group-hover:scale-105 will-change-transform ${
+              loadedImages[item.id] ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+
+          {/* Inset ring highlight on hover/focus - zero layout shift */}
+          <div className="absolute inset-0 pointer-events-none ring-0 group-hover:ring-1 group-hover:ring-inset group-hover:ring-[#8EFF01]/80 group-focus:ring-2 group-focus:ring-inset group-focus:ring-[#8EFF01] transition-all duration-200 z-10" />
+
+          {/* Artwork caption overlay on hover/focus */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-3 sm:p-4 pointer-events-none z-10">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-white text-xs sm:text-sm font-medium tracking-wide truncate drop-shadow-md">
+                {item.title}
+              </span>
+              <div className="w-6 h-6 rounded-full bg-black/60 border border-white/20 flex items-center justify-center shrink-0">
+                <Maximize2 className="w-3.5 h-3.5 text-[#8EFF01] shrink-0" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="relative min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] selection:bg-[#8EFF01] selection:text-[#050505] overflow-x-hidden w-full flex flex-col">
       {/* Top Floating Navbar */}
@@ -306,8 +453,11 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
         </div>
 
         {/* 2.b INTRO TEXT: Introducing visitors to the YouTube channel, focused on photo manipulation content */}
-        <div className="relative z-10 mb-12 sm:mb-16">
-          <p className="font-montserrat text-sm sm:text-base md:text-[17px] text-white/80 font-normal leading-relaxed max-w-4xl">
+        <div className="relative z-10 mb-12 sm:mb-16 w-full">
+          <p
+            className="font-montserrat text-[13px] sm:text-sm md:text-[15px] text-white/80 font-normal leading-relaxed sm:leading-[1.75] text-justify [text-align:justify] [text-justify:inter-word] w-full max-w-5xl xl:max-w-6xl"
+            style={{ textAlign: 'justify' }}
+          >
             {config.introParagraph}
           </p>
         </div>
@@ -370,58 +520,29 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
             </span>
           </div>
 
-          {/* Sharp corners, tighter gaps, dense responsive grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 [grid-auto-flow:dense] gap-1.5 sm:gap-2 md:gap-2.5">
-            {galleryItems.map((item) => {
-              const isLandscape = orientations[item.id] === 'landscape';
-              const colSpanClass = isLandscape
-                ? 'col-span-2 md:col-span-2 lg:col-span-2'
-                : 'col-span-1 md:col-span-1 lg:col-span-1';
-
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => setSelectedItem(item)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setSelectedItem(item);
-                    }
-                  }}
-                  aria-label={`View artwork: ${item.title}`}
-                  className={`${colSpanClass} group relative rounded-none overflow-hidden border border-white/10 hover:border-[#8EFF01]/50 bg-[#0B0B0B] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8EFF01]/50`}
-                >
-                  <div className={`relative w-full overflow-hidden ${isLandscape ? 'aspect-[16/9]' : 'aspect-[3/4]'} bg-[#121212]`}>
-                    {!loadedImages[item.id] && (
-                      <div className="absolute inset-0 bg-[#121212] overflow-hidden">
-                        <div className="animate-shimmer" />
-                      </div>
-                    )}
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      onLoad={(e) => handleImageLoad(item.id, e)}
-                      className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-                        loadedImages[item.id] ? 'opacity-100' : 'opacity-0'
-                      }`}
-                    />
-
-                    {/* Subtle overlay at bottom on hover/tap with small artwork title */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-2 sm:p-2.5">
-                      <div className="flex items-center justify-between gap-1.5">
-                        <span className="text-white text-[11px] sm:text-xs font-medium tracking-wide truncate">
-                          {item.title}
-                        </span>
-                        <Maximize2 className="w-3 h-3 text-[#8EFF01] shrink-0 opacity-80" />
-                      </div>
-                    </div>
+          {/* Gallery Layout: Single column on mobile (< 640px), tightly-packed multi-column masonry on tablet & desktop */}
+          <div
+            ref={containerRef}
+            className="w-full bg-[#050505] overflow-hidden select-none border border-white/10 shadow-[0_6px_35px_rgba(0,0,0,0.8)]"
+          >
+            {isMobile ? (
+              /* MOBILE (< 640px): Single column, one per row, full width, stacked vertically, 0 gaps */
+              <div className="flex flex-col w-full p-0 m-0 border-0">
+                {galleryItems.map(renderArtworkCard)}
+              </div>
+            ) : (
+              /* TABLET & DESKTOP (>= 640px): Multi-column masonry with zero gaps, portrait images prioritized taller */
+              <div className="flex flex-row w-full p-0 m-0 border-0 items-start">
+                {masonryColumns.map((colItems, colIdx) => (
+                  <div
+                    key={`col-${colIdx}`}
+                    className="flex flex-col flex-1 p-0 m-0 border-0 min-w-0"
+                  >
+                    {colItems.map(renderArtworkCard)}
                   </div>
-                </div>
-              );
-            })}
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </main>

@@ -160,7 +160,7 @@ export interface ManipulationGalleryItem {
   title: string;
   image: string;
   imageAlt?: string;
-  aspectRatio?: 'portrait' | 'landscape';
+  aspectRatio?: 'portrait' | 'landscape' | 'square';
   visible?: boolean;
 }
 
