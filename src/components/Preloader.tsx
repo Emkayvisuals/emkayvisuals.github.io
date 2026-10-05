@@ -14,25 +14,11 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
   const { preloader, brand } = content;
   const shouldSkip = hasPreloaderPlayedInSession || preloader?.enabled === false;
   const [isLoading, setIsLoading] = useState(!shouldSkip);
-  const [prefersReduced, setPrefersReduced] = useState(false);
 
   useEffect(() => {
     if (shouldSkip) {
       onLoadingComplete?.();
       return;
-    }
-
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const isReduced = mediaQuery.matches;
-    setPrefersReduced(isReduced);
-
-    if (isReduced) {
-      hasPreloaderPlayedInSession = true;
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-        onLoadingComplete?.();
-      }, 800);
-      return () => clearTimeout(timer);
     }
 
     hasPreloaderPlayedInSession = true;
@@ -83,43 +69,27 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
             <div className="flex flex-col items-center gap-3 relative z-10 [perspective:1000px]">
               {/* Step 1: Logo Entrance (Zoom out + bounce) starting after 1.5s blank screen */}
               <motion.div
-                initial={prefersReduced ? { scale: 1, opacity: 1 } : { scale: 1.4, opacity: 0 }}
-                animate={
-                  prefersReduced
-                    ? { scale: 1, opacity: 1 }
-                    : {
-                        scale: [1.4, 0.94, 1.06, 0.98, 1],
-                        opacity: [0, 1, 1, 1, 1],
-                      }
-                }
-                transition={
-                  prefersReduced
-                    ? { duration: 0.1 }
-                    : {
-                        duration: 1.0,
-                        delay: 1.5,
-                        times: [0, 0.35, 0.65, 0.85, 1],
-                        ease: 'easeOut',
-                      }
-                }
+                initial={{ scale: 1.4, opacity: 0 }}
+                animate={{
+                  scale: [1.4, 0.94, 1.06, 0.98, 1],
+                  opacity: [0, 1, 1, 1, 1],
+                }}
+                transition={{
+                  duration: 1.0,
+                  delay: 1.5,
+                  times: [0, 0.35, 0.65, 0.85, 1],
+                  ease: 'easeOut',
+                }}
                 className="flex items-center justify-center"
               >
                 {/* Step 4: 3D Flip Wrapper (plays at t = 4.8s, duration 1.1s) */}
                 <motion.div
-                  animate={
-                    prefersReduced
-                      ? { rotateY: 0 }
-                      : { rotateY: [0, 0, 360] }
-                  }
-                  transition={
-                    prefersReduced
-                      ? { duration: 0.1 }
-                      : {
-                          duration: 1.1,
-                          delay: 4.8,
-                          ease: [0.16, 1, 0.3, 1],
-                        }
-                  }
+                  animate={{ rotateY: [0, 0, 360] }}
+                  transition={{
+                    duration: 1.1,
+                    delay: 4.8,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
                   style={{
                     transformStyle: 'preserve-3d',
                     backfaceVisibility: 'hidden',
@@ -144,51 +114,41 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                     )}
 
                     {/* Step 5: White Shine Wipe - single diagonal light sweep across logo immediately after flip (duration 1.05s) */}
-                    {!prefersReduced && (
-                      <motion.div
-                        initial={{ x: '-150%', opacity: 0 }}
-                        animate={{
-                          x: ['-150%', '150%'],
-                          opacity: [0, 1, 1, 0],
-                        }}
-                        transition={{
-                          duration: 1.05,
-                          delay: 5.9,
-                          ease: [0.25, 1, 0.5, 1],
-                        }}
-                        style={{
-                          background:
-                            'linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.9) 50%, transparent 80%)',
-                        }}
-                        className="pointer-events-none absolute inset-0 z-30 w-[200%] -left-[50%]"
-                      />
-                    )}
+                    <motion.div
+                      initial={{ x: '-150%', opacity: 0 }}
+                      animate={{
+                        x: ['-150%', '150%'],
+                        opacity: [0, 1, 1, 0],
+                      }}
+                      transition={{
+                        duration: 1.05,
+                        delay: 5.9,
+                        ease: [0.25, 1, 0.5, 1],
+                      }}
+                      style={{
+                        background:
+                          'linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.9) 50%, transparent 80%)',
+                      }}
+                      className="pointer-events-none absolute inset-0 z-30 w-[200%] -left-[50%]"
+                    />
                   </div>
                 </motion.div>
               </motion.div>
 
               {/* Step 2: Text Fade-In (Bouncy / Elastic Overshoot) */}
               <motion.div
-                initial={prefersReduced ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: 10 }}
-                animate={
-                  prefersReduced
-                    ? { opacity: 1, scale: 1, y: 0 }
-                    : {
-                        opacity: [0, 1, 1, 1],
-                        scale: [0.85, 1.06, 0.98, 1],
-                        y: [10, -2, 1, 0],
-                      }
-                }
-                transition={
-                  prefersReduced
-                    ? { duration: 0.1 }
-                    : {
-                        duration: 0.6,
-                        delay: 2.5,
-                        times: [0, 0.5, 0.8, 1],
-                        ease: 'easeOut',
-                      }
-                }
+                initial={{ opacity: 0, scale: 0.85, y: 10 }}
+                animate={{
+                  opacity: [0, 1, 1, 1],
+                  scale: [0.85, 1.06, 0.98, 1],
+                  y: [10, -2, 1, 0],
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: 2.5,
+                  times: [0, 0.5, 0.8, 1],
+                  ease: 'easeOut',
+                }}
                 className="flex items-center gap-1.5 font-montserrat font-semibold tracking-wider text-sm sm:text-base text-[#FEFFFC]"
               >
                 <span>{brandMain}</span>
@@ -198,26 +158,18 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
 
               {/* Step 2 (staggered beat): Portfolio 2026 Tagline */}
               <motion.span
-                initial={prefersReduced ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: 8 }}
-                animate={
-                  prefersReduced
-                    ? { opacity: 1, scale: 1, y: 0 }
-                    : {
-                        opacity: [0, 1, 1, 1],
-                        scale: [0.85, 1.05, 0.99, 1],
-                        y: [8, -1, 0, 0],
-                      }
-                }
-                transition={
-                  prefersReduced
-                    ? { duration: 0.1 }
-                    : {
-                        duration: 0.6,
-                        delay: 2.7,
-                        times: [0, 0.5, 0.8, 1],
-                        ease: 'easeOut',
-                      }
-                }
+                initial={{ opacity: 0, scale: 0.85, y: 8 }}
+                animate={{
+                  opacity: [0, 1, 1, 1],
+                  scale: [0.85, 1.05, 0.99, 1],
+                  y: [8, -1, 0, 0],
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: 2.7,
+                  times: [0, 0.5, 0.8, 1],
+                  ease: 'easeOut',
+                }}
                 className="text-[10px] sm:text-[11px] font-mono tracking-widest text-[#8EFF01]/80 mt-0.5 uppercase"
               >
                 {tagline}
