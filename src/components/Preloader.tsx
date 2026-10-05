@@ -38,17 +38,18 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
     hasPreloaderPlayedInSession = true;
 
     // Exact timeline calculation:
-    // 1. Logo entrance (zoom out + bounce): 0.0s - 0.6s
-    // 2. Text fade-in (bouncy overshoot): 0.6s - 1.1s
-    // 3. Pause (all still & visible): 1.0s (1.1s - 2.1s)
-    // 4. Logo 3D flip (rotateY): 0.7s (2.1s - 2.8s)
-    // 5. White shine wipe: 0.55s (2.8s - 3.35s)
-    // 6. Pause (all still & visible): 1.5s (3.35s - 4.85s)
-    // 7. Outro (slide up off screen): starts at 4.85s, slides up over 0.7s
+    // 0. Blank screen: 1.5s (0.0s - 1.5s)
+    // 1. Logo zoom-out + bounce entrance: 1.0s (1.5s - 2.5s)
+    // 2. Text fade-in (bouncy overshoot): 0.8s (2.5s - 3.3s)
+    // 3. Pause (all still & visible): 1.5s (3.3s - 4.8s)
+    // 4. Logo 3D flip (rotateY): 1.1s (4.8s - 5.9s)
+    // 5. White shine wipe: 1.05s (5.9s - 6.95s)
+    // 6. Pause (all still & visible): 2.1s (6.95s - 9.05s)
+    // 7. Outro (slide up off screen): starts at 9.05s, slides up over 1.3s
     const timer = setTimeout(() => {
       setIsLoading(false);
       onLoadingComplete?.();
-    }, 4850);
+    }, 9050);
 
     return () => clearTimeout(timer);
   }, [onLoadingComplete, shouldSkip]);
@@ -70,7 +71,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
           initial={{ y: 0 }}
           exit={{
             y: '-100%',
-            transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] },
+            transition: { duration: 1.3, ease: [0.76, 0, 0.24, 1] },
           }}
           className="fixed inset-0 z-[9999] bg-[#050505] flex items-center justify-center overflow-hidden pointer-events-auto [perspective:1000px]"
         >
@@ -80,7 +81,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
 
             {/* Main Preloader Content Block */}
             <div className="flex flex-col items-center gap-3 relative z-10 [perspective:1000px]">
-              {/* Logo Entrance (zoom out + bounce) & 3D Flip */}
+              {/* Step 1: Logo Entrance (Zoom out + bounce) starting after 1.5s blank screen */}
               <motion.div
                 initial={prefersReduced ? { scale: 1, opacity: 1 } : { scale: 1.4, opacity: 0 }}
                 animate={
@@ -95,14 +96,15 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                   prefersReduced
                     ? { duration: 0.1 }
                     : {
-                        duration: 0.6,
+                        duration: 1.0,
+                        delay: 1.5,
                         times: [0, 0.35, 0.65, 0.85, 1],
                         ease: 'easeOut',
                       }
                 }
                 className="flex items-center justify-center"
               >
-                {/* 3D Flip Wrapper (plays at t = 2.1s) */}
+                {/* Step 4: 3D Flip Wrapper (plays at t = 4.8s, duration 1.1s) */}
                 <motion.div
                   animate={
                     prefersReduced
@@ -113,8 +115,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                     prefersReduced
                       ? { duration: 0.1 }
                       : {
-                          duration: 0.7,
-                          delay: 2.1,
+                          duration: 1.1,
+                          delay: 4.8,
                           ease: [0.16, 1, 0.3, 1],
                         }
                   }
@@ -141,7 +143,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                       </div>
                     )}
 
-                    {/* Step 5: White Shine Wipe - single diagonal light sweep across logo immediately after flip */}
+                    {/* Step 5: White Shine Wipe - single diagonal light sweep across logo immediately after flip (duration 1.05s) */}
                     {!prefersReduced && (
                       <motion.div
                         initial={{ x: '-150%', opacity: 0 }}
@@ -150,8 +152,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                           opacity: [0, 1, 1, 0],
                         }}
                         transition={{
-                          duration: 0.55,
-                          delay: 2.8,
+                          duration: 1.05,
+                          delay: 5.9,
                           ease: [0.25, 1, 0.5, 1],
                         }}
                         style={{
@@ -181,8 +183,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                   prefersReduced
                     ? { duration: 0.1 }
                     : {
-                        duration: 0.45,
-                        delay: 0.6,
+                        duration: 0.6,
+                        delay: 2.5,
                         times: [0, 0.5, 0.8, 1],
                         ease: 'easeOut',
                       }
@@ -210,8 +212,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                   prefersReduced
                     ? { duration: 0.1 }
                     : {
-                        duration: 0.45,
-                        delay: 0.75,
+                        duration: 0.6,
+                        delay: 2.7,
                         times: [0, 0.5, 0.8, 1],
                         ease: 'easeOut',
                       }
