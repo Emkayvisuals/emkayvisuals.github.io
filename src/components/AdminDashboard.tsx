@@ -763,7 +763,13 @@ export const AdminDashboard: React.FC = () => {
 
         {/* Content Workspace Area */}
         <div className="lg:col-span-3 space-y-6 pb-24">
-          {activeTab === 'analytics' && <AdminAnalyticsTab analyticsData={analyticsData} />}
+          {activeTab === 'analytics' && (
+            <AdminAnalyticsTab
+              analyticsData={analyticsData}
+              briefsList={briefsList}
+              onNavigateToBriefs={() => setActiveTab('briefs')}
+            />
+          )}
 
           {activeTab === 'briefs' && (
             <AdminBriefsTab

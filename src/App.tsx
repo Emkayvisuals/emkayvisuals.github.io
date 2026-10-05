@@ -46,13 +46,22 @@ export default function App() {
   };
 
   useEffect(() => {
-    trackVisit();
-    initRealtimePortfolio();
-    loadPortfolioFromFirestore();
+    // Schedule background Firestore initialization and analytics off the immediate initial paint frame
+    // so the browser compositor and Framer Motion get zero main-thread contention on refresh
+    const initTimer = setTimeout(() => {
+      trackVisit();
+      initRealtimePortfolio();
+      loadPortfolioFromFirestore();
+    }, 120);
+
     const unsubscribe = subscribeToPortfolio(() => {
       setTick(t => t + 1);
     });
-    return () => unsubscribe();
+
+    return () => {
+      clearTimeout(initTimer);
+      unsubscribe();
+    };
   }, []);
 
   useEffect(() => {

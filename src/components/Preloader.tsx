@@ -22,6 +22,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
   // cannot abruptly unmount or skip steps in the active preloader mid-animation
   const initialShouldPlay = useRef(!hasPreloaderPlayedInSession && preloader?.enabled !== false);
   const [isLoading, setIsLoading] = useState(() => initialShouldPlay.current);
+  const [isAnimationReady, setIsAnimationReady] = useState(false);
 
   useEffect(() => {
     if (!initialShouldPlay.current) {
@@ -29,22 +30,36 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
       return;
     }
 
+    // Ensure double requestAnimationFrame has passed so the browser has completed its initial layout and clean paint frame
+    // before the animation timeline begins. This eliminates jank / skipped frames on cached page refreshes.
+    let frameId1: number;
+    let frameId2: number;
+    frameId1 = requestAnimationFrame(() => {
+      frameId2 = requestAnimationFrame(() => {
+        setIsAnimationReady(true);
+      });
+    });
+
     // Exact timeline calculation:
-    // 0. Blank screen: 1.0s (0.0s - 1.0s)
-    // 1. Logo zoom-out + bounce entrance: 0.8s (1.0s - 1.8s)
-    // 2. Text fade-in (bouncy overshoot): 0.8s (1.8s - 2.6s)
-    // 3. Pause (all still & visible): 0.5s (2.6s - 3.1s)
-    // 4. Logo 3D flip (rotateY): 0.8s (3.1s - 3.9s)
-    // 5. White shine wipe: 1.5s (3.9s - 5.4s)
-    // 6. Pause: 0s (triggers immediately upon shine wipe completion)
-    // 7. Outro (slide up off screen): starts immediately at 5.4s (5400ms), slides up over 0.5s
+    // 0. Blank screen: 0.4s (0.0s - 0.4s)
+    // 1. Logo zoom-out + bounce entrance: 0.8s (0.4s - 1.2s)
+    // 2. Text fade-in (bouncy overshoot): 0.8s (1.2s - 2.0s)
+    // 3. Pause (all still & visible): 0.5s (2.0s - 2.5s)
+    // 4. Logo 3D flip (rotateY): 0.8s (2.5s - 3.3s)
+    // 5. White shine wipe: 1.5s (3.3s - 4.8s)
+    // 6. Pause: 0s (REMOVED - outro triggers immediately when shine wipe finishes)
+    // 7. Outro (slide up & fade out): starts immediately at 4.8s (4800ms), duration 0.5s
     const timer = setTimeout(() => {
       setIsLoading(false);
       hasPreloaderPlayedInSession = true;
       onLoadingComplete?.();
-    }, 5400);
+    }, 4800);
 
-    return () => clearTimeout(timer);
+    return () => {
+      cancelAnimationFrame(frameId1);
+      cancelAnimationFrame(frameId2);
+      clearTimeout(timer);
+    };
   }, [onLoadingComplete]);
 
   if (!initialShouldPlay.current) {
@@ -61,10 +76,15 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          initial={{ y: 0 }}
+          initial={{ y: 0, opacity: 1 }}
           exit={{
             y: '-100%',
+            opacity: 0,
             transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
+          }}
+          style={{
+            willChange: 'transform, opacity',
+            transform: 'translate3d(0, 0, 0)',
           }}
           className="fixed inset-0 z-[9999] bg-[#050505] flex items-center justify-center overflow-hidden pointer-events-auto [perspective:1000px]"
         >
@@ -74,34 +94,44 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
 
             {/* Main Preloader Content Block */}
             <div className="flex flex-col items-center gap-3 relative z-10 [perspective:1000px]">
-              {/* Step 1: Logo Entrance (Zoom out + bounce) starting after 1.0s blank screen */}
+              {/* Step 1: Logo Entrance (Zoom out + bounce) starting after 0.4s blank screen */}
               <motion.div
                 initial={{ scale: 1.4, opacity: 0 }}
-                animate={{
-                  scale: [1.4, 0.94, 1.06, 0.98, 1],
-                  opacity: [0, 1, 1, 1, 1],
-                }}
+                animate={
+                  isAnimationReady
+                    ? {
+                        scale: [1.4, 0.94, 1.06, 0.98, 1],
+                        opacity: [0, 1, 1, 1, 1],
+                      }
+                    : { scale: 1.4, opacity: 0 }
+                }
                 transition={{
                   duration: 0.8,
-                  delay: 1.0,
+                  delay: 0.4,
                   times: [0, 0.35, 0.65, 0.85, 1],
                   ease: 'easeOut',
                 }}
+                style={{
+                  willChange: 'transform, opacity',
+                  transform: 'translate3d(0, 0, 0)',
+                }}
                 className="flex items-center justify-center"
               >
-                {/* Step 4: 3D Flip Wrapper (plays at t = 3.1s, duration 0.8s) */}
+                {/* Step 4: 3D Flip Wrapper (plays at t = 2.5s, duration 0.8s) */}
                 <motion.div
                   initial={{ rotateY: 0 }}
-                  animate={{ rotateY: [0, 0, 360] }}
+                  animate={isAnimationReady ? { rotateY: [0, 0, 360] } : { rotateY: 0 }}
                   transition={{
                     duration: 0.8,
-                    delay: 3.1,
+                    delay: 2.5,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   style={{
                     transformStyle: 'preserve-3d',
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
+                    willChange: 'transform',
+                    transform: 'translate3d(0, 0, 0)',
                   }}
                   className="relative flex items-center justify-center"
                 >
@@ -121,21 +151,27 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                       </div>
                     )}
 
-                    {/* Step 5: White Shine Wipe - single diagonal light sweep across logo immediately after flip (duration 1.5s, delay 3.9s) */}
+                    {/* Step 5: White Shine Wipe - single diagonal light sweep across logo immediately after flip (duration 1.5s, delay 3.3s) */}
                     <motion.div
                       initial={{ x: '-150%', opacity: 0 }}
-                      animate={{
-                        x: ['-150%', '150%'],
-                        opacity: [0, 1, 1, 0],
-                      }}
+                      animate={
+                        isAnimationReady
+                          ? {
+                              x: ['-150%', '150%'],
+                              opacity: [0, 1, 1, 0],
+                            }
+                          : { x: '-150%', opacity: 0 }
+                      }
                       transition={{
                         duration: 1.5,
-                        delay: 3.9,
+                        delay: 3.3,
                         ease: [0.25, 1, 0.5, 1],
                       }}
                       style={{
                         background:
                           'linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.9) 50%, transparent 80%)',
+                        willChange: 'transform, opacity',
+                        transform: 'translate3d(0, 0, 0)',
                       }}
                       className="pointer-events-none absolute inset-0 z-30 w-[200%] -left-[50%]"
                     />
@@ -146,16 +182,24 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
               {/* Step 2: Text Fade-In (Bouncy / Elastic Overshoot) */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.85, y: 10 }}
-                animate={{
-                  opacity: [0, 1, 1, 1],
-                  scale: [0.85, 1.06, 0.98, 1],
-                  y: [10, -2, 1, 0],
-                }}
+                animate={
+                  isAnimationReady
+                    ? {
+                        opacity: [0, 1, 1, 1],
+                        scale: [0.85, 1.06, 0.98, 1],
+                        y: [10, -2, 1, 0],
+                      }
+                    : { opacity: 0, scale: 0.85, y: 10 }
+                }
                 transition={{
                   duration: 0.6,
-                  delay: 1.8,
+                  delay: 1.2,
                   times: [0, 0.5, 0.8, 1],
                   ease: 'easeOut',
+                }}
+                style={{
+                  willChange: 'transform, opacity',
+                  transform: 'translate3d(0, 0, 0)',
                 }}
                 className="flex items-center gap-1.5 font-montserrat font-semibold tracking-wider text-sm sm:text-base text-[#FEFFFC]"
               >
@@ -167,16 +211,24 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
               {/* Step 2 (staggered beat): Portfolio 2026 Tagline */}
               <motion.span
                 initial={{ opacity: 0, scale: 0.85, y: 8 }}
-                animate={{
-                  opacity: [0, 1, 1, 1],
-                  scale: [0.85, 1.05, 0.99, 1],
-                  y: [8, -1, 0, 0],
-                }}
+                animate={
+                  isAnimationReady
+                    ? {
+                        opacity: [0, 1, 1, 1],
+                        scale: [0.85, 1.05, 0.99, 1],
+                        y: [8, -1, 0, 0],
+                      }
+                    : { opacity: 0, scale: 0.85, y: 8 }
+                }
                 transition={{
                   duration: 0.6,
-                  delay: 2.0,
+                  delay: 1.4,
                   times: [0, 0.5, 0.8, 1],
                   ease: 'easeOut',
+                }}
+                style={{
+                  willChange: 'transform, opacity',
+                  transform: 'translate3d(0, 0, 0)',
                 }}
                 className="text-[10px] sm:text-[11px] font-mono tracking-widest text-[#8EFF01]/80 mt-0.5 uppercase"
               >
