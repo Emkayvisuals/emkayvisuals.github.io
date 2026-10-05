@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { usePortfolio } from '../data/portfolioContent';
 
-// Track whether the preloader has played during this page lifecycle / session
+// Track whether the preloader has completed playback during this page session (for internal navigation)
 let hasPreloaderPlayedInSession = false;
+
+// Helper to reset session state (e.g. for testing)
+export function resetPreloaderSession() {
+  hasPreloaderPlayedInSession = false;
+}
 
 interface PreloaderProps {
   onLoadingComplete?: () => void;
@@ -12,16 +17,17 @@ interface PreloaderProps {
 export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
   const { content } = usePortfolio();
   const { preloader, brand } = content;
-  const shouldSkip = hasPreloaderPlayedInSession || preloader?.enabled === false;
-  const [isLoading, setIsLoading] = useState(!shouldSkip);
+
+  // Evaluate whether to play ONCE on mount so subsequent re-renders (e.g. from Firestore async loads or parent re-renders)
+  // cannot abruptly unmount or skip steps in the active preloader mid-animation
+  const initialShouldPlay = useRef(!hasPreloaderPlayedInSession && preloader?.enabled !== false);
+  const [isLoading, setIsLoading] = useState(() => initialShouldPlay.current);
 
   useEffect(() => {
-    if (shouldSkip) {
+    if (!initialShouldPlay.current) {
       onLoadingComplete?.();
       return;
     }
-
-    hasPreloaderPlayedInSession = true;
 
     // Exact timeline calculation:
     // 0. Blank screen: 1.5s (0.0s - 1.5s)
@@ -29,18 +35,19 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
     // 2. Text fade-in (bouncy overshoot): 0.8s (2.5s - 3.3s)
     // 3. Pause (all still & visible): 1.5s (3.3s - 4.8s)
     // 4. Logo 3D flip (rotateY): 1.1s (4.8s - 5.9s)
-    // 5. White shine wipe: 1.05s (5.9s - 6.95s)
-    // 6. Pause (all still & visible): 2.1s (6.95s - 9.05s)
-    // 7. Outro (slide up off screen): starts at 9.05s, slides up over 1.3s
+    // 5. White shine wipe: 1.5s (5.9s - 7.4s) [increased from 1.05s to 1.5s]
+    // 6. Pause (all still & visible): 1.5s (7.4s - 8.9s) [reduced from 2.1s to 1.5s]
+    // 7. Outro (slide up off screen): starts at 8.9s (8900ms), slides up over 1.3s
     const timer = setTimeout(() => {
       setIsLoading(false);
+      hasPreloaderPlayedInSession = true;
       onLoadingComplete?.();
-    }, 9050);
+    }, 8900);
 
     return () => clearTimeout(timer);
-  }, [onLoadingComplete, shouldSkip]);
+  }, [onLoadingComplete]);
 
-  if (shouldSkip) {
+  if (!initialShouldPlay.current) {
     return null;
   }
 
@@ -84,6 +91,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
               >
                 {/* Step 4: 3D Flip Wrapper (plays at t = 4.8s, duration 1.1s) */}
                 <motion.div
+                  initial={{ rotateY: 0 }}
                   animate={{ rotateY: [0, 0, 360] }}
                   transition={{
                     duration: 1.1,
@@ -113,7 +121,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                       </div>
                     )}
 
-                    {/* Step 5: White Shine Wipe - single diagonal light sweep across logo immediately after flip (duration 1.05s) */}
+                    {/* Step 5: White Shine Wipe - single diagonal light sweep across logo immediately after flip (duration 1.5s) */}
                     <motion.div
                       initial={{ x: '-150%', opacity: 0 }}
                       animate={{
@@ -121,7 +129,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                         opacity: [0, 1, 1, 0],
                       }}
                       transition={{
-                        duration: 1.05,
+                        duration: 1.5,
                         delay: 5.9,
                         ease: [0.25, 1, 0.5, 1],
                       }}
