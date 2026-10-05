@@ -19,6 +19,7 @@ import {
   Film,
   Layers,
   X,
+  ChevronDown,
 } from 'lucide-react';
 import { ProjectItem, ProjectGalleryImage } from '../../data/portfolioContent';
 import { ImageUploadControl } from './ImageUploadControl';
@@ -32,6 +33,7 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
 }) => {
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('All');
   const [searchFilter, setSearchFilter] = useState<string>('');
+  const [openCategoryIndex, setOpenCategoryIndex] = useState<number | null>(null);
 
   const projectsSection = content.projectsSection || {
     enabled: true,
@@ -599,21 +601,48 @@ export const AdminProjectsTab: React.FC<AdminTabProps> = ({
 
                   <div>
                     <label className="text-[10px] text-white/50 block mb-1">Category</label>
-                    <select
-                      value={project.category}
-                      onChange={(e) =>
-                        handleProjectChange(rawIndex, 'category', e.target.value)
-                      }
-                      className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
-                    >
-                      {categories
-                        .filter((c: string) => c !== 'All')
-                        .map((c: string) => (
-                          <option key={c} value={c} className="bg-[#111]">
-                            {c}
-                          </option>
-                        ))}
-                    </select>
+                    <div className="relative">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setOpenCategoryIndex(openCategoryIndex === rawIndex ? null : rawIndex)
+                        }
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-black/80 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01] flex items-center justify-between cursor-pointer"
+                      >
+                        <span className="truncate">{project.category || 'Select category'}</span>
+                        <ChevronDown className="w-3.5 h-3.5 text-white/60 ml-1 shrink-0" />
+                      </button>
+
+                      {openCategoryIndex === rawIndex && (
+                        <div className="absolute left-0 right-0 top-full mt-1 z-50 bg-[#0f0f0f] border border-white/15 rounded-xl shadow-[0_15px_35px_rgba(0,0,0,0.9)] max-h-60 overflow-y-auto p-1.5 flex flex-col gap-1 backdrop-blur-xl">
+                          {categories
+                            .filter((c: string) => c !== 'All')
+                            .map((c: string) => {
+                              const isSelected = project.category === c;
+                              return (
+                                <button
+                                  key={c}
+                                  type="button"
+                                  onClick={() => {
+                                    handleProjectChange(rawIndex, 'category', c);
+                                    setOpenCategoryIndex(null);
+                                  }}
+                                  className={`w-full px-3 py-2 rounded-lg text-xs text-left flex items-center justify-between transition-colors cursor-pointer ${
+                                    isSelected
+                                      ? 'bg-[#8EFF01]/15 text-[#8EFF01] border border-[#8EFF01]/40 font-medium'
+                                      : 'text-white/80 hover:bg-white/[0.06] hover:text-white border border-transparent'
+                                  }`}
+                                >
+                                  <span className="truncate">{c}</span>
+                                  {isSelected && (
+                                    <Check className="w-3.5 h-3.5 text-[#8EFF01] shrink-0 ml-2" />
+                                  )}
+                                </button>
+                              );
+                            })}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 

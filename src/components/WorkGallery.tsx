@@ -249,10 +249,10 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
       {/* Main Portfolio Grid */}
       <motion.div
         layout
-        className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5"
+        className="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6"
       >
         {!isReady && visibleProjects.length === 0 ? (
-          [...Array(4)].map((_, idx) => (
+          [...Array(6)].map((_, idx) => (
             <div
               key={`work-skeleton-${idx}`}
               className="relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] overflow-hidden flex flex-col bg-[#050505]"
