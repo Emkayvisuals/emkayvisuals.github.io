@@ -377,18 +377,18 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
                       )}
                     </div>
 
-                    <div className="mt-3 pt-2.5 border-t border-white/[0.06] flex items-center justify-between min-h-[36px]">
-                      <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-medium text-white/45">
+                    <div className="mt-3 pt-2.5 border-t border-white/[0.06] flex flex-col items-start gap-1.5 sm:flex-row sm:items-center sm:justify-between min-h-[36px]">
+                      <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-medium text-white/45 truncate max-w-full">
                         {project.tools && project.tools.filter(Boolean).length > 0 ? (
                           <>
-                            <span>{project.tools[0]}</span>
-                            {project.tools[1] && <span>• {project.tools[1]}</span>}
+                            <span className="truncate">{project.tools[0]}</span>
+                            {project.tools[1] && <span className="truncate">• {project.tools[1]}</span>}
                           </>
                         ) : (
-                          <span>{project.category}</span>
+                          <span className="truncate">{project.category}</span>
                         )}
                       </div>
-                      <span className="text-[11px] sm:text-xs text-[#8EFF01] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-bold">
+                      <span className="text-[11px] sm:text-xs text-[#8EFF01] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-bold whitespace-nowrap">
                         {viewProjectText} <ArrowRight className="w-3 h-3" />
                       </span>
                     </div>
