@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
+import { usePortfolio } from '../data/portfolioContent';
 
 // Track whether the preloader has played during this page lifecycle / session
 let hasPreloaderPlayedInSession = false;
@@ -14,6 +14,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
   const { preloader, brand } = content;
   const shouldSkip = hasPreloaderPlayedInSession || preloader?.enabled === false;
   const [isLoading, setIsLoading] = useState(!shouldSkip);
+  const [prefersReduced, setPrefersReduced] = useState(false);
 
   useEffect(() => {
     if (shouldSkip) {
@@ -21,22 +22,33 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
       return;
     }
 
-    // Check prefers-reduced-motion
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const isReduced = mediaQuery.matches;
+    setPrefersReduced(isReduced);
+
+    if (isReduced) {
       hasPreloaderPlayedInSession = true;
-      setIsLoading(false);
-      onLoadingComplete?.();
-      return;
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        onLoadingComplete?.();
+      }, 800);
+      return () => clearTimeout(timer);
     }
 
     hasPreloaderPlayedInSession = true;
 
-    // Timeline: 0.7s flip animation + 1.0s static hold = 1.7s before slide-up outro begins
+    // Exact timeline calculation:
+    // 1. Logo entrance (zoom out + bounce): 0.0s - 0.6s
+    // 2. Text fade-in (bouncy overshoot): 0.6s - 1.1s
+    // 3. Pause (all still & visible): 1.0s (1.1s - 2.1s)
+    // 4. Logo 3D flip (rotateY): 0.7s (2.1s - 2.8s)
+    // 5. White shine wipe: 0.55s (2.8s - 3.35s)
+    // 6. Pause (all still & visible): 1.5s (3.35s - 4.85s)
+    // 7. Outro (slide up off screen): starts at 4.85s, slides up over 0.7s
     const timer = setTimeout(() => {
       setIsLoading(false);
       onLoadingComplete?.();
-    }, 1700);
+    }, 4850);
 
     return () => clearTimeout(timer);
   }, [onLoadingComplete, shouldSkip]);
@@ -68,41 +80,113 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
 
             {/* Main Preloader Content Block */}
             <div className="flex flex-col items-center gap-3 relative z-10 [perspective:1000px]">
-              {/* 3D Flip Logo: Smooth rotateY from 90deg (invisible edge) to 0deg facing forward */}
+              {/* Logo Entrance (zoom out + bounce) & 3D Flip */}
               <motion.div
-                initial={{ rotateY: 90, opacity: 0, scale: 0.92 }}
-                animate={{ rotateY: 0, opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.7,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                style={{
-                  transformStyle: 'preserve-3d',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                }}
+                initial={prefersReduced ? { scale: 1, opacity: 1 } : { scale: 1.4, opacity: 0 }}
+                animate={
+                  prefersReduced
+                    ? { scale: 1, opacity: 1 }
+                    : {
+                        scale: [1.4, 0.94, 1.06, 0.98, 1],
+                        opacity: [0, 1, 1, 1, 1],
+                      }
+                }
+                transition={
+                  prefersReduced
+                    ? { duration: 0.1 }
+                    : {
+                        duration: 0.6,
+                        times: [0, 0.35, 0.65, 0.85, 1],
+                        ease: 'easeOut',
+                      }
+                }
                 className="flex items-center justify-center"
               >
-                {brand?.logoUrl || preloader?.logoUrl ? (
-                  <div className="w-18 h-18 sm:w-22 sm:h-22 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center p-1 sm:p-1.5 shadow-[0_0_42px_rgba(142, 255, 1, 0.65)]">
-                    <img
-                      src={brand?.logoUrl || preloader?.logoUrl}
-                      alt={brand?.logoAlt || preloader?.logoAlt || 'Emkay Visuals Logo'}
-                      className="w-full h-full object-contain object-center block select-none scale-105"
-                    />
+                {/* 3D Flip Wrapper (plays at t = 2.1s) */}
+                <motion.div
+                  animate={
+                    prefersReduced
+                      ? { rotateY: 0 }
+                      : { rotateY: [0, 0, 360] }
+                  }
+                  transition={
+                    prefersReduced
+                      ? { duration: 0.1 }
+                      : {
+                          duration: 0.7,
+                          delay: 2.1,
+                          ease: [0.16, 1, 0.3, 1],
+                        }
+                  }
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                  }}
+                  className="relative flex items-center justify-center"
+                >
+                  {/* Logo Container with overflow-hidden for the diagonal shine sweep */}
+                  <div className="relative w-18 h-18 sm:w-22 sm:h-22 rounded-full overflow-hidden flex items-center justify-center shadow-[0_0_42px_rgba(142,255,1,0.65)]">
+                    {brand?.logoUrl || preloader?.logoUrl ? (
+                      <div className="w-full h-full rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center p-1 sm:p-1.5">
+                        <img
+                          src={brand?.logoUrl || preloader?.logoUrl}
+                          alt={brand?.logoAlt || preloader?.logoAlt || 'Emkay Visuals Logo'}
+                          className="w-full h-full object-contain object-center block select-none scale-105"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-full h-full rounded-full bg-[#8EFF01] flex items-center justify-center font-bold text-[#050505] text-xl sm:text-2xl border border-[#8EFF01]">
+                        {logoAbbr}
+                      </div>
+                    )}
+
+                    {/* Step 5: White Shine Wipe - single diagonal light sweep across logo immediately after flip */}
+                    {!prefersReduced && (
+                      <motion.div
+                        initial={{ x: '-150%', opacity: 0 }}
+                        animate={{
+                          x: ['-150%', '150%'],
+                          opacity: [0, 1, 1, 0],
+                        }}
+                        transition={{
+                          duration: 0.55,
+                          delay: 2.8,
+                          ease: [0.25, 1, 0.5, 1],
+                        }}
+                        style={{
+                          background:
+                            'linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.9) 50%, transparent 80%)',
+                        }}
+                        className="pointer-events-none absolute inset-0 z-30 w-[200%] -left-[50%]"
+                      />
+                    )}
                   </div>
-                ) : (
-                  <div className="w-18 h-18 sm:w-22 sm:h-22 rounded-full bg-[#8EFF01] flex items-center justify-center font-bold text-[#050505] text-xl sm:text-2xl shadow-[0_0_42px_rgba(142, 255, 1, 0.65)]">
-                    {logoAbbr}
-                  </div>
-                )}
+                </motion.div>
               </motion.div>
 
-              {/* Brand Name Title */}
+              {/* Step 2: Text Fade-In (Bouncy / Elastic Overshoot) */}
               <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                initial={prefersReduced ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: 10 }}
+                animate={
+                  prefersReduced
+                    ? { opacity: 1, scale: 1, y: 0 }
+                    : {
+                        opacity: [0, 1, 1, 1],
+                        scale: [0.85, 1.06, 0.98, 1],
+                        y: [10, -2, 1, 0],
+                      }
+                }
+                transition={
+                  prefersReduced
+                    ? { duration: 0.1 }
+                    : {
+                        duration: 0.45,
+                        delay: 0.6,
+                        times: [0, 0.5, 0.8, 1],
+                        ease: 'easeOut',
+                      }
+                }
                 className="flex items-center gap-1.5 font-montserrat font-semibold tracking-wider text-sm sm:text-base text-[#FEFFFC]"
               >
                 <span>{brandMain}</span>
@@ -110,11 +194,28 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                 <span className="text-white/70">{brandAccent}</span>
               </motion.div>
 
-              {/* Portfolio 2026 Tagline */}
+              {/* Step 2 (staggered beat): Portfolio 2026 Tagline */}
               <motion.span
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                initial={prefersReduced ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: 8 }}
+                animate={
+                  prefersReduced
+                    ? { opacity: 1, scale: 1, y: 0 }
+                    : {
+                        opacity: [0, 1, 1, 1],
+                        scale: [0.85, 1.05, 0.99, 1],
+                        y: [8, -1, 0, 0],
+                      }
+                }
+                transition={
+                  prefersReduced
+                    ? { duration: 0.1 }
+                    : {
+                        duration: 0.45,
+                        delay: 0.75,
+                        times: [0, 0.5, 0.8, 1],
+                        ease: 'easeOut',
+                      }
+                }
                 className="text-[10px] sm:text-[11px] font-mono tracking-widest text-[#8EFF01]/80 mt-0.5 uppercase"
               >
                 {tagline}
