@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { PORTFOLIO_CONTENT, WEB3FORMS_ACCESS_KEY } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, WEB3FORMS_ACCESS_KEY, usePortfolio } from '../data/portfolioContent';
 import { saveProjectBrief } from '../lib/analytics';
 import { getResolvedSocialLinks, getPlatformMeta } from '../lib/socialLinks';
 import { CustomDropdown } from './CustomDropdown';
@@ -132,7 +132,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   prefilledService,
   prefilledProject,
 }) => {
-  const { contact, socials } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { contact, socials } = content;
 
   if (contact?.enabled === false) {
     return null;
@@ -426,34 +427,60 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           className="lg:col-span-5 flex flex-col justify-between"
         >
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>
-                {badgeMain}{' '}
-                {badgeAccent && (
-                  <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
-                    {badgeAccent}
+            {!isReady ? (
+              <div className="space-y-4">
+                <div className="h-6 w-36 rounded-full bg-white/10 relative overflow-hidden mb-2.5">
+                  <div className="animate-shimmer" />
+                </div>
+                <div className="h-9 w-64 rounded-xl bg-white/10 relative overflow-hidden mb-3">
+                  <div className="animate-shimmer" />
+                </div>
+                <div className="space-y-2 mb-6">
+                  <div className="h-3.5 w-full rounded bg-white/10 relative overflow-hidden">
+                    <div className="animate-shimmer" />
+                  </div>
+                  <div className="h-3.5 w-4/5 rounded bg-white/5 relative overflow-hidden">
+                    <div className="animate-shimmer" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-2 mt-4">
+                  {[1, 2, 3, 4].map((n) => (
+                    <div key={n} className="h-16 rounded-2xl bg-white/5 relative overflow-hidden">
+                      <div className="animate-shimmer" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>
+                    {badgeMain}{' '}
+                    {badgeAccent && (
+                      <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
+                        {badgeAccent}
+                      </span>
+                    )}
                   </span>
-                )}
-              </span>
-            </div>
+                </div>
 
-            <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15] mb-2.5 sm:mb-3">
-              {headingMain}{' '}
-              <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
-                {headingAccent}
-              </span>
-            </h2>
+                <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15] mb-2.5 sm:mb-3">
+                  {headingMain}{' '}
+                  <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
+                    {headingAccent}
+                  </span>
+                </h2>
 
-            <p className="text-xs sm:text-sm text-white/70 font-normal leading-relaxed mb-5 sm:mb-6">
-              {subtext}
-            </p>
+                <p className="text-xs sm:text-sm text-white/70 font-normal leading-relaxed mb-5 sm:mb-6">
+                  {subtext}
+                </p>
 
-            {/* Direct Connect Action Buttons (Compact Grid) */}
-            <div className="mb-4 sm:mb-5">
-              <span className="text-[11px] font-semibold text-white/45 tracking-wide block mb-2">
-                {directChannelsTitle}
-              </span>
+                {/* Direct Connect Action Buttons (Compact Grid) */}
+                <div className="mb-4 sm:mb-5">
+                  <span className="text-[11px] font-semibold text-white/45 tracking-wide block mb-2">
+                    {directChannelsTitle}
+                  </span>
 
               <div
                 className={`grid ${
@@ -528,7 +555,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 </>
               )}
             </button>
-          </div>
+          </>
+        )}
+      </div>
 
           <div className="mt-6 pt-4 border-t border-white/10 text-xs text-white/45 font-medium flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#8EFF01] animate-pulse"></span>
@@ -544,11 +573,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-7"
         >
-          <div className="rounded-2xl sm:rounded-3xl glass-panel border border-white/12 p-4 sm:p-6 md:p-8 bg-[#080808] shadow-2xl relative overflow-hidden">
-            {/* Corner Tech Glow */}
-            <div className="absolute top-0 right-0 w-28 h-28 bg-[#8116E0]/10 blur-3xl pointer-events-none" />
+          {!isReady ? (
+            <div className="rounded-2xl sm:rounded-3xl glass-panel border border-white/12 p-4 sm:p-6 md:p-8 bg-[#080808] shadow-2xl relative overflow-hidden min-h-[500px]">
+              <div className="animate-shimmer" />
+            </div>
+          ) : (
+            <div className="rounded-2xl sm:rounded-3xl glass-panel border border-white/12 p-4 sm:p-6 md:p-8 bg-[#080808] shadow-2xl relative overflow-hidden">
+              {/* Corner Tech Glow */}
+              <div className="absolute top-0 right-0 w-28 h-28 bg-[#8116E0]/10 blur-3xl pointer-events-none" />
 
-            {submitted ? (
+              {submitted ? (
               <motion.div
                 ref={confirmationCardRef}
                 role="status"
@@ -908,8 +942,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </form>
             )}
           </div>
-        </motion.div>
-      </div>
-    </section>
-  );
+        )}
+      </motion.div>
+    </div>
+  </section>
+);
 };

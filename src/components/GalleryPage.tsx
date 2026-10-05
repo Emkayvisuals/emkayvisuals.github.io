@@ -3,6 +3,7 @@ import {
   PORTFOLIO_CONTENT,
   ManipulationGalleryItem,
   ManipulationGalleryConfig,
+  usePortfolio,
 } from '../data/portfolioContent';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
@@ -66,17 +67,16 @@ const getInitialItemRatio = (item: ManipulationGalleryItem): number => {
 
 
 export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
-  const content = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
   const config: ManipulationGalleryConfig = (content.manipulationGallery || {
     enabled: true,
-    headerImage: '/Images/manipulation/Flying tortise.webp',
-    headerImageAlt: 'Photo Manipulation Artwork Header',
-    introParagraph:
-      'Welcome to my photo manipulation laboratory and digital compositing archive. On my YouTube channel, I take you behind the screen to explore the detailed creation process behind surreal composites, sci-fi atmospheres, lighting breakdowns, and digital art techniques. Each piece is crafted layer by layer with cinematic depth, custom lighting passes, and meticulous compositing. Explore the video breakdowns on YouTube, or browse the complete gallery of finished artworks below.',
+    headerImage: '',
+    headerImageAlt: '',
+    introParagraph: '',
     youtubeSectionTitle: 'Visit my YouTube channel',
     youtubeChannelUrl: 'https://youtube.com/@emkayvisuals',
-    youtubeThumbnailImage: '/Images/thumbnail/airdrop1.webp',
-    youtubeThumbnailAlt: 'Emkay Visuals YouTube Channel - Photo Manipulation Breakdowns',
+    youtubeThumbnailImage: '',
+    youtubeThumbnailAlt: 'Emkay Visuals YouTube Channel',
     gallerySectionTitle: 'My Gallery',
     items: [],
   }) as ManipulationGalleryConfig;
@@ -414,12 +414,18 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
 
       {/* 2.a HEADER IMAGE: One plain image spanning the top of the page, full width, no card, no border, no title text over it */}
       <div className="w-full relative overflow-hidden bg-black">
-        <img
-          src={config.headerImage || '/Images/manipulation/Flying tortise.webp'}
-          alt={config.headerImageAlt || 'Photo Manipulation Header Artwork'}
-          className="w-full h-auto max-h-[50vh] max-h-[50svh] sm:max-h-[60vh] sm:max-h-[60svh] lg:max-h-[68vh] lg:max-h-[68svh] object-cover object-center block"
-          loading="eager"
-        />
+        {!isReady ? (
+          <div className="w-full h-48 sm:h-64 lg:h-80 bg-[#121212] relative overflow-hidden">
+            <div className="animate-shimmer" />
+          </div>
+        ) : config.headerImage ? (
+          <img
+            src={config.headerImage}
+            alt={config.headerImageAlt || 'Photo Manipulation Header Artwork'}
+            className="w-full h-auto max-h-[50vh] max-h-[50svh] sm:max-h-[60vh] sm:max-h-[60svh] lg:max-h-[68vh] lg:max-h-[68svh] object-cover object-center block"
+            loading="eager"
+          />
+        ) : null}
       </div>
 
       {/* Main Content Area: Side padding matches the rest of the site (px-4 sm:px-6 lg:px-8 max-w-7xl) */}
@@ -454,12 +460,26 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
 
         {/* 2.b INTRO TEXT: Introducing visitors to the YouTube channel, focused on photo manipulation content */}
         <div className="relative z-10 mb-12 sm:mb-16 w-full">
-          <p
-            className="font-montserrat text-[13px] sm:text-sm md:text-[15px] text-white/80 font-normal leading-relaxed sm:leading-[1.75] text-justify [text-align:justify] [text-justify:inter-word] w-full max-w-5xl xl:max-w-6xl"
-            style={{ textAlign: 'justify' }}
-          >
-            {config.introParagraph}
-          </p>
+          {!isReady ? (
+            <div className="w-full max-w-5xl xl:max-w-6xl space-y-2.5">
+              <div className="h-4 w-full rounded bg-white/10 overflow-hidden relative">
+                <div className="animate-shimmer" />
+              </div>
+              <div className="h-4 w-5/6 rounded bg-white/10 overflow-hidden relative">
+                <div className="animate-shimmer" />
+              </div>
+              <div className="h-4 w-4/6 rounded bg-white/5 overflow-hidden relative">
+                <div className="animate-shimmer" />
+              </div>
+            </div>
+          ) : (
+            <p
+              className="font-montserrat text-[13px] sm:text-sm md:text-[15px] text-white/80 font-normal leading-relaxed sm:leading-[1.75] text-justify [text-align:justify] [text-justify:inter-word] w-full max-w-5xl xl:max-w-6xl"
+              style={{ textAlign: 'justify' }}
+            >
+              {config.introParagraph}
+            </p>
+          )}
         </div>
 
         {/* 2.c "VISIT MY YOUTUBE CHANNEL" SECTION */}
@@ -468,45 +488,59 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
             <span>{config.youtubeSectionTitle || 'Visit my YouTube channel'}</span>
           </h2>
 
-          <a
-            href={resolvedYoutubeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit Emkay Visuals on YouTube (opens in new tab)"
-            className="group relative block w-full max-w-xl mx-auto rounded-2xl overflow-hidden border border-white/10 hover:border-[#8EFF01]/50 transition-all duration-300 shadow-[0_6px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_0_35px_rgba(142, 255, 1, 0.15)] cursor-pointer bg-[#0B0B0B]"
-          >
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-black/50">
-              <img
-                src={config.youtubeThumbnailImage || '/Images/thumbnail/airdrop1.webp'}
-                alt={config.youtubeThumbnailAlt || 'Visit Emkay Visuals YouTube Channel'}
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-70 group-hover:opacity-45 transition-opacity" />
-
-              {/* Small YouTube icon overlay */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-[0_0_25px_rgba(239,68,68,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:bg-red-600">
-                  <svg className="w-6 h-6 fill-current ml-0.5" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Bottom pill & channel badge */}
-              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/15 text-white text-[11px] sm:text-xs font-semibold">
-                  <svg className="w-3.5 h-3.5 fill-[#FF0000]" viewBox="0 0 24 24">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                  </svg>
-                  <span>Watch Tutorials & Breakdowns</span>
-                </div>
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white/80 group-hover:text-[#8EFF01] group-hover:bg-white/20 transition-all">
-                  <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                </div>
+          {!isReady ? (
+            <div className="w-full max-w-xl mx-auto rounded-2xl overflow-hidden border border-white/10 bg-[#0B0B0B]">
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#121212]">
+                <div className="animate-shimmer" />
               </div>
             </div>
-          </a>
+          ) : (
+            <a
+              href={resolvedYoutubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit Emkay Visuals on YouTube (opens in new tab)"
+              className="group relative block w-full max-w-xl mx-auto rounded-2xl overflow-hidden border border-white/10 hover:border-[#8EFF01]/50 transition-all duration-300 shadow-[0_6px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_0_35px_rgba(142, 255, 1, 0.15)] cursor-pointer bg-[#0B0B0B]"
+            >
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-black/50">
+                {config.youtubeThumbnailImage ? (
+                  <img
+                    src={config.youtubeThumbnailImage}
+                    alt={config.youtubeThumbnailAlt || 'Visit Emkay Visuals YouTube Channel'}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-[#151515]">
+                    <span className="text-white/40 text-xs font-mono">Watch Tutorials & Breakdowns</span>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-70 group-hover:opacity-45 transition-opacity" />
+
+                {/* Small YouTube icon overlay */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-[0_0_25px_rgba(239,68,68,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:bg-red-600">
+                    <svg className="w-6 h-6 fill-current ml-0.5" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Bottom pill & channel badge */}
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/15 text-white text-[11px] sm:text-xs font-semibold">
+                    <svg className="w-3.5 h-3.5 fill-[#FF0000]" viewBox="0 0 24 24">
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    <span>Watch Tutorials & Breakdowns</span>
+                  </div>
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white/80 group-hover:text-[#8EFF01] group-hover:bg-white/20 transition-all">
+                    <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  </div>
+                </div>
+              </div>
+            </a>
+          )}
         </div>
 
         {/* 2.d & 3. "MY GALLERY" SECTION & CARD LAYOUT */}
@@ -516,7 +550,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
               {config.gallerySectionTitle || 'My Gallery'}
             </h2>
             <span className="text-xs text-white/50 font-mono">
-              {galleryItems.length} Artworks
+              {!isReady ? '...' : `${galleryItems.length} Artworks`}
             </span>
           </div>
 
@@ -525,7 +559,24 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
             ref={containerRef}
             className="w-full bg-[#050505] overflow-hidden select-none border border-white/10 shadow-[0_6px_35px_rgba(0,0,0,0.8)]"
           >
-            {isMobile ? (
+            {!isReady ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0">
+                {[...Array(6)].map((_, i) => (
+                  <div
+                    key={`gallery-skeleton-${i}`}
+                    className={`relative w-full bg-[#121212] overflow-hidden border border-white/[0.04] ${
+                      i % 2 === 0 ? 'aspect-[3/4]' : 'aspect-[16/10]'
+                    }`}
+                  >
+                    <div className="animate-shimmer" />
+                  </div>
+                ))}
+              </div>
+            ) : galleryItems.length === 0 ? (
+              <div className="text-center py-20 bg-white/[0.02]">
+                <p className="text-white/50 text-sm">No artworks published yet in the gallery.</p>
+              </div>
+            ) : isMobile ? (
               /* MOBILE (< 640px): Single column, one per row, full width, stacked vertically, 0 gaps */
               <div className="flex flex-col w-full p-0 m-0 border-0">
                 {galleryItems.map(renderArtworkCard)}

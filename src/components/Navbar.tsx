@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PORTFOLIO_CONTENT } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
 import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -7,7 +7,8 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  const { navbar, navigation, brand } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { navbar, navigation, brand } = content;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -145,90 +146,121 @@ export const Navbar: React.FC = () => {
         }`}
       >
         {/* Brand Logo - Compact on mobile */}
-        <a
-          href="#home"
-          id="nav-logo"
-          onClick={(e) => {
-            e.preventDefault();
-            handleLinkClick('#home');
-          }}
-          className="flex items-center gap-1.5 sm:gap-2 group cursor-pointer focus:outline-none min-h-[38px] shrink-0"
-        >
-          {brand?.logoUrl || navbar?.logoUrl ? (
-            <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_24px_rgba(142, 255, 1, 0.6)] p-0.5">
-              <img
-                src={brand?.logoUrl || navbar?.logoUrl}
-                alt={brand?.logoAlt || navbar?.logoAlt || 'Emkay Visuals Logo'}
-                width="30"
-                height="30"
-                loading="lazy"
-                className="w-full h-full object-contain object-center block"
-                referrerPolicy="no-referrer"
-              />
+        {!isReady ? (
+          <div className="flex items-center gap-2 min-h-[38px] shrink-0">
+            <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-white/10 relative overflow-hidden shrink-0">
+              <div className="animate-shimmer" />
             </div>
-          ) : (
-            <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-[#8EFF01] flex items-center justify-center font-bold text-[#050505] text-[11px] sm:text-xs transition-transform duration-300 group-hover:scale-105 shadow-[0_0_24px_rgba(142, 255, 1, 0.6)] shrink-0">
-              {logoAbbr}
+            <div className="h-4 w-24 sm:w-28 rounded bg-white/10 relative overflow-hidden">
+              <div className="animate-shimmer" />
             </div>
-          )}
-          <div className="flex items-center gap-1 leading-none">
-            <span className="font-bold text-xs sm:text-sm tracking-wide text-[#FEFFFC] whitespace-nowrap">
-              {brandName}
-            </span>
-            <span className="text-[#8EFF01] text-[11px] font-bold">{brandDivider}</span>
-            <span className="text-white/70 text-[11px] sm:text-xs font-normal hidden sm:inline whitespace-nowrap">
-              {brandAccent}
-            </span>
           </div>
-        </a>
+        ) : (
+          <a
+            href="#home"
+            id="nav-logo"
+            onClick={(e) => {
+              e.preventDefault();
+              handleLinkClick('#home');
+            }}
+            className="flex items-center gap-1.5 sm:gap-2 group cursor-pointer focus:outline-none min-h-[38px] shrink-0"
+          >
+            {brand?.logoUrl || navbar?.logoUrl ? (
+              <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_24px_rgba(142, 255, 1, 0.6)] p-0.5">
+                <img
+                  src={brand?.logoUrl || navbar?.logoUrl}
+                  alt={brand?.logoAlt || navbar?.logoAlt || 'Emkay Visuals Logo'}
+                  width="30"
+                  height="30"
+                  loading="lazy"
+                  className="w-full h-full object-contain object-center block"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            ) : (
+              <div className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-full bg-[#8EFF01] flex items-center justify-center font-bold text-[#050505] text-[11px] sm:text-xs transition-transform duration-300 group-hover:scale-105 shadow-[0_0_24px_rgba(142, 255, 1, 0.6)] shrink-0">
+                {logoAbbr}
+              </div>
+            )}
+            <div className="flex items-center gap-1 leading-none">
+              <span className="font-bold text-xs sm:text-sm tracking-wide text-[#FEFFFC] whitespace-nowrap">
+                {brandName}
+              </span>
+              <span className="text-[#8EFF01] text-[11px] font-bold">{brandDivider}</span>
+              <span className="text-white/70 text-[11px] sm:text-xs font-normal hidden sm:inline whitespace-nowrap">
+                {brandAccent}
+              </span>
+            </div>
+          </a>
+        )}
 
         {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-0.5 lg:gap-1">
-          {visibleNavLinks.map((item) => {
-            const isGalleryLink = item.href === '/gallery' || item.href.includes('gallery');
-            const sectionId = item.href.replace('#', '').replace('/', '');
-            const isActive = isGalleryLink
-              ? window.location.pathname === '/gallery'
-              : activeSection === sectionId && window.location.pathname === '/';
-
-            return (
-              <a
-                key={item.label + item.href}
-                href={item.href}
-                id={`nav-link-${sectionId || 'home'}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(item.href);
-                }}
-                className={`px-2 lg:px-2.5 py-1 rounded-full text-[11px] lg:text-xs font-medium tracking-normal transition-all duration-200 min-h-[30px] flex items-center justify-center whitespace-nowrap ${
-                  isActive
-                    ? 'text-[#050505] bg-[#FEFFFC] font-semibold shadow-xs'
-                    : 'text-[#FEFFFC]/75 hover:text-[#FEFFFC] hover:bg-white/[0.08]'
-                }`}
+        {!isReady ? (
+          <div className="hidden md:flex items-center gap-2">
+            {[60, 70, 65, 80].map((w, idx) => (
+              <div
+                key={idx}
+                className="h-6 rounded-full bg-white/5 relative overflow-hidden"
+                style={{ width: `${w}px` }}
               >
-                {item.label}
-              </a>
-            );
-          })}
-        </div>
+                <div className="animate-shimmer" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="hidden md:flex items-center gap-0.5 lg:gap-1">
+            {visibleNavLinks.map((item) => {
+              const isGalleryLink = item.href === '/gallery' || item.href.includes('gallery');
+              const sectionId = item.href.replace('#', '').replace('/', '');
+              const isActive = isGalleryLink
+                ? window.location.pathname === '/gallery'
+                : activeSection === sectionId && window.location.pathname === '/';
+
+              return (
+                <a
+                  key={item.label + item.href}
+                  href={item.href}
+                  id={`nav-link-${sectionId || 'home'}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLinkClick(item.href);
+                  }}
+                  className={`px-2 lg:px-2.5 py-1 rounded-full text-[11px] lg:text-xs font-medium tracking-normal transition-all duration-200 min-h-[30px] flex items-center justify-center whitespace-nowrap ${
+                    isActive
+                      ? 'text-[#050505] bg-[#FEFFFC] font-semibold shadow-xs'
+                      : 'text-[#FEFFFC]/75 hover:text-[#FEFFFC] hover:bg-white/[0.08]'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+          </div>
+        )}
 
         {/* Action Button & Mobile Toggle */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          <a
-            href={ctaLink}
-            id="nav-hire-me-btn"
-            onClick={(e) => {
-              if (ctaLink.startsWith('#')) {
-                e.preventDefault();
-                handleLinkClick(ctaLink);
-              }
-            }}
-            className="group relative inline-flex items-center justify-center gap-1 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#8EFF01] text-[#050505] font-bold text-xs tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_28px_rgba(142, 255, 1, 0.65)] whitespace-nowrap min-h-[34px] sm:min-h-[36px]"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#050505] group-hover:rotate-12 transition-transform shrink-0" />
-            <span className="whitespace-nowrap">{ctaText}</span>
-            <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
-          </a>
+          {!isReady ? (
+            <div className="h-8 w-20 sm:w-24 rounded-full bg-white/10 relative overflow-hidden">
+              <div className="animate-shimmer" />
+            </div>
+          ) : (
+            <a
+              href={ctaLink}
+              id="nav-hire-me-btn"
+              onClick={(e) => {
+                if (ctaLink.startsWith('#')) {
+                  e.preventDefault();
+                  handleLinkClick(ctaLink);
+                }
+              }}
+              className="group relative inline-flex items-center justify-center gap-1 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#8EFF01] text-[#050505] font-bold text-xs tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_28px_rgba(142, 255, 1, 0.65)] whitespace-nowrap min-h-[34px] sm:min-h-[36px]"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#050505] group-hover:rotate-12 transition-transform shrink-0" />
+              <span className="whitespace-nowrap">{ctaText}</span>
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
+            </a>
+          )}
 
           {/* Menu Trigger (Portfolio Menu) - 44px min tap target */}
           <button

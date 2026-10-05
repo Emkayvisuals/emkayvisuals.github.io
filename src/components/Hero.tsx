@@ -1,10 +1,11 @@
 import React from 'react';
-import { PORTFOLIO_CONTENT } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
 import { ArrowDown, Sparkles, Film, Palette, Layers, Eye } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'motion/react';
 
 export const Hero: React.FC = () => {
-  const { hero, brand, about } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { hero, brand, about } = content;
   const { scrollY } = useScroll();
   const glowY1 = useTransform(scrollY, [0, 800], [0, 100]);
   const glowY2 = useTransform(scrollY, [0, 800], [0, -80]);
@@ -61,13 +62,65 @@ export const Hero: React.FC = () => {
       />
 
       <div className="relative z-10 w-full max-w-4xl mx-auto text-center flex flex-col items-center">
-        {/* Top Info Strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full glass-panel border border-white/10 mb-8 sm:mb-10 max-w-full text-center"
-        >
+        {!isReady ? (
+          <>
+            {/* Top Info Strip Skeleton */}
+            <div className="h-8 w-48 sm:w-60 rounded-full bg-white/10 relative overflow-hidden mb-8 sm:mb-10">
+              <div className="animate-shimmer" />
+            </div>
+
+            {/* Headline Skeleton */}
+            <div className="flex flex-col items-center gap-3 w-full max-w-2xl px-2 mb-6">
+              <div className="h-10 sm:h-14 w-3/4 rounded-xl bg-white/10 relative overflow-hidden">
+                <div className="animate-shimmer" />
+              </div>
+              <div className="h-10 sm:h-14 w-1/2 rounded-xl bg-white/10 relative overflow-hidden">
+                <div className="animate-shimmer" />
+              </div>
+            </div>
+
+            {/* Subtext Skeleton */}
+            <div className="flex flex-col items-center gap-2 w-full max-w-lg mb-8">
+              <div className="h-3.5 w-full rounded bg-white/10 relative overflow-hidden">
+                <div className="animate-shimmer" />
+              </div>
+              <div className="h-3.5 w-4/5 rounded bg-white/5 relative overflow-hidden">
+                <div className="animate-shimmer" />
+              </div>
+            </div>
+
+            {/* Floating Tags Skeleton */}
+            <div className="flex flex-wrap items-center justify-center gap-2 max-w-xl mb-9">
+              {[80, 110, 95, 120].map((w, idx) => (
+                <div key={idx} style={{ width: w }} className="h-7 rounded-full bg-white/5 relative overflow-hidden">
+                  <div className="animate-shimmer" />
+                </div>
+              ))}
+            </div>
+
+            {/* Button Skeleton */}
+            <div className="h-12 w-40 rounded-full bg-white/10 relative overflow-hidden mb-12 sm:mb-16">
+              <div className="animate-shimmer" />
+            </div>
+
+            {/* Software Chips Skeleton */}
+            <div className="flex items-center justify-center gap-3">
+              {[60, 70, 65, 80].map((w, idx) => (
+                <div key={idx} style={{ width: w }} className="h-5 rounded bg-white/5 relative overflow-hidden">
+                  <div className="animate-shimmer" />
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Top Info Strip */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full glass-panel border border-white/10 mb-8 sm:mb-10 max-w-full text-center"
+            >
           <span className="relative flex h-2 w-2 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8EFF01] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8EFF01]"></span>
@@ -179,6 +232,8 @@ export const Hero: React.FC = () => {
               </React.Fragment>
             ))}
           </div>
+        )}
+          </>
         )}
       </div>
     </section>

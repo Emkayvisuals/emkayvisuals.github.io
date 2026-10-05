@@ -1,5 +1,5 @@
 import React from 'react';
-import { PORTFOLIO_CONTENT, ServiceItem } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, ServiceItem, usePortfolio } from '../data/portfolioContent';
 import {
   Film,
   Clapperboard,
@@ -19,7 +19,8 @@ interface ServicesBentoProps {
 }
 
 export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService }) => {
-  const { services, servicesSection } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { services, servicesSection } = content;
 
   if (servicesSection?.enabled === false) {
     return null;
@@ -92,35 +93,72 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
         className="relative z-10 flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-5"
       >
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>
-              {badgeMain}{' '}
-              {badgeAccent && (
-                <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
-                  {badgeAccent}
-                </span>
-              )}
-            </span>
-          </div>
-          <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15]">
-            {headingMain}{' '}
-            <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
-              {headingAccent}
-            </span>
-          </h2>
+          {!isReady ? (
+            <div className="h-6 w-36 rounded-full bg-white/10 relative overflow-hidden mb-2.5">
+              <div className="animate-shimmer" />
+            </div>
+          ) : (
+            <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>
+                {badgeMain}{' '}
+                {badgeAccent && (
+                  <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
+                    {badgeAccent}
+                  </span>
+                )}
+              </span>
+            </div>
+          )}
+          {!isReady ? (
+            <div className="h-9 w-64 rounded-xl bg-white/10 relative overflow-hidden">
+              <div className="animate-shimmer" />
+            </div>
+          ) : (
+            <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15]">
+              {headingMain}{' '}
+              <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
+                {headingAccent}
+              </span>
+            </h2>
+          )}
         </div>
-        <p className="max-w-md text-xs sm:text-sm text-white/70 font-normal leading-relaxed">
-          {subtext}
-        </p>
+        {!isReady ? (
+          <div className="h-4 w-72 rounded bg-white/5 relative overflow-hidden">
+            <div className="animate-shimmer" />
+          </div>
+        ) : (
+          <p className="max-w-md text-xs sm:text-sm text-white/70 font-normal leading-relaxed">
+            {subtext}
+          </p>
+        )}
       </motion.div>
 
       {/* Bento Grid */}
       <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3.5 sm:gap-5">
-        {visibleServices.map((service: ServiceItem, idx: number) => {
-          const colSpanClass = service.colSpan?.includes('lg:col-span-8')
-            ? 'sm:col-span-2 lg:col-span-8'
-            : 'sm:col-span-1 lg:col-span-4';
+        {!isReady ? (
+          <>
+            <div className="col-span-1 sm:col-span-2 lg:col-span-8 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-6 bg-[#050505]/90 min-h-[220px] relative overflow-hidden">
+              <div className="animate-shimmer" />
+            </div>
+            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-6 bg-[#050505]/90 min-h-[220px] relative overflow-hidden">
+              <div className="animate-shimmer" />
+            </div>
+            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-6 bg-[#050505]/90 min-h-[220px] relative overflow-hidden">
+              <div className="animate-shimmer" />
+            </div>
+            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-6 bg-[#050505]/90 min-h-[220px] relative overflow-hidden">
+              <div className="animate-shimmer" />
+            </div>
+            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-6 bg-[#050505]/90 min-h-[220px] relative overflow-hidden">
+              <div className="animate-shimmer" />
+            </div>
+          </>
+        ) : (
+          visibleServices.map((service: ServiceItem, idx: number) => {
+            const colSpanClass = service.colSpan?.includes('lg:col-span-8')
+              ? 'sm:col-span-2 lg:col-span-8'
+              : 'sm:col-span-1 lg:col-span-4';
 
           return (
             <motion.div
@@ -210,7 +248,8 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
               </div>
             </motion.div>
           );
-        })}
+        })
+      )}
       </div>
     </section>
   );

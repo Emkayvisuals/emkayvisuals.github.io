@@ -1,10 +1,11 @@
 import React from 'react';
-import { PORTFOLIO_CONTENT } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
 import { Sparkles, Clock } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const ProcessSection: React.FC = () => {
-  const { process, processSection } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { process, processSection } = content;
 
   if (processSection?.enabled === false) {
     return null;
@@ -37,31 +38,57 @@ export const ProcessSection: React.FC = () => {
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 text-center max-w-2xl mx-auto mb-8 sm:mb-12"
       >
-        <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>
-            {badgeMain}{' '}
-            {badgeAccent && (
-              <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
-                {badgeAccent}
+        {!isReady ? (
+          <div className="flex flex-col items-center gap-2.5">
+            <div className="h-6 w-36 rounded-full bg-white/10 relative overflow-hidden">
+              <div className="animate-shimmer" />
+            </div>
+            <div className="h-9 w-64 rounded-xl bg-white/10 relative overflow-hidden">
+              <div className="animate-shimmer" />
+            </div>
+            <div className="h-4 w-80 max-w-full rounded bg-white/5 relative overflow-hidden">
+              <div className="animate-shimmer" />
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-2.5">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>
+                {badgeMain}{' '}
+                {badgeAccent && (
+                  <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
+                    {badgeAccent}
+                  </span>
+                )}
               </span>
-            )}
-          </span>
-        </div>
-        <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15]">
-          {headingMain}{' '}
-          <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
-            {headingAccent}
-          </span>
-        </h2>
-        <p className="mt-2.5 text-xs sm:text-sm text-white/70 font-normal max-w-lg mx-auto leading-relaxed">
-          {subtext}
-        </p>
+            </div>
+            <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15]">
+              {headingMain}{' '}
+              <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
+                {headingAccent}
+              </span>
+            </h2>
+            <p className="mt-2.5 text-xs sm:text-sm text-white/70 font-normal max-w-lg mx-auto leading-relaxed">
+              {subtext}
+            </p>
+          </>
+        )}
       </motion.div>
 
       {/* 4-Step Grid */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4.5">
-        {visibleSteps.map((step, idx) => (
+        {!isReady ? (
+          [1, 2, 3, 4].map((n) => (
+            <div
+              key={n}
+              className="h-48 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-5 bg-[#050505]/80 relative overflow-hidden flex flex-col justify-between"
+            >
+              <div className="animate-shimmer" />
+            </div>
+          ))
+        ) : (
+          visibleSteps.map((step, idx) => (
           <motion.div
             key={step.stepNumber}
             id={`process-step-${step.stepNumber}`}
@@ -116,7 +143,8 @@ export const ProcessSection: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-[#8EFF01] opacity-40 group-hover:opacity-100 group-hover:shadow-[0_0_8px_#8EFF01] transition-all"></span>
             </div>
           </motion.div>
-        ))}
+        ))
+      )}
       </div>
     </section>
   );

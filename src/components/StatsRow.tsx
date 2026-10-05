@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { PORTFOLIO_CONTENT } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
 import { Award, Briefcase, Users, Zap } from 'lucide-react';
 import { motion, useInView } from 'motion/react';
 
@@ -110,14 +110,15 @@ const StatCounter: React.FC<StatCardProps> = ({ value, suffix, label, sublabel, 
 };
 
 export const StatsRow: React.FC = () => {
-  const { stats, statsSection } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { stats, statsSection } = content;
 
   if (statsSection?.enabled === false) {
     return null;
   }
 
   const visibleStats = (stats || []).filter((s) => s.visible !== false);
-  if (visibleStats.length === 0) return null;
+  if (isReady && visibleStats.length === 0) return null;
 
   return (
     <section className="relative py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto overflow-hidden">
@@ -129,16 +130,27 @@ export const StatsRow: React.FC = () => {
 
       {/* Grid: 2x2 on mobile, 4 on desktop */}
       <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6">
-        {visibleStats.map((stat, idx) => (
-          <StatCounter
-            key={`${stat.label}-${idx}`}
-            value={stat.value}
-            suffix={stat.suffix}
-            label={stat.label}
-            sublabel={stat.sublabel}
-            index={idx}
-          />
-        ))}
+        {!isReady ? (
+          [1, 2, 3, 4].map((n) => (
+            <div
+              key={n}
+              className="h-32 sm:h-36 rounded-2xl glass-panel p-4 sm:p-6 border border-white/[0.08] bg-[#050505]/80 relative overflow-hidden"
+            >
+              <div className="animate-shimmer" />
+            </div>
+          ))
+        ) : (
+          visibleStats.map((stat, idx) => (
+            <StatCounter
+              key={`${stat.label}-${idx}`}
+              value={stat.value}
+              suffix={stat.suffix}
+              label={stat.label}
+              sublabel={stat.sublabel}
+              index={idx}
+            />
+          ))
+        )}
       </div>
     </section>
   );

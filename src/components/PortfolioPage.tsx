@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   PORTFOLIO_CONTENT,
   ProjectItem,
-  subscribeToPortfolio,
-  isPortfolioContentReady,
+  usePortfolio,
 } from '../data/portfolioContent';
 import { ProjectLightbox } from './ProjectLightbox';
 import { Navbar } from './Navbar';
@@ -34,17 +33,8 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
   onNavigateHome,
   onSelectProjectForContact,
 }) => {
-  const [, setContentVersion] = useState(0);
-
-  useEffect(() => {
-    const unsub = subscribeToPortfolio(() => {
-      setContentVersion((v) => v + 1);
-    });
-    return unsub;
-  }, []);
-
-  const isReady = isPortfolioContentReady();
-  const { categories, projects, projectsSection } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { categories, projects, projectsSection } = content;
 
   // Read initial category from URL search params e.g. /portfolio?category=Posters
   const getInitialCategory = () => {
@@ -245,8 +235,22 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
           </p>
         </motion.div>
 
-        {/* Dynamic Category Filter Buttons (Hiding Categories with 0 Visible Projects) */}
-        {availableCategories.length > 0 && (
+        {/* Dynamic Category Filter Buttons */}
+        {!isReady ? (
+          <div className="relative z-10 mb-6 sm:mb-8 overflow-x-auto pb-2.5 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar">
+            <div className="flex items-center gap-2 min-w-max">
+              {[80, 95, 110, 85, 90].map((w, idx) => (
+                <div
+                  key={idx}
+                  style={{ width: w }}
+                  className="h-9 rounded-full bg-white/5 relative overflow-hidden"
+                >
+                  <div className="animate-shimmer" />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : availableCategories.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -298,7 +302,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
         )}
 
         {/* Portfolio Projects Grid - All items */}
-        {!isReady && visibleProjects.length === 0 ? (
+        {!isReady ? (
           <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {[...Array(10)].map((_, idx) => (
               <div

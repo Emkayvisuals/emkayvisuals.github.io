@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { PORTFOLIO_CONTENT } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
 import { getResolvedSocialLinks, getPlatformMeta } from '../lib/socialLinks';
 import { MessageSquare, X, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export const FloatingContactBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { socials, contact, floatingContact } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { socials, contact, floatingContact } = content;
+
+  // Don't render until Firestore is ready so no default links flash
+  if (!isReady) {
+    return null;
+  }
 
   // If entire contact section is disabled, or if explicitly toggled off
   if (contact?.enabled === false || floatingContact?.enabled === false) {

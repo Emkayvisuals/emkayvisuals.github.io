@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ProjectItem, PORTFOLIO_CONTENT } from '../data/portfolioContent';
+import { ProjectItem, PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
 import { X, ChevronLeft, ChevronRight, Sparkles, Play, Layers, Share2, Check } from 'lucide-react';
 import {
   isMotionCategory,
@@ -23,7 +23,8 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
   onPrev,
   onInquire,
 }) => {
-  const { projectsSection } = PORTFOLIO_CONTENT;
+  const { content } = usePortfolio();
+  const { projectsSection } = content;
   const videoEmbedBadge = projectsSection?.videoEmbedBadge || 'Motion Reel';
   const toolsLabel = projectsSection?.toolsLabel || 'Software & Tools Used';
   const inquireButtonText = projectsSection?.inquireProjectButtonText || 'Inquire Similar Project';

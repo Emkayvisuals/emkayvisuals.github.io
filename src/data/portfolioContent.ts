@@ -1235,6 +1235,53 @@ export async function resetPortfolioToDefault() {
   }
 }
 
+export function setPortfolioContentReady(ready: boolean = true) {
+  isFirestoreDataLoaded = ready;
+  notifyListeners();
+}
+
+/**
+ * Universal React hook to read reactive portfolio content AND Firestore readiness.
+ * Public components use this to display high-fidelity skeleton shimmers while isReady is false,
+ * guaranteeing no old seed/demo content flashes to visitors.
+ */
+export function usePortfolio(): { content: PortfolioContentType; isReady: boolean } {
+  const [ready, setReady] = useState<boolean>(() => isPortfolioContentReady());
+  const [content, setContent] = useState<PortfolioContentType>(() => ({ ...PORTFOLIO_CONTENT }));
+
+  useEffect(() => {
+    if (isPortfolioContentReady() !== ready) {
+      setReady(isPortfolioContentReady());
+      setContent({ ...PORTFOLIO_CONTENT });
+    }
+
+    const unsub = subscribeToPortfolio(() => {
+      setReady(isPortfolioContentReady());
+      setContent({ ...PORTFOLIO_CONTENT });
+    });
+    return unsub;
+  }, [ready]);
+
+  return { content, isReady: ready };
+}
+
+export function usePortfolioReady(): boolean {
+  const [ready, setReady] = useState<boolean>(() => isPortfolioContentReady());
+
+  useEffect(() => {
+    if (isPortfolioContentReady() !== ready) {
+      setReady(isPortfolioContentReady());
+    }
+
+    const unsub = subscribeToPortfolio(() => {
+      setReady(isPortfolioContentReady());
+    });
+    return unsub;
+  }, [ready]);
+
+  return ready;
+}
+
 /**
  * React hook to read reactive portfolio content that updates automatically.
  */

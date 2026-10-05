@@ -1,11 +1,12 @@
 import React from 'react';
-import { PORTFOLIO_CONTENT } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
 import { getResolvedSocialLinks, getPlatformMeta } from '../lib/socialLinks';
 import { ArrowUp } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const Footer: React.FC = () => {
-  const { footer, socials, navigation, brand } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { footer, socials, navigation, brand } = content;
 
   if (footer?.enabled === false) {
     return null;
@@ -34,43 +35,69 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           {/* Brand Logo & Tagline */}
           <div className="max-w-sm">
-            <div className="flex items-center gap-2 mb-2">
-              {brand?.logoUrl || footer?.logoUrl ? (
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_18px_rgba(142, 255, 1, 0.45)] p-0.5">
-                  <img
-                    src={brand?.logoUrl || footer?.logoUrl}
-                    alt={brand?.logoAlt || footer?.logoAlt || 'Emkay Visuals Logo'}
-                    width="28"
-                    height="28"
-                    loading="lazy"
-                    className="w-full h-full object-contain object-center block"
-                    referrerPolicy="no-referrer"
-                  />
+            {!isReady ? (
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-white/10 relative overflow-hidden shrink-0">
+                    <div className="animate-shimmer" />
+                  </div>
+                  <div className="h-5 w-32 rounded bg-white/10 relative overflow-hidden">
+                    <div className="animate-shimmer" />
+                  </div>
                 </div>
-              ) : (
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#8EFF01] text-[#050505] font-extrabold flex items-center justify-center text-[11px] sm:text-xs shadow-[0_0_18px_rgba(142, 255, 1, 0.45)] shrink-0">
-                  {footer?.logoAbbr || 'EV'}
+                <div className="h-4 w-48 rounded bg-white/5 relative overflow-hidden">
+                  <div className="animate-shimmer" />
                 </div>
-              )}
-              <span className="font-extrabold text-base sm:text-lg tracking-wide text-[#FEFFFC]">
-                {brand?.name ? (
-                  <>
-                    {brand.name.split(' ')[0]}{' '}
-                    <span className="text-[#8EFF01]">//</span>{' '}
-                    {brand.name.split(' ').slice(1).join(' ')}
-                  </>
-                ) : (
-                  <>Emkay <span className="text-[#8EFF01]">//</span> Visuals</>
-                )}
-              </span>
-            </div>
-            <p className="font-cormorant italic font-medium sm:font-semibold text-[1.05em] text-white/70 font-normal leading-relaxed">
-              {footer?.tagline}
-            </p>
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center gap-2 mb-2">
+                  {brand?.logoUrl || footer?.logoUrl ? (
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/40 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_18px_rgba(142, 255, 1, 0.45)] p-0.5">
+                      <img
+                        src={brand?.logoUrl || footer?.logoUrl}
+                        alt={brand?.logoAlt || footer?.logoAlt || 'Emkay Visuals Logo'}
+                        width="28"
+                        height="28"
+                        loading="lazy"
+                        className="w-full h-full object-contain object-center block"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#8EFF01] text-[#050505] font-extrabold flex items-center justify-center text-[11px] sm:text-xs shadow-[0_0_18px_rgba(142, 255, 1, 0.45)] shrink-0">
+                      {footer?.logoAbbr || 'EV'}
+                    </div>
+                  )}
+                  <span className="font-extrabold text-base sm:text-lg tracking-wide text-[#FEFFFC]">
+                    {brand?.name ? (
+                      <>
+                        {brand.name.split(' ')[0]}{' '}
+                        <span className="text-[#8EFF01]">//</span>{' '}
+                        {brand.name.split(' ').slice(1).join(' ')}
+                      </>
+                    ) : (
+                      <>Emkay <span className="text-[#8EFF01]">//</span> Visuals</>
+                    )}
+                  </span>
+                </div>
+                <p className="font-cormorant italic font-medium sm:font-semibold text-[1.05em] text-white/70 font-normal leading-relaxed">
+                  {footer?.tagline}
+                </p>
+              </>
+            )}
           </div>
 
           {/* Nav Quick Links */}
-          {visibleNav.length > 0 && (
+          {!isReady ? (
+            <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+              {[60, 75, 50, 80].map((w, idx) => (
+                <div key={idx} className="h-4 rounded bg-white/5 relative overflow-hidden" style={{ width: `${w}px` }}>
+                  <div className="animate-shimmer" />
+                </div>
+              ))}
+            </div>
+          ) : visibleNav.length > 0 && (
             <div className="flex flex-wrap gap-x-4 gap-y-1.5">
               {visibleNav.map((item) => (
                 <a

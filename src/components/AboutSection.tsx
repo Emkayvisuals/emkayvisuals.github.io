@@ -1,10 +1,11 @@
 import React from 'react';
-import { PORTFOLIO_CONTENT } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
 import { Sparkles, Cpu, CheckCircle2, User } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const AboutSection: React.FC = () => {
-  const { about, brand } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { about, brand } = content;
 
   if (about?.enabled === false) {
     return null;
@@ -74,7 +75,11 @@ export const AboutSection: React.FC = () => {
 
               {/* Photo or Clean Vector Avatar */}
               <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-[#070707] flex items-center justify-center">
-                {about.photoUrl ? (
+                {!isReady ? (
+                  <div className="w-full h-full bg-[#121212] relative overflow-hidden">
+                    <div className="animate-shimmer" />
+                  </div>
+                ) : about.photoUrl ? (
                   <img
                     src={about.photoUrl}
                     alt={about.photoAlt || 'Emkay Visuals'}
@@ -102,15 +107,24 @@ export const AboutSection: React.FC = () => {
 
                 {/* Tag on bottom of image */}
                 <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 p-2 sm:p-2.5 rounded-xl bg-black/85 backdrop-blur-md border border-white/10 flex items-center justify-between">
-                  <div>
-                    <span className="block text-[10px] font-semibold text-[#8EFF01] tracking-wide">
-                      {artistIdLabel}
-                    </span>
-                    <span className="font-bold text-xs sm:text-sm text-[#FEFFFC]">
-                      {brand.name}
-                    </span>
-                  </div>
-                  {experienceBadge && (
+                  {!isReady ? (
+                    <div className="space-y-1">
+                      <div className="h-2.5 w-16 rounded bg-white/10 relative overflow-hidden"><div className="animate-shimmer" /></div>
+                      <div className="h-3.5 w-24 rounded bg-white/20 relative overflow-hidden"><div className="animate-shimmer" /></div>
+                    </div>
+                  ) : (
+                    <div>
+                      <span className="block text-[10px] font-semibold text-[#8EFF01] tracking-wide">
+                        {artistIdLabel}
+                      </span>
+                      <span className="font-bold text-xs sm:text-sm text-[#FEFFFC]">
+                        {brand.name}
+                      </span>
+                    </div>
+                  )}
+                  {!isReady ? (
+                    <div className="h-5 w-14 rounded bg-white/10 relative overflow-hidden"><div className="animate-shimmer" /></div>
+                  ) : experienceBadge && (
                     <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#8116E0]/40 text-[#FEFFFC] border border-[#8116E0]/60">
                       {experienceBadge}
                     </span>
@@ -141,30 +155,54 @@ export const AboutSection: React.FC = () => {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-7 flex flex-col justify-center"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-3 w-fit">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>
-              {badgeMain}{' '}
-              {badgeAccent && (
-                <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
-                  {badgeAccent}
+          {!isReady ? (
+            <div className="space-y-4">
+              <div className="h-6 w-36 rounded-full bg-white/10 relative overflow-hidden mb-3">
+                <div className="animate-shimmer" />
+              </div>
+              <div className="h-9 w-3/4 rounded-xl bg-white/10 relative overflow-hidden mb-4">
+                <div className="animate-shimmer" />
+              </div>
+              <div className="space-y-2 mb-6">
+                <div className="h-3.5 w-full rounded bg-white/10 relative overflow-hidden">
+                  <div className="animate-shimmer" />
+                </div>
+                <div className="h-3.5 w-5/6 rounded bg-white/10 relative overflow-hidden">
+                  <div className="animate-shimmer" />
+                </div>
+                <div className="h-3.5 w-4/6 rounded bg-white/5 relative overflow-hidden">
+                  <div className="animate-shimmer" />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-[#8116E0]/40 text-[#8EFF01] text-[11px] sm:text-xs font-semibold tracking-wide mb-3 w-fit">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>
+                  {badgeMain}{' '}
+                  {badgeAccent && (
+                    <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
+                      {badgeAccent}
+                    </span>
+                  )}
                 </span>
-              )}
-            </span>
-          </div>
+              </div>
 
-          <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15] mb-4">
-            {headingMain}{' '}
-            <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
-              {headingAccent}
-            </span>
-          </h2>
+              <h2 className="font-montserrat font-medium italic text-xl sm:text-3xl lg:text-4xl text-[#8EFF01] tracking-tight leading-[1.15] mb-4">
+                {headingMain}{' '}
+                <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]">
+                  {headingAccent}
+                </span>
+              </h2>
 
-          <div className="space-y-3 text-xs sm:text-sm text-white/75 font-normal leading-relaxed mb-6">
-            {bioParagraphs.map((paragraph, pIdx) => (
-              <p key={pIdx}>{paragraph}</p>
-            ))}
-          </div>
+              <div className="space-y-3 text-xs sm:text-sm text-white/75 font-normal leading-relaxed mb-6">
+                {bioParagraphs.map((paragraph, pIdx) => (
+                  <p key={pIdx}>{paragraph}</p>
+                ))}
+              </div>
+            </>
+          )}
 
           {/* Key Value Highlights */}
           {visibleHighlights.length > 0 && (

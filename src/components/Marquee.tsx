@@ -1,13 +1,34 @@
 import React from 'react';
-import { PORTFOLIO_CONTENT } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
 import { Sparkles } from 'lucide-react';
 
 export const Marquee: React.FC = () => {
-  if (PORTFOLIO_CONTENT.marqueeSection?.enabled === false) {
+  const { content, isReady } = usePortfolio();
+
+  if (content.marqueeSection?.enabled === false) {
     return null;
   }
 
-  const items = PORTFOLIO_CONTENT.hero?.marqueeTicker || [];
+  const items = content.hero?.marqueeTicker || [];
+
+  if (!isReady) {
+    return (
+      <div className="relative w-full overflow-hidden py-3 sm:py-3.5 border-y border-white/[0.08] bg-[#050505]">
+        <div className="flex items-center gap-6 px-4 max-w-7xl mx-auto">
+          {[140, 180, 160, 200, 150].map((w, idx) => (
+            <div
+              key={idx}
+              className="h-5 rounded bg-white/5 relative overflow-hidden"
+              style={{ width: `${w}px` }}
+            >
+              <div className="animate-shimmer" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (items.length === 0) return null;
 
   // Duplicate for seamless loop

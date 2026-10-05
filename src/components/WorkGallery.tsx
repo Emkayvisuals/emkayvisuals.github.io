@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   PORTFOLIO_CONTENT,
   ProjectItem,
-  subscribeToPortfolio,
-  isPortfolioContentReady,
+  usePortfolio,
 } from '../data/portfolioContent';
 import { ProjectLightbox } from './ProjectLightbox';
 import {
@@ -31,17 +30,8 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
   onNavigateToPortfolio,
   onNavigateToGallery,
 }) => {
-  const [, setContentVersion] = useState(0);
-
-  useEffect(() => {
-    const unsub = subscribeToPortfolio(() => {
-      setContentVersion((v) => v + 1);
-    });
-    return unsub;
-  }, []);
-
-  const isReady = isPortfolioContentReady();
-  const { categories, projects, projectsSection } = PORTFOLIO_CONTENT;
+  const { content, isReady } = usePortfolio();
+  const { categories, projects, projectsSection } = content;
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [loadedImages, setLoadedImages] = useState<{ [id: string]: boolean }>({});
@@ -209,8 +199,22 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
         </p>
       </motion.div>
 
-      {/* Filter Buttons with 44px min tap targets - Only showing categories with visible projects */}
-      {availableCategories.length > 0 && (
+      {/* Filter Buttons */}
+      {!isReady ? (
+        <div className="relative z-10 mb-6 sm:mb-8 overflow-x-auto pb-2.5 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar">
+          <div className="flex items-center gap-2 min-w-max">
+            {[75, 90, 105, 80].map((w, idx) => (
+              <div
+                key={idx}
+                style={{ width: w }}
+                className="h-9 rounded-full bg-white/5 relative overflow-hidden"
+              >
+                <div className="animate-shimmer" />
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : availableCategories.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -251,7 +255,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
         layout
         className="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6"
       >
-        {!isReady && visibleProjects.length === 0 ? (
+        {!isReady ? (
           [...Array(6)].map((_, idx) => (
             <div
               key={`work-skeleton-${idx}`}
