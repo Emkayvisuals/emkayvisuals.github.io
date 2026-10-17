@@ -284,7 +284,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
             className={`w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full border transition-all focus:outline-none cursor-pointer shadow-lg backdrop-blur-md ${
               copied
                 ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.35)] scale-105'
-                : 'bg-black/80 text-white/85 hover:text-[#8EFF01] hover:bg-black border-white/10 active:scale-95'
+                : 'bg-black/80 text-white/85 hover:text-[#8EFF01] hover:bg-black border-white/10 active:scale-90'
             }`}
           >
             {copied ? (
@@ -299,7 +299,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
             type="button"
             onClick={onClose}
             aria-label="Close Lightbox"
-            className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-black/80 text-white/85 hover:text-[#8EFF01] hover:bg-black border border-white/10 transition-colors focus:outline-none cursor-pointer shadow-lg backdrop-blur-md active:scale-95"
+            className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-black/80 text-white/85 hover:text-[#8EFF01] hover:bg-black border border-white/10 transition-colors focus:outline-none cursor-pointer shadow-lg backdrop-blur-md active:scale-90"
           >
             <X className="w-5 h-5" />
           </button>
@@ -583,7 +583,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
                   onClose();
                   onInquire(project.title);
                 }}
-                className="flex-1 py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:scale-[1.01] active:scale-[0.98] shadow-[0_0_45px_rgba(142, 255, 1, 0.75)] flex items-center justify-center gap-2 cursor-pointer min-h-[46px]"
+                className="flex-1 py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:scale-[1.01] active:scale-90 shadow-[0_0_45px_rgba(142, 255, 1, 0.75)] flex items-center justify-center gap-2 cursor-pointer min-h-[46px]"
               >
                 <Sparkles className="w-4 h-4 text-[#050505]" />
                 <span>{inquireButtonText}</span>
@@ -594,7 +594,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
                 onClick={handleShare}
                 aria-label="Share this project link"
                 title={copied ? 'Link copied!' : 'Share project link'}
-                className={`px-3.5 sm:px-4 py-3.5 rounded-full border transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[46px] shadow-sm select-none active:scale-[0.98] ${
+                className={`px-3.5 sm:px-4 py-3.5 rounded-full border transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[46px] shadow-sm select-none active:scale-90 ${
                   copied
                     ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.35)]'
                     : 'bg-white/5 hover:bg-white/10 text-white/80 hover:text-white border-white/15'

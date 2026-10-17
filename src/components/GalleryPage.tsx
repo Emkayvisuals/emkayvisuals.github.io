@@ -829,7 +829,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
                       duration: 0.35,
                       ease: 'easeOut',
                     }}
-                    className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center cursor-pointer backdrop-blur-md transition-all shadow-lg active:scale-95 ${
+                    className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center cursor-pointer backdrop-blur-md transition-all shadow-lg active:scale-90 ${
                       itemLikes[selectedItem.id]?.isLiked
                         ? 'bg-black/85 border border-[#8EFF01]/60 text-[#8EFF01] shadow-[0_0_20px_rgba(142,255,1,0.3)]'
                         : 'bg-black/60 hover:bg-black/85 border border-white/20 hover:border-white/40 text-white/80 hover:text-white'

@@ -254,7 +254,7 @@ export const Navbar: React.FC = () => {
                   handleLinkClick(ctaLink);
                 }
               }}
-              className="group relative inline-flex items-center justify-center gap-1 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#8EFF01] text-[#050505] font-bold text-xs tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_28px_rgba(142, 255, 1, 0.65)] whitespace-nowrap min-h-[34px] sm:min-h-[36px]"
+              className="group relative inline-flex items-center justify-center gap-1 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#8EFF01] text-[#050505] font-bold text-xs tracking-wide transition-all duration-300 hover:scale-105 active:scale-90 shadow-[0_0_28px_rgba(142, 255, 1, 0.65)] whitespace-nowrap min-h-[34px] sm:min-h-[36px]"
             >
               <Sparkles className="w-3.5 h-3.5 text-[#050505] group-hover:rotate-12 transition-transform shrink-0" />
               <span className="whitespace-nowrap">{ctaText}</span>

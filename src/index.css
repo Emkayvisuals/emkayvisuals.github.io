@@ -193,4 +193,41 @@
   pointer-events: none;
 }
 
+/* ==========================================================================
+   Clickable Button Subtle Press Animation
+   When a visitor clicks or taps a button, it briefly scales down to ~90%
+   and smoothly returns to its original size within 100–160ms.
+   Preserves all existing hover animations, button styles, and functionality.
+   ========================================================================== */
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+input[type="button"]:not(:disabled),
+input[type="submit"]:not(:disabled),
+input[type="reset"]:not(:disabled),
+a[id*="-btn"],
+a[class*="rounded-full"][href],
+a.btn,
+.btn {
+  touch-action: manipulation;
+  transition-property: transform, color, background-color, border-color, box-shadow, opacity, filter, backdrop-filter;
+  transition-duration: 140ms;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.25, 1);
+  will-change: transform;
+}
+
+button:not(:disabled):active,
+[role="button"]:not([aria-disabled="true"]):active,
+input[type="button"]:not(:disabled):active,
+input[type="submit"]:not(:disabled):active,
+input[type="reset"]:not(:disabled):active,
+a[id*="-btn"]:active,
+a[class*="rounded-full"][href]:active,
+a.btn:active,
+.btn:active {
+  transform: scale(0.90) !important;
+  transition-duration: 110ms !important;
+}
+
+
 

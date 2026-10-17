@@ -5,6 +5,10 @@ import { usePortfolio } from '../data/portfolioContent';
 // Track whether the preloader has completed playback during this page session (for internal navigation)
 let hasPreloaderPlayedInSession = false;
 
+export function hasPreloaderCompleted(): boolean {
+  return hasPreloaderPlayedInSession;
+}
+
 // Helper to reset session state (e.g. for testing)
 export function resetPreloaderSession() {
   hasPreloaderPlayedInSession = false;
@@ -27,6 +31,9 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
   useEffect(() => {
     if (!initialShouldPlay.current) {
       onLoadingComplete?.();
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('preloaderComplete'));
+      }
       return;
     }
 
@@ -53,6 +60,9 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
       setIsLoading(false);
       hasPreloaderPlayedInSession = true;
       onLoadingComplete?.();
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('preloaderComplete'));
+      }
     }, 4800);
 
     return () => {

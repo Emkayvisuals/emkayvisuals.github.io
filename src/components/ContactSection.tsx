@@ -505,7 +505,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       title={item.description || item.displayHandle || `${item.label || item.platform} (${item.platform})`}
                       id={`contact-channel-${item.platform.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${idx}`}
                       whileHover={{ scale: 1.025, y: -2 }}
-                      whileTap={{ scale: 0.97 }}
+                      whileTap={{ scale: 0.90, transition: { duration: 0.12 } }}
                       className={`group relative flex flex-col justify-between p-2.5 sm:p-3 rounded-xl glass-panel border border-white/10 ${meta.hoverBorder} transition-all duration-300 min-h-[96px] sm:min-h-[102px] bg-[#050505]/75 hover:bg-[#0c0c0c] overflow-hidden`}
                     >
                       {/* Top Row: Branded Icon (32-34px) + Subtle Arrow */}
@@ -922,7 +922,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   disabled={loading}
                   id="contact-form-submit"
                   whileHover={loading ? {} : { scale: 1.012, boxShadow: '0 0 60px rgba(142, 255, 1, 0.95)' }}
-                  whileTap={loading ? {} : { scale: 0.98 }}
+                  whileTap={loading ? {} : { scale: 0.90, transition: { duration: 0.12 } }}
                   className={`w-full py-2.5 sm:py-3 rounded-full bg-[#8EFF01] text-[#050505] font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_0_45px_rgba(142, 255, 1, 0.75)] transition-all duration-300 flex items-center justify-center gap-2 min-h-[42px] sm:min-h-[44px] ${
                     loading ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'
                   }`}

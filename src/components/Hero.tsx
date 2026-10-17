@@ -1,15 +1,90 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PORTFOLIO_CONTENT, usePortfolio } from '../data/portfolioContent';
 import { ArrowDown, Sparkles, Film, Palette, Layers, Eye } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useTransform, useInView, type Variants } from 'motion/react';
+import { hasPreloaderCompleted } from './Preloader';
+
+// Variants for subtle, professional word-by-word reveals (GPU-accelerated, zero CLS)
+const headingContainerVariants: Variants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const headingWordVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 10,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.35,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
+
+const subtextContainerVariants: Variants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.02,
+      delayChildren: 0.42, // Heading words animate first, subtext cascades right after
+    },
+  },
+};
+
+const subtextWordVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 7,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.28,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
 
 export const Hero: React.FC = () => {
   const { content, isReady } = usePortfolio();
-  const { hero, brand, about } = content;
+  const { hero, brand, about, preloader } = content;
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-20px' });
   const { scrollY } = useScroll();
   const glowY1 = useTransform(scrollY, [0, 800], [0, 100]);
   const glowY2 = useTransform(scrollY, [0, 800], [0, -80]);
   const glowY3 = useTransform(scrollY, [0, 800], [0, 120]);
+
+  // Synchronize animation start with preloader curtain reveal
+  const [isPreloaderDone, setIsPreloaderDone] = useState<boolean>(() => {
+    return hasPreloaderCompleted() || preloader?.enabled === false;
+  });
+
+  useEffect(() => {
+    if (isPreloaderDone) return;
+    const handlePreloaderComplete = () => {
+      setIsPreloaderDone(true);
+    };
+    window.addEventListener('preloaderComplete', handlePreloaderComplete);
+    return () => {
+      window.removeEventListener('preloaderComplete', handlePreloaderComplete);
+    };
+  }, [isPreloaderDone]);
+
+  // Trigger reveal when in viewport and preloader has cleared
+  const shouldAnimate = isPreloaderDone && isInView;
 
   if (hero?.enabled === false) {
     return null;
@@ -25,6 +100,11 @@ export const Hero: React.FC = () => {
   const primaryButtonText = hero.primaryButtonText || 'View Work';
   const primaryButtonLink = hero.primaryButtonLink || '#work';
 
+  // Tokenize heading and subtext into clean words
+  const headingMainWords = (headingMain || '').trim().split(/\s+/).filter(Boolean);
+  const headingAccentWords = (headingAccent || '').trim().split(/\s+/).filter(Boolean);
+  const subtextWords = (subtext || '').trim().split(/\s+/).filter(Boolean);
+
   const visibleFloatingTags = (hero.floatingTags || []).filter((tag) => tag.visible !== false);
 
   // Soft chips under CTA buttons
@@ -35,6 +115,7 @@ export const Hero: React.FC = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="relative min-h-0 sm:min-h-screen-svh lg:min-h-[90vh] lg:min-h-[90svh] flex flex-col items-center justify-center pt-24 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#050505]"
     >
@@ -143,36 +224,68 @@ export const Hero: React.FC = () => {
           )}
         </motion.div>
 
-        {/* Hero Headline */}
+        {/* Hero Headline with Word-by-Word Staggered Reveal */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          variants={headingContainerVariants}
+          initial="hidden"
+          animate={shouldAnimate ? 'visible' : 'hidden'}
           className="font-montserrat font-medium not-italic text-[clamp(1.85rem,5.8vw,4.4rem)] tracking-tight leading-[1.12] max-w-4xl px-2 break-words"
           style={{ fontStyle: 'normal' }}
         >
           <span className="font-cormorant italic font-medium sm:font-semibold text-[#8EFF01] text-[1.12em]">
-            {headingMain}{' '}
+            {headingMainWords.map((word, idx) => (
+              <React.Fragment key={`hm-${idx}`}>
+                <motion.span
+                  variants={headingWordVariants}
+                  className="inline-block will-change-transform"
+                >
+                  {word}
+                </motion.span>
+                {' '}
+              </React.Fragment>
+            ))}
           </span>
-          <span className="font-montserrat font-medium text-[#FEFFFC]">{headingAccent}</span>
+          <span className="font-montserrat font-medium text-[#FEFFFC]">
+            {headingAccentWords.map((word, idx) => (
+              <React.Fragment key={`ha-${idx}`}>
+                <motion.span
+                  variants={headingWordVariants}
+                  className="inline-block will-change-transform"
+                >
+                  {word}
+                </motion.span>
+                {idx < headingAccentWords.length - 1 ? ' ' : ''}
+              </React.Fragment>
+            ))}
+          </span>
         </motion.h1>
 
-        {/* Short Subtext with Montserrat Regular, italic */}
+        {/* Short Subtext with Word-by-Word Reveal (Cascades smoothly right after heading) */}
         <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          variants={subtextContainerVariants}
+          initial="hidden"
+          animate={shouldAnimate ? 'visible' : 'hidden'}
           className="mt-6 sm:mt-7 lg:mt-8 max-w-xl text-xs sm:text-sm md:text-base text-[#FEFFFC]/75 leading-relaxed font-normal italic px-2"
         >
-          {subtext}
+          {subtextWords.map((word, idx) => (
+            <React.Fragment key={`sub-${idx}`}>
+              <motion.span
+                variants={subtextWordVariants}
+                className="inline-block will-change-transform"
+              >
+                {word}
+              </motion.span>
+              {idx < subtextWords.length - 1 ? ' ' : ''}
+            </React.Fragment>
+          ))}
         </motion.p>
 
         {/* Floating Tag Chips */}
         {visibleFloatingTags.length > 0 && (
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            animate={shouldAnimate ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.5, delay: 0.68 }}
             className="mt-7 sm:mt-8 lg:mt-9 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 max-w-xl px-2"
           >
             {visibleFloatingTags.map((tag, idx) => {
@@ -205,15 +318,15 @@ export const Hero: React.FC = () => {
         {/* Single Centered Call To Action Button: View Work */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
           className="mt-8 sm:mt-10 lg:mt-12 flex items-center justify-center w-auto max-w-full px-2"
         >
           {primaryButtonText && (
             <a
               href={primaryButtonLink}
               id="hero-view-work-btn"
-              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_42px_rgba(142, 255, 1, 0.75)] hover:shadow-[0_0_60px_rgba(142, 255, 1, 0.95)] transition-all duration-300 hover:scale-105 active:scale-95 min-h-[42px] sm:min-h-[46px]"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_42px_rgba(142, 255, 1, 0.75)] hover:shadow-[0_0_60px_rgba(142, 255, 1, 0.95)] transition-all duration-300 hover:scale-105 active:scale-90 min-h-[42px] sm:min-h-[46px]"
             >
               <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#050505]" />
               <span>{primaryButtonText}</span>

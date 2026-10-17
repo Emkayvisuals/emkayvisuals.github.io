@@ -278,7 +278,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
                     type="button"
                     id={`portfolio-page-filter-${cat.toLowerCase().replace(/\s+/g, '-')}`}
                     onClick={() => handleCategorySelect(cat)}
-                    className={`px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap min-h-[38px] sm:min-h-[40px] flex items-center gap-1.5 active:scale-95 ${
+                    className={`px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap min-h-[38px] sm:min-h-[40px] flex items-center gap-1.5 active:scale-90 ${
                       isActive
                         ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-[0_0_16px_rgba(142, 255, 1, 0.26)]'
                         : 'glass-panel text-[#FEFFFC]/70 hover:text-[#FEFFFC] hover:border-white/20'
