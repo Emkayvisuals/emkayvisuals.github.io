@@ -16,11 +16,16 @@ import {
   Type,
   Youtube,
   Info,
+  Heart,
 } from 'lucide-react';
 import {
   ManipulationGalleryConfig,
   ManipulationGalleryItem,
 } from '../../data/portfolioContent';
+import {
+  subscribeAllGalleryLikes,
+  getSafeGalleryItemId,
+} from '../../lib/galleryLikes';
 
 export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
   content,
@@ -44,6 +49,14 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
 
   const items = config.items || [];
   const [searchTerm, setSearchTerm] = useState('');
+  const [likeCounts, setLikeCounts] = useState<Record<string, number>>({});
+
+  React.useEffect(() => {
+    const unsub = subscribeAllGalleryLikes((counts) => {
+      setLikeCounts(counts);
+    });
+    return () => unsub();
+  }, []);
 
   const updateConfig = (updates: Partial<ManipulationGalleryConfig>) => {
     onChange({
@@ -336,10 +349,18 @@ export const AdminYoutubeGalleryTab: React.FC<AdminTabProps> = ({
                   }`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 pb-2.5 border-b border-white/10">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-xs font-mono text-white/40">#{rawIndex + 1}</span>
-                      <span className="font-semibold text-xs text-white truncate max-w-[240px] sm:max-w-md">
+                      <span className="font-semibold text-xs text-white truncate max-w-[200px] sm:max-w-md">
                         {item.title || 'Untitled Artwork'}
+                      </span>
+                      {/* Popularity / Like Count */}
+                      <span
+                        title={`${likeCounts[getSafeGalleryItemId(item.id)] || 0} total likes`}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#8EFF01]/10 border border-[#8EFF01]/30 text-[#8EFF01] text-[10px] font-mono font-semibold select-none"
+                      >
+                        <Heart className="w-2.5 h-2.5 fill-[#8EFF01]" />
+                        <span>{likeCounts[getSafeGalleryItemId(item.id)] || 0} likes</span>
                       </span>
                       {!isVisible && (
                         <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-semibold">

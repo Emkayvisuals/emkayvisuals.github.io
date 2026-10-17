@@ -44,6 +44,28 @@
         "sizeBytes": { "type": "number" },
         "createdAt": { "type": "string" }
       }
+    },
+    "GalleryLikeSummary": {
+      "title": "GalleryLikeSummary",
+      "description": "Aggregated like count for a manipulation gallery artwork",
+      "type": "object",
+      "properties": {
+        "count": { "type": "number" },
+        "itemId": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["count"]
+    },
+    "GalleryLikeRecord": {
+      "title": "GalleryLikeRecord",
+      "description": "Record of a like placed by an anonymous visitor",
+      "type": "object",
+      "properties": {
+        "visitorId": { "type": "string" },
+        "itemId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["visitorId"]
     }
   },
   "firestore": {
@@ -58,6 +80,14 @@
     "/media/{mediaId}": {
       "schema": { "$ref": "#/entities/MediaItem" },
       "description": "Converted WebP images stored as individual documents"
+    },
+    "/galleryLikes/{itemId}": {
+      "schema": { "$ref": "#/entities/GalleryLikeSummary" },
+      "description": "Aggregate like count per gallery artwork"
+    },
+    "/galleryLikes/{itemId}/records/{visitorId}": {
+      "schema": { "$ref": "#/entities/GalleryLikeRecord" },
+      "description": "Individual visitor like record"
     }
   }
 }

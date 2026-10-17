@@ -15,8 +15,15 @@ import {
   ExternalLink,
   Sparkles,
   Maximize2,
+  Heart,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import {
+  getAnonymousVisitorId,
+  subscribeGalleryItemLikes,
+  toggleGalleryLike,
+  GalleryItemLikeState,
+} from '../lib/galleryLikes';
 
 interface GalleryPageProps {
   onNavigateHome: () => void;
@@ -90,6 +97,66 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
   const [touchDelta, setTouchDelta] = useState(0);
   const [isBouncing, setIsBouncing] = useState<'left' | 'right' | null>(null);
   const [transitioningTo, setTransitioningTo] = useState<number | null>(null);
+
+  // Persistent anonymous visitor ID & Likes state
+  const visitorId = useMemo(() => getAnonymousVisitorId(), []);
+  const [itemLikes, setItemLikes] = useState<Record<string, GalleryItemLikeState>>({});
+  const [likeBounceKey, setLikeBounceKey] = useState(0);
+  const [likeError, setLikeError] = useState<string | null>(null);
+  const [isLiking, setIsLiking] = useState(false);
+
+  // Real-time subscription to active artwork's like state
+  useEffect(() => {
+    if (!selectedItem?.id) return;
+    const currentId = selectedItem.id;
+    const unsub = subscribeGalleryItemLikes(currentId, visitorId, (state) => {
+      setItemLikes((prev) => ({
+        ...prev,
+        [currentId]: state,
+      }));
+    });
+    return () => unsub();
+  }, [selectedItem?.id, visitorId]);
+
+  const handleToggleLike = async (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    if (!selectedItem || isLiking) return;
+
+    const currentId = selectedItem.id;
+    const currentLike = itemLikes[currentId] || { count: 0, isLiked: false };
+    const nextIsLiked = !currentLike.isLiked;
+    const nextCount = nextIsLiked ? currentLike.count + 1 : Math.max(0, currentLike.count - 1);
+
+    // Optimistic UI update
+    setItemLikes((prev) => ({
+      ...prev,
+      [currentId]: { count: nextCount, isLiked: nextIsLiked },
+    }));
+    setLikeBounceKey((k) => k + 1);
+    setLikeError(null);
+    setIsLiking(true);
+
+    try {
+      const updated = await toggleGalleryLike(currentId, visitorId);
+      setItemLikes((prev) => ({
+        ...prev,
+        [currentId]: updated,
+      }));
+    } catch (err) {
+      console.error('Failed to toggle gallery like in Firestore:', err);
+      // Revert optimistic update
+      setItemLikes((prev) => ({
+        ...prev,
+        [currentId]: currentLike,
+      }));
+      setLikeError("Couldn't update like. Please check connection.");
+      setTimeout(() => {
+        setLikeError((cur) => (cur === "Couldn't update like. Please check connection." ? null : cur));
+      }, 3000);
+    } finally {
+      setIsLiking(false);
+    }
+  };
 
   // Dynamic automatic image aspect ratio detector
   const [ratios, setRatios] = useState<Record<string, number>>(() => {
@@ -718,6 +785,70 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onNavigateHome }) => {
                       onLoad={() => setLightboxLoaded((prev) => ({ ...prev, [incomingItem.image]: true }))}
                       className="max-h-[74vh] max-h-[74svh] max-w-full w-auto object-contain rounded-lg sm:rounded-xl select-none"
                     />
+                  </div>
+                )}
+
+                {/* Top-Left: Unobtrusive Live Like Count */}
+                <div
+                  aria-label={`${itemLikes[selectedItem.id]?.count || 0} likes`}
+                  className="absolute top-3 left-3 sm:top-4 sm:left-4 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/65 backdrop-blur-md border border-white/15 text-white/90 text-xs font-mono select-none pointer-events-none shadow-md"
+                >
+                  <Heart
+                    className={`w-3.5 h-3.5 transition-colors ${
+                      itemLikes[selectedItem.id]?.isLiked
+                        ? 'fill-[#8EFF01] text-[#8EFF01]'
+                        : 'text-white/60'
+                    }`}
+                  />
+                  <span>{itemLikes[selectedItem.id]?.count || 0}</span>
+                </div>
+
+                {/* Bottom-Right: Interactive Heart / Like Button */}
+                <div
+                  className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-30"
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchMove={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                >
+                  <motion.button
+                    key={`like-btn-${selectedItem.id}-${likeBounceKey}`}
+                    type="button"
+                    onClick={handleToggleLike}
+                    aria-label={
+                      itemLikes[selectedItem.id]?.isLiked
+                        ? 'Unlike this artwork'
+                        : 'Like this artwork'
+                    }
+                    title={
+                      itemLikes[selectedItem.id]?.isLiked ? 'Liked' : 'Like this artwork'
+                    }
+                    animate={{
+                      scale: [1, 1.28, 0.92, 1.08, 1],
+                    }}
+                    transition={{
+                      duration: 0.35,
+                      ease: 'easeOut',
+                    }}
+                    className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center cursor-pointer backdrop-blur-md transition-all shadow-lg active:scale-95 ${
+                      itemLikes[selectedItem.id]?.isLiked
+                        ? 'bg-black/85 border border-[#8EFF01]/60 text-[#8EFF01] shadow-[0_0_20px_rgba(142,255,1,0.3)]'
+                        : 'bg-black/60 hover:bg-black/85 border border-white/20 hover:border-white/40 text-white/80 hover:text-white'
+                    }`}
+                  >
+                    <Heart
+                      className={`w-5 h-5 sm:w-6 sm:h-6 transition-all duration-200 ${
+                        itemLikes[selectedItem.id]?.isLiked
+                          ? 'fill-[#8EFF01] text-[#8EFF01]'
+                          : 'fill-transparent text-white/80'
+                      }`}
+                    />
+                  </motion.button>
+                </div>
+
+                {/* Unobtrusive error message if Firestore write fails */}
+                {likeError && (
+                  <div className="absolute bottom-16 right-3 sm:right-4 z-30 px-3 py-1.5 rounded-lg bg-red-950/90 border border-red-500/40 text-red-200 text-xs backdrop-blur-md shadow-xl pointer-events-none">
+                    {likeError}
                   </div>
                 )}
               </div>
