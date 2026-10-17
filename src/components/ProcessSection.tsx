@@ -77,12 +77,12 @@ export const ProcessSection: React.FC = () => {
       </motion.div>
 
       {/* 4-Step Grid */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4.5">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5">
         {!isReady ? (
           [1, 2, 3, 4].map((n) => (
             <div
               key={n}
-              className="h-48 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-5 bg-[#050505]/80 relative overflow-hidden flex flex-col justify-between"
+              className="h-36 sm:h-40 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-3 sm:p-3.5 lg:p-4 bg-[#050505]/80 relative overflow-hidden flex flex-col justify-between"
             >
               <div className="animate-shimmer" />
             </div>
@@ -105,35 +105,35 @@ export const ProcessSection: React.FC = () => {
               scale: 1.01,
               transition: { duration: 0.2, ease: 'easeOut' },
             }}
-            className="group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/40 p-4 sm:p-5 flex flex-col justify-between cursor-default transition-colors duration-300 bg-[#050505]/80"
+            className="group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/40 p-3 sm:p-3.5 lg:p-4 flex flex-col justify-between cursor-default transition-colors duration-300 bg-[#050505]/80"
           >
             {/* Top Step Number & Duration */}
             <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="font-cormorant italic font-medium text-2xl sm:text-3xl text-[#FEFFFC]/30 group-hover:text-[#8EFF01] group-hover:scale-105 transition-all duration-300 inline-block">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-cormorant italic font-medium text-xl sm:text-2xl text-[#FEFFFC]/30 group-hover:text-[#8EFF01] group-hover:scale-105 transition-all duration-300 inline-block">
                   {step.stepNumber}
                 </span>
-                <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-medium px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-white/60 group-hover:border-[#8EFF01]/30 transition-colors">
-                  <Clock className="w-3 h-3 text-[#8EFF01]" />
+                <span className="inline-flex items-center gap-1 text-[9.5px] sm:text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-white/60 group-hover:border-[#8EFF01]/30 transition-colors">
+                  <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#8EFF01]" />
                   <span>{step.duration}</span>
                 </span>
               </div>
 
-              <span className="inline-block text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#8116E0]/20 text-[#FEFFFC] border border-[#8116E0]/40 mb-2 tracking-wide">
+              <span className="inline-block text-[9.5px] sm:text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#8116E0]/20 text-[#FEFFFC] border border-[#8116E0]/40 mb-1.5 tracking-wide">
                 {step.highlightBadge}
               </span>
 
-              <h3 className="font-montserrat font-medium italic text-base sm:text-lg text-[#8EFF01] mb-1.5">
+              <h3 className="font-montserrat font-medium italic text-[13.5px] sm:text-[15px] lg:text-base text-[#8EFF01] mb-1 leading-snug">
                 {step.title}
               </h3>
 
-              <p className="text-xs text-white/70 font-normal leading-relaxed">
+              <p className="text-[11px] sm:text-[11.5px] text-white/70 font-normal leading-normal">
                 {step.description}
               </p>
             </div>
 
             {/* Bottom Step Indicator */}
-            <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] text-white/45 font-medium">
+            <div className="mt-2.5 sm:mt-3 pt-2 sm:pt-2.5 border-t border-white/[0.06] flex items-center justify-between text-[10px] sm:text-[10.5px] text-white/45 font-medium">
               <span>
                 {phasePrefix}{' '}
                 <span className="font-cormorant italic font-medium sm:font-semibold text-[1.12em] text-[#FEFFFC]/60">
