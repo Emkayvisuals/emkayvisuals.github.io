@@ -195,7 +195,7 @@
 
 /* ==========================================================================
    Clickable Button Subtle Press Animation
-   When a visitor clicks or taps a button, it briefly scales down to ~90%
+   When a visitor clicks or taps a button, it briefly scales down to ~96%
    and smoothly returns to its original size within 100–160ms.
    Preserves all existing hover animations, button styles, and functionality.
    ========================================================================== */
@@ -225,7 +225,7 @@ a[id*="-btn"]:active,
 a[class*="rounded-full"][href]:active,
 a.btn:active,
 .btn:active {
-  transform: scale(0.90) !important;
+  transform: scale(0.96) !important;
   transition-duration: 110ms !important;
 }
 

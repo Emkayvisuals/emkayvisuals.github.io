@@ -39,6 +39,7 @@ import {
   Video,
   MoreVertical,
   ExternalLink,
+  DollarSign,
 } from 'lucide-react';
 import { AdminTabId } from './admin/types';
 import { SaveButton } from './admin/SaveButton';
@@ -58,6 +59,7 @@ import { AdminProcessTab } from './admin/AdminProcessTab';
 import { AdminTestimonialsTab } from './admin/AdminTestimonialsTab';
 import { AdminFaqTab } from './admin/AdminFaqTab';
 import { AdminContactTab } from './admin/AdminContactTab';
+import { AdminServicePricingTab } from './admin/AdminServicePricingTab';
 import { AdminFooterTab } from './admin/AdminFooterTab';
 import { AdminYoutubeGalleryTab } from './admin/AdminYoutubeGalleryTab';
 
@@ -459,6 +461,7 @@ export const AdminDashboard: React.FC = () => {
     { id: 'testimonials' as const, label: 'Testimonials', icon: Star, category: 'Site Sections' },
     { id: 'faq' as const, label: 'FAQ Section', icon: HelpCircle, category: 'Site Sections' },
     { id: 'contact' as const, label: 'Contact & Brief', icon: Phone, category: 'Site Sections' },
+    { id: 'servicePricing' as const, label: 'Service Pricing', icon: DollarSign, category: 'Site Sections' },
     { id: 'footer' as const, label: 'Footer & Rights', icon: PanelBottom, category: 'Site Sections' },
     { id: 'youtubeGallery' as const, label: 'YouTube Gallery', icon: Video, category: 'Site Sections' },
   ];
@@ -883,6 +886,15 @@ export const AdminDashboard: React.FC = () => {
 
           {activeTab === 'contact' && (
             <AdminContactTab
+              content={content}
+              onChange={setContent}
+              onSave={handleSaveSection}
+              saveState={saveState}
+            />
+          )}
+
+          {activeTab === 'servicePricing' && (
+            <AdminServicePricingTab
               content={content}
               onChange={setContent}
               onSave={handleSaveSection}

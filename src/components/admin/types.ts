@@ -14,6 +14,7 @@ export type AdminTabId =
   | 'testimonials'
   | 'faq'
   | 'contact'
+  | 'servicePricing'
   | 'footer'
   | 'youtubeGallery';
 

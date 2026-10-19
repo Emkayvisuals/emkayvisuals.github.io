@@ -338,7 +338,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="px-3.5 py-2 rounded-xl bg-[#8EFF01] text-[#050505] text-xs font-bold flex items-center gap-1.5 shadow-lg hover:scale-105 transition-transform active:scale-90 cursor-pointer"
+              className="px-3.5 py-2 rounded-xl bg-[#8EFF01] text-[#050505] text-xs font-bold flex items-center gap-1.5 shadow-lg hover:scale-105 transition-transform active:scale-[0.96] cursor-pointer"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Replace Image</span>
@@ -346,7 +346,7 @@ export const ImageUploadControl: React.FC<ImageUploadControlProps> = ({
             <button
               type="button"
               onClick={handleRemove}
-              className="px-3.5 py-2 rounded-xl bg-red-600/80 hover:bg-red-600 text-white text-xs font-semibold flex items-center gap-1.5 shadow-lg hover:scale-105 transition-transform active:scale-90 cursor-pointer"
+              className="px-3.5 py-2 rounded-xl bg-red-600/80 hover:bg-red-600 text-white text-xs font-semibold flex items-center gap-1.5 shadow-lg hover:scale-105 transition-transform active:scale-[0.96] cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
               <span>Remove</span>

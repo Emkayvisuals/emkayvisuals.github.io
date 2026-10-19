@@ -177,6 +177,67 @@ export interface ManipulationGalleryConfig {
   items: ManipulationGalleryItem[];
 }
 
+export interface ServiceTierItem {
+  price: string;
+  description: string;
+}
+
+export interface ServicePricingCategory {
+  basic: ServiceTierItem;
+  standard: ServiceTierItem;
+  premium: ServiceTierItem;
+}
+
+export type ServicePricingMap = Record<string, ServicePricingCategory>;
+
+export const DEFAULT_SERVICE_PRICING: ServicePricingMap = {
+  'Posters & Art Prints': {
+    basic: { price: '$40 - $80', description: 'Single image, light editing' },
+    standard: { price: '$80 - $200', description: 'Composite, custom typography' },
+    premium: { price: '$200 - $500+', description: 'Complex multi-layer, campaign-level' },
+  },
+  'Club & Event Flyers': {
+    basic: { price: '$25 - $50', description: 'Template-style, quick turnaround' },
+    standard: { price: '$50 - $120', description: 'Custom design, branded' },
+    premium: { price: '$120 - $300', description: 'Full event campaign, multiple sizes' },
+  },
+  'Visual Branding & Identity': {
+    basic: { price: '$150 - $400', description: 'Logo plus 1-2 brand assets' },
+    standard: { price: '$400 - $1,000', description: 'Logo, color system, basic guide' },
+    premium: { price: '$1,000 - $3,000+', description: 'Full brand identity plus guidelines doc' },
+  },
+  'Movie Posters & Key Art': {
+    basic: { price: '$100 - $250', description: 'Single-subject poster' },
+    standard: { price: '$250 - $600', description: 'Composite scene, cast ensemble' },
+    premium: { price: '$600 - $2,000+', description: 'Theatrical key art, multiple variants' },
+  },
+  'Photo Manipulation & Composite': {
+    basic: { price: '$40 - $100', description: 'Simple edit or composite' },
+    standard: { price: '$100 - $300', description: 'Multi-layer surreal or cinematic piece' },
+    premium: { price: '$300 - $800+', description: 'Highly detailed, VFX-level work' },
+  },
+  'Music / Album Covers': {
+    basic: { price: '$60 - $150', description: 'Single cover art' },
+    standard: { price: '$150 - $400', description: 'Cover plus 1-2 promo variants' },
+    premium: { price: '$400 - $1,000+', description: 'Full EP or album visual package' },
+  },
+  'High-CTR Thumbnail Design': {
+    basic: { price: '$20 - $40', description: 'Single thumbnail' },
+    standard: { price: '$40 - $80', description: 'Custom composite, branded style' },
+    premium: { price: '$80 - $150', description: 'High-CTR optimized, A/B variants' },
+  },
+  'Motion Graphics & Video Animation': {
+    basic: { price: '$100 - $300', description: 'Short logo animation, 5-10 sec' },
+    standard: { price: '$300 - $800', description: 'Kinetic typography or reel, 15-30 sec' },
+    premium: { price: '$800 - $2,500+', description: 'Complex 3D or VFX sequence, 30-60+ sec' },
+  },
+  'Complete Full-Package Campaign': {
+    basic: { price: '$800 - $5,000+', description: 'Full multi-deliverable campaign' },
+    standard: { price: '', description: '' },
+    premium: { price: '', description: '' },
+  },
+};
+
 export const DEFAULT_PORTFOLIO_CONTENT = {
   // ==========================================
   // 0. SEO & META TAGS
@@ -822,6 +883,7 @@ export const DEFAULT_PORTFOLIO_CONTENT = {
       'Motion Graphics & Video Animation',
       'Complete Full-Package Campaign',
     ],
+    servicePricing: DEFAULT_SERVICE_PRICING,
     budgetLabel: 'Estimated Budget Tier (USD)',
     budgetRanges: [
       '$50 - $500',

@@ -515,7 +515,7 @@ export const Testimonials: React.FC = () => {
               type="button"
               onClick={handlePrevWithPause}
               aria-label="Previous testimonial"
-              className="w-8 h-8 rounded-full bg-white/[0.04] hover:bg-white/[0.12] border border-white/10 text-white/70 hover:text-[#8EFF01] flex items-center justify-center transition-all cursor-pointer mr-1 shadow-sm active:scale-90"
+              className="w-8 h-8 rounded-full bg-white/[0.04] hover:bg-white/[0.12] border border-white/10 text-white/70 hover:text-[#8EFF01] flex items-center justify-center transition-all cursor-pointer mr-1 shadow-sm active:scale-[0.96]"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -547,7 +547,7 @@ export const Testimonials: React.FC = () => {
               type="button"
               onClick={handleNextWithPause}
               aria-label="Next testimonial"
-              className="w-8 h-8 rounded-full bg-white/[0.04] hover:bg-white/[0.12] border border-white/10 text-white/70 hover:text-[#8EFF01] flex items-center justify-center transition-all cursor-pointer ml-1 shadow-sm active:scale-90"
+              className="w-8 h-8 rounded-full bg-white/[0.04] hover:bg-white/[0.12] border border-white/10 text-white/70 hover:text-[#8EFF01] flex items-center justify-center transition-all cursor-pointer ml-1 shadow-sm active:scale-[0.96]"
             >
               <ChevronRight className="w-4 h-4" />
             </button>

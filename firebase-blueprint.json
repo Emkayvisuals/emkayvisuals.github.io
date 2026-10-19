@@ -13,6 +13,7 @@
         "about": { "type": "object" },
         "testimonials": { "type": "array" },
         "socials": { "type": "object" },
+        "contact": { "type": "object" },
         "manipulationGallery": { "type": "object" }
       }
     },

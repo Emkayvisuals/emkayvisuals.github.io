@@ -1029,6 +1029,17 @@ export const AdminContactTab: React.FC<AdminTabProps> = ({
                 }
               )}
             </div>
+
+            {/* Service Pricing guidance callout */}
+            <div className="mt-3 p-3 rounded-xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              <div className="flex items-center gap-2">
+                <DollarSign className="w-4 h-4 text-[#8EFF01] shrink-0" />
+                <div>
+                  <div className="text-xs font-semibold text-white">Service Pricing Guidance (Basic / Standard / Premium)</div>
+                  <div className="text-[11px] text-white/50">Each service displays custom price guide tags on the budget tier buttons. Configure price ranges in the dedicated &quot;Service Pricing&quot; tab.</div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

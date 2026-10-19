@@ -326,7 +326,7 @@ export const Hero: React.FC = () => {
             <a
               href={primaryButtonLink}
               id="hero-view-work-btn"
-              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_42px_rgba(142, 255, 1, 0.75)] hover:shadow-[0_0_60px_rgba(142, 255, 1, 0.95)] transition-all duration-300 hover:scale-105 active:scale-90 min-h-[42px] sm:min-h-[46px]"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_42px_rgba(142, 255, 1, 0.75)] hover:shadow-[0_0_60px_rgba(142, 255, 1, 0.95)] transition-all duration-300 hover:scale-105 active:scale-[0.96] min-h-[42px] sm:min-h-[46px]"
             >
               <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#050505]" />
               <span>{primaryButtonText}</span>

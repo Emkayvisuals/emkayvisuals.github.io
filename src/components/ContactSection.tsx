@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { PORTFOLIO_CONTENT, WEB3FORMS_ACCESS_KEY, usePortfolio } from '../data/portfolioContent';
+import { PORTFOLIO_CONTENT, WEB3FORMS_ACCESS_KEY, usePortfolio, DEFAULT_SERVICE_PRICING } from '../data/portfolioContent';
 import { saveProjectBrief } from '../lib/analytics';
 import { getResolvedSocialLinks, getPlatformMeta } from '../lib/socialLinks';
+import { getServicePricingOptions } from '../lib/pricingGuidance';
 import { CustomDropdown } from './CustomDropdown';
 import {
   Mail,
@@ -208,16 +209,55 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     '$7,500 - $10,000',
   ];
 
+  const servicePricingMap =
+    (contact as any)?.servicePricing ||
+    (PORTFOLIO_CONTENT as any)?.contact?.servicePricing ||
+    DEFAULT_SERVICE_PRICING;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    service: servicesOptions[0] || 'Posters & Art Prints',
-    budget: budgetRanges[0] || '$50 - $500',
+    service: '',
+    budget: '',
     deadline: '',
     message: '',
     referenceLink: '',
     website: '', // honeypot spam protection
   });
+
+  const dynamicTiers = getServicePricingOptions(formData.service, servicePricingMap);
+
+  const handleServiceSelect = (newService: string) => {
+    if (!newService) {
+      setFormData((prev) => ({ ...prev, service: '', budget: '' }));
+      return;
+    }
+
+    const newOptions = getServicePricingOptions(newService, servicePricingMap);
+    let updatedBudget = '';
+
+    if (formData.budget) {
+      const lowerBudget = formData.budget.toLowerCase();
+      if (newOptions.length === 1) {
+        updatedBudget = `${newOptions[0].name}: ${newOptions[0].price}`;
+      } else {
+        const matched = newOptions.find(
+          (opt) =>
+            lowerBudget.includes(opt.tierKey) ||
+            lowerBudget.includes(opt.name.toLowerCase())
+        );
+        if (matched) {
+          updatedBudget = `${matched.name}: ${matched.price}`;
+        }
+      }
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      service: newService,
+      budget: updatedBudget,
+    }));
+  };
 
   const [validationErrors, setValidationErrors] = useState<{
     name?: string;
@@ -505,7 +545,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       title={item.description || item.displayHandle || `${item.label || item.platform} (${item.platform})`}
                       id={`contact-channel-${item.platform.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${idx}`}
                       whileHover={{ scale: 1.025, y: -2 }}
-                      whileTap={{ scale: 0.90, transition: { duration: 0.12 } }}
+                      whileTap={{ scale: 0.96, transition: { duration: 0.12 } }}
                       className={`group relative flex flex-col justify-between p-2.5 sm:p-3 rounded-xl glass-panel border border-white/10 ${meta.hoverBorder} transition-all duration-300 min-h-[96px] sm:min-h-[102px] bg-[#050505]/75 hover:bg-[#0c0c0c] overflow-hidden`}
                     >
                       {/* Top Row: Branded Icon (32-34px) + Subtle Arrow */}
@@ -854,37 +894,169 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     name="service"
                     label={serviceLabel}
                     modalTitle="Select a Service"
+                    placeholder="Select a service..."
                     options={servicesOptions}
                     value={formData.service}
-                    onChange={(val) => setFormData({ ...formData, service: val })}
+                    onChange={handleServiceSelect}
                     required
                   />
                 </div>
 
-                {/* Budget Range - 2 columns on mobile (3 rows for 6 items), 3 columns on desktop */}
+                {/* Dynamic Estimated Budget Tiers */}
                 <div>
-                  <label className="block text-xs font-medium text-white/70 mb-2 tracking-wide">
-                    {budgetLabel}
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5">
-                    {budgetRanges.map((b) => {
-                      const isSelected = formData.budget === b;
+                  {formData.service && (
+                    <div className="flex justify-end mb-1.5">
+                      <span className="text-[10px] text-white/40 tracking-wider uppercase font-mono">
+                        {formData.service}
+                      </span>
+                    </div>
+                  )}
+
+                  {!formData.service ? (
+                    <div className="p-4 sm:p-5 rounded-xl border border-dashed border-white/15 bg-white/[0.02] text-center flex flex-col items-center justify-center gap-1.5 py-6">
+                      <Sparkles className="w-4 h-4 text-[#8EFF01]/70" />
+                      <p className="text-xs text-white/80 font-semibold">
+                        Select a service above to see pricing
+                      </p>
+                      <p className="text-[11px] text-white/40">
+                        Basic, Standard, and Premium tiers will appear here tailored to your project.
+                      </p>
+                    </div>
+                  ) : dynamicTiers.length === 1 ? (
+                    (() => {
+                      const opt = dynamicTiers[0];
+                      const optionValue = `${opt.name}: ${opt.price}`;
+                      const isSelected =
+                        formData.budget === optionValue ||
+                        formData.budget === opt.price ||
+                        formData.budget.toLowerCase().includes('package');
+
                       return (
-                        <button
-                          key={b}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, budget: b })}
-                          className={`py-2.5 px-3 rounded-xl text-xs font-semibold transition-all cursor-pointer text-center min-h-[44px] flex items-center justify-center ${
-                            isSelected
-                              ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-[0_0_15px_rgba(142, 255, 1, 0.19)]'
-                              : 'bg-white/[0.04] border border-white/10 text-white/70 hover:border-white/20'
-                          }`}
-                        >
-                          {b}
-                        </button>
+                        <div className="w-full">
+                          <button
+                            type="button"
+                            onClick={() => setFormData({ ...formData, budget: optionValue })}
+                            className={`w-full group relative py-2 px-2.5 sm:py-2.5 sm:px-3 rounded-xl transition-all cursor-pointer text-center flex flex-col items-center justify-center gap-0.5 sm:gap-1 active:scale-[0.96] min-h-[58px] sm:min-h-[64px] ${
+                              isSelected
+                                ? 'bg-[#8EFF01] text-[#050505] shadow-[0_0_18px_rgba(142,255,1,0.22)] border-2 border-[#8EFF01]'
+                                : 'bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/25 text-white'
+                            }`}
+                          >
+                            {/* 1. Tier Name Label Pill (First, reduced size) */}
+                            <div className="flex items-center justify-center">
+                              <span
+                                className={`text-[7px] sm:text-[7.5px] font-bold uppercase tracking-wider px-1.5 py-[0.5px] rounded-full border transition-colors leading-tight ${
+                                  isSelected
+                                    ? 'bg-black/90 text-white border-black/40 shadow-xs'
+                                    : opt.badgeColorClass
+                                }`}
+                              >
+                                {opt.name}
+                              </span>
+                            </div>
+
+                            {/* 2. Price (Middle, largest/most prominent) */}
+                            <div
+                              className={`text-sm sm:text-base font-bold tracking-tight transition-colors leading-tight ${
+                                isSelected ? 'text-[#050505]' : 'text-white'
+                              }`}
+                            >
+                              {opt.price}
+                            </div>
+
+                            {/* 3. Short Description (Last, reduced size) */}
+                            {opt.description && (
+                              <p
+                                className={`text-[9px] sm:text-[9.5px] leading-tight transition-colors line-clamp-2 max-w-md ${
+                                  isSelected ? 'text-black/80 font-medium' : 'text-white/50'
+                                }`}
+                              >
+                                {opt.description}
+                              </p>
+                            )}
+                          </button>
+                        </div>
                       );
-                    })}
-                  </div>
+                    })()
+                  ) : (
+                    (() => {
+                      const basicOpt = dynamicTiers.find((t) => t.tierKey === 'basic') || dynamicTiers[0];
+                      const standardOpt = dynamicTiers.find((t) => t.tierKey === 'standard') || dynamicTiers[1];
+                      const premiumOpt = dynamicTiers.find((t) => t.tierKey === 'premium') || dynamicTiers[2];
+
+                      const renderCard = (opt: typeof dynamicTiers[0], isFullWidth = false) => {
+                        const optionValue = `${opt.name}: ${opt.price}`;
+                        const isSelected =
+                          formData.budget === optionValue ||
+                          (Boolean(formData.budget) &&
+                            formData.budget.toLowerCase().includes(opt.tierKey) &&
+                            formData.budget.includes(opt.price));
+
+                        return (
+                          <button
+                            key={opt.tierKey}
+                            type="button"
+                            onClick={() => setFormData({ ...formData, budget: optionValue })}
+                            className={`group relative py-2 px-2.5 sm:py-2.5 sm:px-3 rounded-xl transition-all cursor-pointer text-center flex flex-col items-center justify-center gap-0.5 sm:gap-1 active:scale-[0.96] min-h-[58px] sm:min-h-[64px] ${
+                              isFullWidth ? 'w-full' : ''
+                            } ${
+                              isSelected
+                                ? 'bg-[#8EFF01] text-[#050505] shadow-[0_0_18px_rgba(142,255,1,0.22)] border-2 border-[#8EFF01]'
+                                : 'bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/25 text-white'
+                            }`}
+                          >
+                            {/* 1. Tier Name Label Pill (First, reduced size) */}
+                            <div className="flex items-center justify-center">
+                              <span
+                                className={`text-[7px] sm:text-[7.5px] font-bold uppercase tracking-wider px-1.5 py-[0.5px] rounded-full border transition-colors leading-tight ${
+                                  isSelected
+                                    ? 'bg-black/90 text-white border-black/40 shadow-xs'
+                                    : opt.badgeColorClass
+                                }`}
+                              >
+                                {opt.name}
+                              </span>
+                            </div>
+
+                            {/* 2. Price (Middle, largest/most prominent) */}
+                            <div
+                              className={`text-sm sm:text-base font-bold tracking-tight transition-colors leading-tight ${
+                                isSelected ? 'text-[#050505]' : 'text-white'
+                              }`}
+                            >
+                              {opt.price}
+                            </div>
+
+                            {/* 3. Short Description (Last, reduced size) */}
+                            {opt.description && (
+                              <p
+                                className={`text-[9px] sm:text-[9.5px] leading-tight transition-colors line-clamp-2 max-w-[260px] ${
+                                  isSelected ? 'text-black/80 font-medium' : 'text-white/50'
+                                }`}
+                              >
+                                {opt.description}
+                              </p>
+                            )}
+                          </button>
+                        );
+                      };
+
+                      return (
+                        <div className="space-y-1.5 sm:space-y-2">
+                          {/* Basic and Standard side by side in a 2-column row */}
+                          <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
+                            {renderCard(basicOpt)}
+                            {renderCard(standardOpt)}
+                          </div>
+
+                          {/* Premium alone in its own row below them, centered horizontally and full width */}
+                          <div className="w-full">
+                            {renderCard(premiumOpt, true)}
+                          </div>
+                        </div>
+                      );
+                    })()
+                  )}
                 </div>
 
                 {/* Message / Project Specs */}
@@ -922,7 +1094,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   disabled={loading}
                   id="contact-form-submit"
                   whileHover={loading ? {} : { scale: 1.012, boxShadow: '0 0 60px rgba(142, 255, 1, 0.95)' }}
-                  whileTap={loading ? {} : { scale: 0.90, transition: { duration: 0.12 } }}
+                  whileTap={loading ? {} : { scale: 0.96, transition: { duration: 0.12 } }}
                   className={`w-full py-2.5 sm:py-3 rounded-full bg-[#8EFF01] text-[#050505] font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_0_45px_rgba(142, 255, 1, 0.75)] transition-all duration-300 flex items-center justify-center gap-2 min-h-[42px] sm:min-h-[44px] ${
                     loading ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'
                   }`}

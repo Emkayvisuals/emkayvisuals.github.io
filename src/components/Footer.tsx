@@ -141,7 +141,7 @@ export const Footer: React.FC = () => {
                       '--hover-accent': accentColor,
                     } as React.CSSProperties
                   }
-                  className={`group relative w-9 h-9 sm:w-9.5 sm:h-9.5 flex items-center justify-center rounded-full bg-white/[0.04] border border-white/10 ${meta.hoverBorder} hover:bg-white/[0.09] hover:scale-110 active:scale-90 transition-all duration-300 ease-out text-white/75 hover:shadow-[0_0_22px_rgba(142, 255, 1, 0.35)] shrink-0 min-h-[38px] min-w-[38px] cursor-pointer`}
+                  className={`group relative w-9 h-9 sm:w-9.5 sm:h-9.5 flex items-center justify-center rounded-full bg-white/[0.04] border border-white/10 ${meta.hoverBorder} hover:bg-white/[0.09] hover:scale-110 active:scale-[0.96] transition-all duration-300 ease-out text-white/75 hover:shadow-[0_0_22px_rgba(142, 255, 1, 0.35)] shrink-0 min-h-[38px] min-w-[38px] cursor-pointer`}
                 >
                   <IconComp className="w-4 h-4 text-white/75 group-hover:text-[var(--hover-accent)] group-hover:scale-110 transition-all duration-300 ease-out" />
                 </motion.a>
@@ -161,7 +161,7 @@ export const Footer: React.FC = () => {
                 delay: resolvedLinks.length * 0.05,
                 ease: [0.21, 0.47, 0.32, 0.98],
               }}
-              className="w-9 h-9 sm:w-9.5 sm:h-9.5 flex items-center justify-center rounded-full bg-[#8EFF01] text-[#050505] hover:scale-110 active:scale-90 transition-all duration-300 shadow-[0_0_20px_rgba(142, 255, 1, 0.45)] hover:shadow-[0_0_30px_rgba(142, 255, 1, 0.65)] cursor-pointer ml-1 shrink-0 min-h-[38px] min-w-[38px]"
+              className="w-9 h-9 sm:w-9.5 sm:h-9.5 flex items-center justify-center rounded-full bg-[#8EFF01] text-[#050505] hover:scale-110 active:scale-[0.96] transition-all duration-300 shadow-[0_0_20px_rgba(142, 255, 1, 0.45)] hover:shadow-[0_0_30px_rgba(142, 255, 1, 0.65)] cursor-pointer ml-1 shrink-0 min-h-[38px] min-w-[38px]"
             >
               <ArrowUp className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
             </motion.button>

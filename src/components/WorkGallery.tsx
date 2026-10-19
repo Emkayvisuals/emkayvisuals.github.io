@@ -236,7 +236,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
                   type="button"
                   id={`filter-btn-${cat.toLowerCase().replace(/\s+/g, '-')}`}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap min-h-[38px] sm:min-h-[40px] flex items-center active:scale-90 ${
+                  className={`px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap min-h-[38px] sm:min-h-[40px] flex items-center active:scale-[0.96] ${
                     isActive
                       ? 'bg-[#8EFF01] text-[#050505] font-bold shadow-[0_0_36px_rgba(142, 255, 1, 0.75)]'
                       : 'glass-panel text-[#FEFFFC]/70 hover:text-[#FEFFFC] hover:border-white/20'
@@ -418,7 +418,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
               type="button"
               id="portfolio-view-more-button"
               onClick={handleViewMoreClick}
-              className="group px-6 py-3 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-[0_0_45px_rgba(142, 255, 1, 0.75)] hover:shadow-[0_0_65px_rgba(142, 255, 1, 0.95)] flex items-center gap-2.5 cursor-pointer min-h-[42px] sm:min-h-[46px] transform hover:scale-[1.02] active:scale-90"
+              className="group px-6 py-3 rounded-full bg-[#8EFF01] hover:bg-[#7DE000] text-[#050505] font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-[0_0_45px_rgba(142, 255, 1, 0.75)] hover:shadow-[0_0_65px_rgba(142, 255, 1, 0.95)] flex items-center gap-2.5 cursor-pointer min-h-[42px] sm:min-h-[46px] transform hover:scale-[1.02] active:scale-[0.96]"
             >
               <Grid className="w-3.5 h-3.5 text-[#050505]" />
               <span>{viewMoreButtonText}</span>
@@ -438,7 +438,7 @@ export const WorkGallery: React.FC<WorkGalleryProps> = ({
           type="button"
           id="portfolio-manipulation-gallery-button"
           onClick={handleManipulationGalleryClick}
-          className="group px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-white/20 hover:border-[#8EFF01]/60 bg-white/5 hover:bg-[#8EFF01]/10 text-white/80 hover:text-white font-medium text-xs tracking-wide transition-all duration-300 flex items-center gap-2 cursor-pointer min-h-[36px] backdrop-blur-sm transform hover:scale-[1.01] active:scale-90 shadow-sm"
+          className="group px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-white/20 hover:border-[#8EFF01]/60 bg-white/5 hover:bg-[#8EFF01]/10 text-white/80 hover:text-white font-medium text-xs tracking-wide transition-all duration-300 flex items-center gap-2 cursor-pointer min-h-[36px] backdrop-blur-sm transform hover:scale-[1.01] active:scale-[0.96] shadow-sm"
         >
           <Sparkles className="w-3.5 h-3.5 text-[#8EFF01]/80 group-hover:text-[#8EFF01] transition-colors" />
           <span>{manipulationGalleryButtonText}</span>

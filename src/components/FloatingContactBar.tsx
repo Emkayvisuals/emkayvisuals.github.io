@@ -94,7 +94,7 @@ export const FloatingContactBar: React.FC = () => {
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Open Quick Contact"
         whileHover={{ scale: 1.06 }}
-        whileTap={{ scale: 0.90, transition: { duration: 0.12 } }}
+        whileTap={{ scale: 0.96, transition: { duration: 0.12 } }}
         className="h-12 w-12 sm:h-13 sm:w-13 rounded-full bg-[#8EFF01] text-[#050505] shadow-[0_0_50px_rgba(142, 255, 1, 0.85)] hover:shadow-[0_0_70px_rgba(142, 255, 1, 1.0)] flex items-center justify-center cursor-pointer transition-shadow"
       >
         {isOpen ? (
