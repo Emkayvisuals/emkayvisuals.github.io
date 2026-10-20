@@ -904,14 +904,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
                 {/* Dynamic Estimated Budget Tiers */}
                 <div>
-                  {formData.service && (
-                    <div className="flex justify-end mb-1.5">
-                      <span className="text-[10px] text-white/40 tracking-wider uppercase font-mono">
-                        {formData.service}
-                      </span>
-                    </div>
-                  )}
-
                   {!formData.service ? (
                     <div className="p-4 sm:p-5 rounded-xl border border-dashed border-white/15 bg-white/[0.02] text-center flex flex-col items-center justify-center gap-1.5 py-6">
                       <Sparkles className="w-4 h-4 text-[#8EFF01]/70" />
