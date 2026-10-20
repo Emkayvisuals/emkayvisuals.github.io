@@ -42,23 +42,23 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
   const getIcon = (name: string) => {
     switch (name) {
       case 'Film':
-        return <Film className="w-5 h-5 text-[#8EFF01] group-hover:rotate-12 transition-transform duration-300" />;
+        return <Film className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#8EFF01] group-hover:rotate-12 transition-transform duration-300" />;
       case 'Clapperboard':
-        return <Clapperboard className="w-5 h-5 text-[#FEFFFC] group-hover:-rotate-12 transition-transform duration-300" />;
+        return <Clapperboard className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FEFFFC] group-hover:-rotate-12 transition-transform duration-300" />;
       case 'Image':
-        return <ImageIcon className="w-5 h-5 text-[#8EFF01] group-hover:rotate-6 transition-transform duration-300" />;
+        return <ImageIcon className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#8EFF01] group-hover:rotate-6 transition-transform duration-300" />;
       case 'Palette':
-        return <Palette className="w-5 h-5 text-[#8116E0] group-hover:rotate-12 transition-transform duration-300" />;
+        return <Palette className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#8116E0] group-hover:rotate-12 transition-transform duration-300" />;
       case 'Disc3':
-        return <Disc3 className="w-5 h-5 text-[#8EFF01] group-hover:rotate-45 transition-transform duration-500" />;
+        return <Disc3 className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#8EFF01] group-hover:rotate-45 transition-transform duration-500" />;
       case 'Wand2':
-        return <Wand2 className="w-5 h-5 text-[#FEFFFC] group-hover:rotate-12 transition-transform duration-300" />;
+        return <Wand2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FEFFFC] group-hover:rotate-12 transition-transform duration-300" />;
       case 'Layers':
-        return <Layers className="w-5 h-5 text-[#8116E0] group-hover:scale-110 transition-transform duration-300" />;
+        return <Layers className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#8116E0] group-hover:scale-110 transition-transform duration-300" />;
       case 'Sparkles':
-        return <Sparkles className="w-5 h-5 text-[#8EFF01] group-hover:rotate-45 transition-transform duration-300" />;
+        return <Sparkles className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#8EFF01] group-hover:rotate-45 transition-transform duration-300" />;
       default:
-        return <Sparkles className="w-5 h-5 text-[#8EFF01]" />;
+        return <Sparkles className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#8EFF01]" />;
     }
   };
 
@@ -135,22 +135,22 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
       </motion.div>
 
       {/* Bento Grid */}
-      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3.5 sm:gap-5">
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2.5 sm:gap-3.5">
         {!isReady ? (
           <>
-            <div className="col-span-1 sm:col-span-2 lg:col-span-8 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-6 bg-[#050505]/90 min-h-[220px] relative overflow-hidden">
+            <div className="col-span-1 sm:col-span-2 lg:col-span-8 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-3.5 sm:p-4 bg-[#050505]/90 min-h-[170px] relative overflow-hidden">
               <div className="animate-shimmer" />
             </div>
-            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-6 bg-[#050505]/90 min-h-[220px] relative overflow-hidden">
+            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-3.5 sm:p-4 bg-[#050505]/90 min-h-[170px] relative overflow-hidden">
               <div className="animate-shimmer" />
             </div>
-            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-6 bg-[#050505]/90 min-h-[220px] relative overflow-hidden">
+            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-3.5 sm:p-4 bg-[#050505]/90 min-h-[170px] relative overflow-hidden">
               <div className="animate-shimmer" />
             </div>
-            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-6 bg-[#050505]/90 min-h-[220px] relative overflow-hidden">
+            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-3.5 sm:p-4 bg-[#050505]/90 min-h-[170px] relative overflow-hidden">
               <div className="animate-shimmer" />
             </div>
-            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-6 bg-[#050505]/90 min-h-[220px] relative overflow-hidden">
+            <div className="col-span-1 sm:col-span-1 lg:col-span-4 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] p-3.5 sm:p-4 bg-[#050505]/90 min-h-[170px] relative overflow-hidden">
               <div className="animate-shimmer" />
             </div>
           </>
@@ -177,7 +177,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
                 scale: 1.01,
                 transition: { duration: 0.2, ease: 'easeOut' },
               }}
-              className={`group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/40 p-4 sm:p-5.5 flex flex-col justify-between overflow-hidden cursor-default bg-[#050505]/90 col-span-1 ${colSpanClass}`}
+              className={`group relative rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.08] hover:border-[#8EFF01]/40 p-3 sm:p-4 flex flex-col justify-between overflow-hidden cursor-default bg-[#050505]/90 col-span-1 ${colSpanClass}`}
             >
               {/* Subtle top yellow glow line on hover */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#8EFF01]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -197,34 +197,34 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
               )}
 
               {/* Card Top: Tag + Icon */}
-              <div className="relative z-10 flex items-center justify-between mb-3.5 sm:mb-4">
-                <span className="text-[10px] sm:text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-[#FEFFFC]/80 tracking-wide group-hover:border-[#8EFF01]/30 transition-colors">
+              <div className="relative z-10 flex items-center justify-between mb-2 sm:mb-2.5">
+                <span className="text-[9.5px] sm:text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-[#FEFFFC]/80 tracking-wide group-hover:border-[#8EFF01]/30 transition-colors">
                   {service.tag}
                 </span>
 
-                <div className="w-8.5 h-8.5 sm:w-9.5 sm:h-9.5 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center group-hover:bg-[#8EFF01]/15 group-hover:border-[#8EFF01]/40 transition-all duration-300">
+                <div className="w-7.5 h-7.5 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center group-hover:bg-[#8EFF01]/15 group-hover:border-[#8EFF01]/40 transition-all duration-300">
                   {getIcon(service.iconName)}
                 </div>
               </div>
 
               {/* Card Middle: Title + Descriptions */}
-              <div className="relative z-10 my-1">
-                <h3 className="font-montserrat font-medium italic text-lg sm:text-xl text-[#8EFF01] tracking-tight mb-1.5">
+              <div className="relative z-10 my-0.5">
+                <h3 className="font-montserrat font-medium italic text-base sm:text-lg text-[#8EFF01] tracking-tight mb-1">
                   {service.title}
                 </h3>
-                <p className="text-[11px] sm:text-xs text-white/70 font-normal leading-relaxed mb-3">
+                <p className="text-[11px] sm:text-[11.5px] text-white/70 font-normal leading-relaxed mb-2">
                   {service.shortDesc}
                 </p>
 
                 {/* Deliverables tags */}
                 {service.deliverables && service.deliverables.length > 0 && (
-                  <div className="flex flex-wrap gap-1 sm:gap-1.5 my-2">
+                  <div className="flex flex-wrap gap-1 my-1.5">
                     {service.deliverables.map((deliv, dIdx) => (
                       <span
                         key={dIdx}
-                        className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-lg bg-black/50 border border-white/[0.06] text-white/80 group-hover:border-white/15 transition-colors"
+                        className="inline-flex items-center gap-1 text-[9px] sm:text-[9.5px] font-medium px-1.5 py-0.5 rounded-md bg-black/50 border border-white/[0.06] text-white/80 group-hover:border-white/15 transition-colors"
                       >
-                        <CheckCircle2 className="w-2.5 h-2.5 text-[#8EFF01] shrink-0" />
+                        <CheckCircle2 className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-[#8EFF01] shrink-0" />
                         <span>{deliv}</span>
                       </span>
                     ))}
@@ -233,17 +233,17 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
               </div>
 
               {/* Card Bottom: Inquire Action */}
-              <div className="relative z-10 pt-2.5 mt-1.5 border-t border-white/[0.06] flex items-center justify-between min-h-[38px]">
-                <span className="text-[11px] text-white/40 font-medium">
+              <div className="relative z-10 pt-2 mt-1 border-t border-white/[0.06] flex items-center justify-between min-h-[30px] sm:min-h-[32px]">
+                <span className="text-[10px] sm:text-[10.5px] text-white/40 font-medium">
                   {refPrefix} <span className="font-baskervville italic text-[#FEFFFC]/70">0{idx + 1}</span>
                 </span>
                 <button
                   type="button"
                   onClick={() => handleInquire(service.title)}
-                  className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#8EFF01] hover:text-[#FEFFFC] transition-colors py-1.5 px-1 cursor-pointer group/btn min-h-[38px]"
+                  className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-[#8EFF01] hover:text-[#FEFFFC] transition-colors py-1 px-1 cursor-pointer group/btn"
                 >
                   <span>{cardButtonText}</span>
-                  <ArrowUpRight className="w-3 h-3 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                  <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                 </button>
               </div>
             </motion.div>
