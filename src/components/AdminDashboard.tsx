@@ -40,10 +40,17 @@ import {
   MoreVertical,
   ExternalLink,
   DollarSign,
+  Upload,
 } from 'lucide-react';
 import { AdminTabId } from './admin/types';
 import { SaveButton } from './admin/SaveButton';
-import { exportFirestoreBackup, downloadJsonFile } from '../lib/backup';
+import {
+  exportFirestoreBackup,
+  downloadJsonFile,
+  inspectBackupJson,
+  BackupInspectionResult,
+} from '../lib/backup';
+import { RestoreBackupModal } from './admin/RestoreBackupModal';
 
 // Tab components
 import { AdminAnalyticsTab } from './admin/AdminAnalyticsTab';
@@ -87,6 +94,13 @@ export const AdminDashboard: React.FC = () => {
   // Backup state
   const [backupState, setBackupState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [backupSummary, setBackupSummary] = useState<string | null>(null);
+
+  // Restore from Backup state
+  const [restoreModalOpen, setRestoreModalOpen] = useState(false);
+  const [restoreInspection, setRestoreInspection] = useState<BackupInspectionResult | null>(null);
+  const [restoreFileName, setRestoreFileName] = useState('');
+  const [restoreFileSizeKb, setRestoreFileSizeKb] = useState(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Mobile More Options dropdown state
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
@@ -363,6 +377,63 @@ export const AdminDashboard: React.FC = () => {
     }
   };
 
+  const handleTriggerRestoreSelect = () => {
+    if (!isAuthorizedAdmin(user?.email)) {
+      alert('Access restricted: Only emkayvisuals@gmail.com is authorized to restore database backups.');
+      return;
+    }
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.name.toLowerCase().endsWith('.json')) {
+      alert('Invalid file format: Please select a valid .json backup file.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target?.result as string;
+      if (!text) {
+        alert('Could not read file: The file appears to be empty.');
+        return;
+      }
+
+      const inspection = inspectBackupJson(text);
+      if (!inspection.valid) {
+        alert(inspection.error || 'The uploaded file is not a valid Emkay Visuals backup.');
+        return;
+      }
+
+      setRestoreFileName(file.name);
+      setRestoreFileSizeKb(Math.max(1, Math.round(file.size / 1024)));
+      setRestoreInspection(inspection);
+      setRestoreModalOpen(true);
+    };
+
+    reader.onerror = () => {
+      alert('Failed to read the selected backup file.');
+    };
+
+    reader.readAsText(file);
+  };
+
+  const handleRestoreSuccess = (restoredContent?: PortfolioContentType, summary?: string) => {
+    if (restoredContent) {
+      setContent(restoredContent);
+      setInitialContentJson(JSON.stringify(restoredContent));
+    }
+    if (summary) {
+      setBackupSummary(`Restored: ${summary}`);
+    }
+  };
+
   if (authLoading) {
     return (
       <div className="min-h-screen min-h-svh bg-[#050505] text-[#FEFFFC] flex items-center justify-center">
@@ -540,6 +611,17 @@ export const AdminDashboard: React.FC = () => {
             )}
           </button>
 
+          {/* Desktop Only: Upload Backup to Restore */}
+          <button
+            type="button"
+            onClick={handleTriggerRestoreSelect}
+            className="hidden md:inline-flex px-3.5 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-xs font-semibold border border-amber-500/30 transition-all items-center gap-1.5 cursor-pointer"
+            title="Upload and restore a .json backup file to Firestore"
+          >
+            <Upload className="w-3.5 h-3.5" />
+            <span>Upload Backup to Restore</span>
+          </button>
+
           {/* Desktop Only: Reset */}
           <button
             type="button"
@@ -615,6 +697,18 @@ export const AdminDashboard: React.FC = () => {
                       ? 'Backup Downloaded!'
                       : 'Download Backup (.json)'}
                   </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMoreMenuOpen(false);
+                    handleTriggerRestoreSelect();
+                  }}
+                  className="w-full text-left flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-white/10 text-xs font-semibold text-white transition-colors cursor-pointer"
+                >
+                  <Upload className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span>Upload Backup to Restore</span>
                 </button>
 
                 <div className="my-1 border-t border-white/10" />
@@ -754,6 +848,15 @@ export const AdminDashboard: React.FC = () => {
                     <span>Download Backup</span>
                   </>
                 )}
+              </button>
+              <button
+                type="button"
+                onClick={handleTriggerRestoreSelect}
+                className="w-full py-2 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 hover:text-amber-300 text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                title="Upload .json backup file to restore"
+              >
+                <Upload className="w-3.5 h-3.5" />
+                <span>Upload Backup to Restore</span>
               </button>
               {backupSummary && (
                 <div className="text-[10px] text-emerald-400 font-mono text-center flex items-center justify-center gap-1">
@@ -923,6 +1026,30 @@ export const AdminDashboard: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Hidden File Picker for Backup Restore (.json only) */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".json,application/json"
+        className="hidden"
+        onChange={handleFileSelected}
+      />
+
+      {/* Restore Confirmation & Safety Check Modal */}
+      <RestoreBackupModal
+        isOpen={restoreModalOpen}
+        onClose={() => {
+          setRestoreModalOpen(false);
+          setRestoreInspection(null);
+        }}
+        inspection={restoreInspection}
+        fileName={restoreFileName}
+        fileSizeKb={restoreFileSizeKb}
+        currentContent={content}
+        onRestoreSuccess={handleRestoreSuccess}
+        userEmail={user?.email}
+      />
     </div>
   );
 };

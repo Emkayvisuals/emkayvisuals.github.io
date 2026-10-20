@@ -48,14 +48,15 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
     });
 
     // Exact timeline calculation:
-    // 0. Blank screen: 0.4s (0.0s - 0.4s)
-    // 1. Logo zoom-out + bounce entrance: 0.8s (0.4s - 1.2s)
-    // 2. Text fade-in (bouncy overshoot): 0.8s (1.2s - 2.0s)
-    // 3. Pause (all still & visible): 0.5s (2.0s - 2.5s)
-    // 4. Logo 3D flip (rotateY): 0.8s (2.5s - 3.3s)
-    // 5. White shine wipe: 1.5s (3.3s - 4.8s)
-    // 6. Pause: 0s (REMOVED - outro triggers immediately when shine wipe finishes)
-    // 7. Outro (slide up & fade out): starts immediately at 4.8s (4800ms), duration 0.5s
+    // 1. Blank screen at start: 0.2s (0.0s - 0.2s)
+    // 2. Logo zoom-out + bounce entrance: 0.5s (0.2s - 0.7s)
+    // 3. Text fade-in (bouncy): 0.4s (0.7s - 1.1s)
+    // 4. Pause with everything visible: 0.3s (1.1s - 1.4s)
+    // 5. Logo flip: 0.6s (1.4s - 2.0s)
+    // 6. White shine wipe: 0.6s (2.0s - 2.6s)
+    // 7. Pause after shine wipe: 0.2s (2.6s - 2.8s)
+    // 8. Slide-up outro: 0.6s (2.8s - 3.4s)
+    // Total sequence: ~3.4s
     const timer = setTimeout(() => {
       setIsLoading(false);
       hasPreloaderPlayedInSession = true;
@@ -63,7 +64,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
       if (typeof window !== 'undefined') {
         window.dispatchEvent(new CustomEvent('preloaderComplete'));
       }
-    }, 4800);
+    }, 2800);
 
     return () => {
       cancelAnimationFrame(frameId1);
@@ -90,7 +91,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
           exit={{
             y: '-100%',
             opacity: 0,
-            transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
+            transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] },
           }}
           style={{
             willChange: 'transform, opacity',
@@ -104,7 +105,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
 
             {/* Main Preloader Content Block */}
             <div className="flex flex-col items-center gap-3 relative z-10 [perspective:1000px]">
-              {/* Step 1: Logo Entrance (Zoom out + bounce) starting after 0.4s blank screen */}
+              {/* Step 2: Logo Entrance (Zoom out + bounce) starting after 0.2s blank screen */}
               <motion.div
                 initial={{ scale: 1.4, opacity: 0 }}
                 animate={
@@ -116,8 +117,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                     : { scale: 1.4, opacity: 0 }
                 }
                 transition={{
-                  duration: 0.8,
-                  delay: 0.4,
+                  duration: 0.5,
+                  delay: 0.2,
                   times: [0, 0.35, 0.65, 0.85, 1],
                   ease: 'easeOut',
                 }}
@@ -127,13 +128,13 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                 }}
                 className="flex items-center justify-center"
               >
-                {/* Step 4: 3D Flip Wrapper (plays at t = 2.5s, duration 0.8s) */}
+                {/* Step 5: 3D Flip Wrapper (plays at t = 1.4s, duration 0.6s) */}
                 <motion.div
                   initial={{ rotateY: 0 }}
                   animate={isAnimationReady ? { rotateY: [0, 0, 360] } : { rotateY: 0 }}
                   transition={{
-                    duration: 0.8,
-                    delay: 2.5,
+                    duration: 0.6,
+                    delay: 1.4,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   style={{
@@ -161,7 +162,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                       </div>
                     )}
 
-                    {/* Step 5: White Shine Wipe - single diagonal light sweep across logo immediately after flip (duration 1.5s, delay 3.3s) */}
+                    {/* Step 6: White Shine Wipe - single diagonal light sweep across logo immediately after flip (duration 0.6s, delay 2.0s) */}
                     <motion.div
                       initial={{ x: '-150%', opacity: 0 }}
                       animate={
@@ -173,8 +174,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                           : { x: '-150%', opacity: 0 }
                       }
                       transition={{
-                        duration: 1.5,
-                        delay: 3.3,
+                        duration: 0.6,
+                        delay: 2.0,
                         ease: [0.25, 1, 0.5, 1],
                       }}
                       style={{
@@ -189,7 +190,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                 </motion.div>
               </motion.div>
 
-              {/* Step 2: Text Fade-In (Bouncy / Elastic Overshoot) */}
+              {/* Step 3: Text Fade-In (Bouncy / Elastic Overshoot) */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.85, y: 10 }}
                 animate={
@@ -202,8 +203,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                     : { opacity: 0, scale: 0.85, y: 10 }
                 }
                 transition={{
-                  duration: 0.6,
-                  delay: 1.2,
+                  duration: 0.4,
+                  delay: 0.7,
                   times: [0, 0.5, 0.8, 1],
                   ease: 'easeOut',
                 }}
@@ -218,7 +219,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                 <span className="text-white/70">{brandAccent}</span>
               </motion.div>
 
-              {/* Step 2 (staggered beat): Portfolio 2026 Tagline */}
+              {/* Step 3 (staggered beat): Portfolio 2026 Tagline */}
               <motion.span
                 initial={{ opacity: 0, scale: 0.85, y: 8 }}
                 animate={
@@ -231,8 +232,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
                     : { opacity: 0, scale: 0.85, y: 8 }
                 }
                 transition={{
-                  duration: 0.6,
-                  delay: 1.4,
+                  duration: 0.35,
+                  delay: 0.75,
                   times: [0, 0.5, 0.8, 1],
                   ease: 'easeOut',
                 }}
