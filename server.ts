@@ -74,13 +74,30 @@ function escapeHtml(str: string): string {
  * Injects Open Graph, Twitter card, title, and description tags directly into
  * the HTML string that the server sends to crawlers (WhatsApp, Instagram, etc.) and browsers.
  */
-function injectSeoTags(html: string, seo: typeof currentSeo, host?: string): string {
+function injectSeoTags(html: string, seo: typeof currentSeo, host?: string, requestPath: string = '/'): string {
   let result = html;
-  const safeTitle = escapeHtml(seo.metaTitle || 'Emkay Visuals – Graphic Designer & Motion Graphics Artist');
-  const safeDesc = escapeHtml(seo.metaDescription || '');
+  const pathOnly = requestPath.split('?')[0];
+
+  let rawTitle = seo.metaTitle || 'Emkay Visuals – Graphic Designer & Motion Graphics Artist';
+  let rawDesc = seo.metaDescription || 'High-end, futuristic portfolio for Emkay Visuals – Graphic Designer & Motion Graphics Artist with 5+ years of experience in Posters, Visual Branding, Movie Art, Thumbnails & Motion Graphics.';
+  let isAdminRoute = false;
+
+  if (pathOnly.startsWith('/portfolio')) {
+    rawTitle = 'Portfolio Archive | Emkay Visuals – Graphic Design & Motion Graphics';
+    rawDesc = 'Explore the complete creative portfolio archive of Emkay Visuals: movie posters, visual branding, motion graphics, album covers, and photo manipulations.';
+  } else if (pathOnly.startsWith('/gallery') || pathOnly.startsWith('/manipulation-gallery')) {
+    rawTitle = 'YouTube & Photo Manipulation Gallery | Emkay Visuals';
+    rawDesc = 'Watch motion graphics breakdowns, photo manipulation speed arts, and creative visual projects by Emkay Visuals.';
+  } else if (pathOnly.startsWith('/admin')) {
+    rawTitle = 'Admin Portal | Emkay Visuals';
+    rawDesc = 'Administrative management dashboard for Emkay Visuals portfolio content, briefs, and analytics.';
+    isAdminRoute = true;
+  }
+
+  const safeTitle = escapeHtml(rawTitle);
+  const safeDesc = escapeHtml(rawDesc);
   
   let imageUrl = seo.ogImage || '';
-  // If ogImage is a relative URL (e.g. /uploads/og-image.webp), build absolute URL for WhatsApp/Instagram crawlers
   if (imageUrl.startsWith('/') && host) {
     const protocol = host.includes('localhost') ? 'http' : 'https';
     imageUrl = `${protocol}://${host}${imageUrl}`;
@@ -128,7 +145,9 @@ function injectSeoTags(html: string, seo: typeof currentSeo, host?: string): str
     `$1${safeImage}$2`
   );
 
-  const siteUrl = host ? (host.includes('localhost') ? `http://${host}` : `https://${host}`) : 'https://emkayvisuals.github.io';
+  const baseOrigin = host ? (host.includes('localhost') ? `http://${host}` : `https://${host}`) : 'https://emkayvisuals.github.io';
+  const siteUrl = `${baseOrigin}${pathOnly === '/' ? '' : pathOnly}`;
+
   result = result.replace(
     /(<link\s+rel=["']canonical["']\s+href=["'])[^"']*?(["'])/i,
     `$1${siteUrl}$2`
@@ -151,6 +170,11 @@ function injectSeoTags(html: string, seo: typeof currentSeo, host?: string): str
     /(<link\s+rel=["']apple-touch-icon["'][^>]*?href=["'])[^"']*?(["'])/i,
     `$1${favicon}$2`
   );
+
+  // Add noindex for admin route
+  if (isAdminRoute && !result.includes('name="robots"')) {
+    result = result.replace('</head>', '    <meta name="robots" content="noindex, nofollow" />\n  </head>');
+  }
 
   return result;
 }
@@ -343,7 +367,7 @@ async function startServer() {
           const indexHtmlPath = path.resolve(process.cwd(), 'index.html');
           let template = fs.readFileSync(indexHtmlPath, 'utf-8');
           template = await vite.transformIndexHtml(url, template);
-          const finalHtml = injectSeoTags(template, currentSeo, host);
+          const finalHtml = injectSeoTags(template, currentSeo, host, url);
           return res.status(200).set({ 'Content-Type': 'text/html' }).end(finalHtml);
         } catch (e) {
           vite.ssrFixStacktrace(e as Error);
@@ -362,7 +386,7 @@ async function startServer() {
       const indexHtmlPath = path.join(distPath, 'index.html');
       if (fs.existsSync(indexHtmlPath)) {
         const template = fs.readFileSync(indexHtmlPath, 'utf-8');
-        const finalHtml = injectSeoTags(template, currentSeo, host);
+        const finalHtml = injectSeoTags(template, currentSeo, host, req.originalUrl || req.path);
         res.status(200).set({ 'Content-Type': 'text/html' }).end(finalHtml);
       } else {
         res.status(404).send('Page not found');

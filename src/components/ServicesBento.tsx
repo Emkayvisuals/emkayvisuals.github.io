@@ -235,7 +235,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
               {/* Card Bottom: Inquire Action */}
               <div className="relative z-10 pt-2 mt-1 border-t border-white/[0.06] flex items-center justify-between min-h-[30px] sm:min-h-[32px]">
                 <span className="text-[10px] sm:text-[10.5px] text-white/40 font-medium">
-                  {refPrefix} <span className="font-baskervville italic text-[#FEFFFC]/70">0{idx + 1}</span>
+                  {refPrefix} <span className="font-cormorant italic text-[#FEFFFC]/70">0{idx + 1}</span>
                 </span>
                 <button
                   type="button"

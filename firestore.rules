@@ -22,11 +22,11 @@ service cloud.firestore {
     }
     match /analytics/{document} {
       allow read, delete: if isAuthorizedAdmin();
-      allow create, update: if true;
+      allow create, update: if isAuthorizedAdmin() || document == 'summary';
     }
     match /media/{document} {
       allow read: if true;
-      allow write, delete: if isAuthorizedAdmin();
+      allow write: if isAuthorizedAdmin();
     }
     match /galleryLikes/{itemId} {
       allow read: if true;
@@ -43,7 +43,7 @@ service cloud.firestore {
       match /records/{visitorId} {
         allow read: if true;
         allow create: if request.resource.data.visitorId == visitorId;
-        allow delete: if true;
+        allow delete: if resource.data.visitorId == visitorId || isAuthorizedAdmin();
         allow update: if false;
       }
     }

@@ -67,21 +67,33 @@ export default function App() {
   useEffect(() => {
     if (PORTFOLIO_CONTENT.seo) {
       const { metaTitle, metaDescription, ogImage } = PORTFOLIO_CONTENT.seo;
-      if (metaTitle) {
-        document.title = metaTitle;
-        const ogTitle = document.querySelector('meta[property="og:title"]');
-        if (ogTitle) ogTitle.setAttribute('content', metaTitle);
-        const twTitle = document.querySelector('meta[name="twitter:title"]');
-        if (twTitle) twTitle.setAttribute('content', metaTitle);
+      let activeTitle = metaTitle || 'Emkay Visuals – Graphic Designer & Motion Graphics Artist';
+      let activeDesc = metaDescription || '';
+
+      if (currentPath.startsWith('/portfolio')) {
+        activeTitle = 'Portfolio Archive | Emkay Visuals – Graphic Design & Motion Graphics';
+        activeDesc = 'Explore the complete creative portfolio archive of Emkay Visuals: movie posters, visual branding, motion graphics, album covers, and photo manipulations.';
+      } else if (currentPath.startsWith('/gallery') || currentPath.startsWith('/manipulation-gallery')) {
+        activeTitle = 'YouTube & Photo Manipulation Gallery | Emkay Visuals';
+        activeDesc = 'Watch motion graphics breakdowns, photo manipulation speed arts, and creative visual projects by Emkay Visuals.';
+      } else if (currentPath.startsWith('/admin')) {
+        activeTitle = 'Admin Portal | Emkay Visuals';
+        activeDesc = 'Administrative management dashboard for Emkay Visuals.';
       }
-      if (metaDescription) {
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) metaDesc.setAttribute('content', metaDescription);
-        const ogDesc = document.querySelector('meta[property="og:description"]');
-        if (ogDesc) ogDesc.setAttribute('content', metaDescription);
-        const twDesc = document.querySelector('meta[name="twitter:description"]');
-        if (twDesc) twDesc.setAttribute('content', metaDescription);
-      }
+
+      document.title = activeTitle;
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', activeTitle);
+      const twTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twTitle) twTitle.setAttribute('content', activeTitle);
+
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.setAttribute('content', activeDesc);
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', activeDesc);
+      const twDesc = document.querySelector('meta[name="twitter:description"]');
+      if (twDesc) twDesc.setAttribute('content', activeDesc);
+
       if (ogImage) {
         const ogImg = document.querySelector('meta[property="og:image"]');
         if (ogImg) ogImg.setAttribute('content', ogImage);

@@ -265,7 +265,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
   return (
     <div
       id="project-lightbox-modal"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/92 backdrop-blur-xl animate-in fade-in duration-200 overflow-y-auto"
+      className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/92 backdrop-blur-xl animate-in fade-in duration-200 overflow-y-auto"
       onClick={onClose}
     >
       {/* Container - Scrollable on mobile so all details & Inquire button are always reachable */}

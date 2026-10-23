@@ -5,7 +5,6 @@ import { SectionToggle } from './SectionToggle';
 import { AccentHeadingInput } from './AccentHeadingInput';
 import { Sparkles, Plus, Trash2 } from 'lucide-react';
 import { FloatingTagItem } from '../../data/portfolioContent';
-import { ImageUploadControl } from './ImageUploadControl';
 
 export const AdminHeroTab: React.FC<AdminTabProps> = ({
   content,
@@ -145,26 +144,6 @@ export const AdminHeroTab: React.FC<AdminTabProps> = ({
               value={hero.subtext || ''}
               onChange={(e) => handleHeroChange('subtext', e.target.value)}
               className="w-full px-3 py-2 rounded-lg bg-black/70 border border-white/10 text-xs text-white outline-none focus:border-[#8EFF01]"
-            />
-          </div>
-
-          {/* Hero Featured Artwork / Background Image */}
-          <div className="pt-2">
-            <ImageUploadControl
-              label="Hero Featured Artwork / Visual Graphic"
-              description="High impact visual asset shown in the hero section. Auto-resized to max 1600px WebP."
-              preset="project"
-              imageUrl={hero.imageUrl || ''}
-              imageAlt={hero.imageAlt || 'Emkay Visuals – Graphic Design & Motion Art'}
-              showAltField={true}
-              onImageChange={(url, alt) => {
-                const updated = { ...hero, imageUrl: url, imageAlt: alt || '' };
-                onChange({ ...content, hero: updated });
-              }}
-              onRemove={() => {
-                const updated = { ...hero, imageUrl: '', imageAlt: '' };
-                onChange({ ...content, hero: updated });
-              }}
             />
           </div>
 

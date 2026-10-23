@@ -218,7 +218,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({
               <span>
                 {badgeMain}{' '}
                 {badgeAccent && (
-                  <span className="font-baskervville italic text-[#FEFFFC]">{badgeAccent}</span>
+                  <span className="font-cormorant italic text-[#FEFFFC]">{badgeAccent}</span>
                 )}
               </span>
             </div>

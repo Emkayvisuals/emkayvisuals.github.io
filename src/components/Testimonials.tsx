@@ -16,7 +16,9 @@ export const Testimonials: React.FC = () => {
   const headingMain = testimonialsSection?.headingMain || 'Trusted by Visionary';
   const headingAccent = testimonialsSection?.headingAccent || 'Directors & Founders';
   const satisfactionText =
-    testimonialsSection?.satisfactionText || '5.0 Average Client Satisfaction';
+    testimonialsSection?.satisfactionText ||
+    content.statsSection?.satisfactionText ||
+    '5.0 Average Client Satisfaction';
 
   const visibleTestimonials: TestimonialItem[] = useMemo(
     () => (testimonials || []).filter((t) => t.visible !== false),
@@ -395,7 +397,7 @@ export const Testimonials: React.FC = () => {
                         {visibleTestimonials[0].projectType}
                       </span>
                     </div>
-                    <p className="font-baskervville italic text-xs sm:text-[13px] md:text-sm text-[#FEFFFC]/90 leading-relaxed mb-3 sm:mb-4 font-normal">
+                    <p className="font-cormorant italic text-xs sm:text-[13px] md:text-sm text-[#FEFFFC]/90 leading-relaxed mb-3 sm:mb-4 font-normal">
                       “{visibleTestimonials[0].comment}”
                     </p>
                   </div>
@@ -476,7 +478,7 @@ export const Testimonials: React.FC = () => {
                       </div>
 
                       {/* Quote text */}
-                      <p className="font-baskervville italic text-xs sm:text-[13px] md:text-sm text-[#FEFFFC]/90 leading-relaxed mb-3 sm:mb-4 font-normal">
+                      <p className="font-cormorant italic text-xs sm:text-[13px] md:text-sm text-[#FEFFFC]/90 leading-relaxed mb-3 sm:mb-4 font-normal">
                         “{t.comment}”
                       </p>
                     </div>
